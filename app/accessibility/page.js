@@ -11,6 +11,7 @@ export default function AccessibilityPage() {
         <div className="legal">
           <div className="kicker">Legal</div>
           <h1 className="legal-title">Accessibility statement</h1>
+          <a className="legal-lang" href={`${BASE}/barrierefreiheit/`}>Deutsche Version →</a>
 
           <div className="legal-body">
             <div className="legal-block">
