@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="page page-offset">
+    <main id="main" className="page page-offset">
       <div className="wrap">
         <div className="contact-wrap">
           <h1>Have a space to showcase?</h1>

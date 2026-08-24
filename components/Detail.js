@@ -1,10 +1,11 @@
 'use client'
 
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 const OPEN_MS = 700
 const INNER_DELAY_MS = 120
+const FOCUSABLE = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
 
 const SPECS = [
   { k: 'Splats', key: 'splats' },
@@ -17,6 +18,9 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
   const [innerOn, setInnerOn] = useState(false)
   const [splashOut, setSplashOut] = useState(false)
   const cloneRef = useRef(null)
+  const rootRef = useRef(null)
+  const closeRef = useRef(null)
+  const triggerRef = useRef(null)
 
   useLayoutEffect(() => {
     if (!cloneRef.current || !originRect) return
@@ -40,10 +44,43 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
     return () => clearTimeout(t)
   }, [phase])
 
+  // remember what had focus (the tile that opened this overlay) and restore it on close
+  useEffect(() => {
+    triggerRef.current = document.activeElement
+    return () => triggerRef.current?.focus?.()
+  }, [])
+
+  // move focus into the dialog once it has visually settled in
+  useEffect(() => {
+    if (innerOn) closeRef.current?.focus()
+  }, [innerOn])
+
   const handleClose = () => {
     setInnerOn(false)
     setPhase('closing')
     setTimeout(() => onClose(), OPEN_MS)
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation()
+      handleClose()
+      return
+    }
+    if (e.key !== 'Tab' || !rootRef.current) return
+    const focusable = Array.from(rootRef.current.querySelectorAll(FOCUSABLE)).filter(
+      (el) => el.offsetParent !== null
+    )
+    if (focusable.length === 0) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault()
+      first.focus()
+    }
   }
 
   const handleNav = (dir) => {
@@ -58,7 +95,13 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
       : { top: 0, left: 0, width: '100vw', height: '100vh' }
 
   return (
-    <>
+    <div
+      ref={rootRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="detail-title"
+      onKeyDown={handleKeyDown}
+    >
       <div className={`detail-scrim ${phase !== 'in' ? 'on' : ''}`} />
 
       <div ref={cloneRef} className="detail-clone" style={cloneStyle}>
@@ -66,6 +109,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
       </div>
 
       <button
+        ref={closeRef}
         className={`detail-close-persistent ${innerOn ? 'on' : ''}`}
         onClick={handleClose}
         aria-label="Close"
@@ -105,7 +149,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
 
           <div className={`detail-splash ${splashOut ? 'out' : ''}`} onClick={() => setSplashOut(true)}>
             <div className="detail-splash-inner">
-              <h1>{project.title}</h1>
+              <h1 id="detail-title">{project.title}</h1>
               <div className="detail-splash-meta">
                 <span>{project.type}</span>
                 <span>·</span>
@@ -146,6 +190,6 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

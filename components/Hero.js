@@ -9,16 +9,27 @@ const TITLE = 'Step inside the space'
 
 export default function Hero() {
   const [active, setActive] = useState(0)
+  const [hovered, setHovered] = useState(false)
+  const [manualPause, setManualPause] = useState(false)
+  const paused = hovered || manualPause
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (paused || reduceMotion) return
     const id = setInterval(() => {
       setActive((v) => (v + 1) % SLIDES.length)
     }, 6000)
     return () => clearInterval(id)
-  }, [])
+  }, [paused])
 
   return (
-    <section className="hero">
+    <section
+      className="hero"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+    >
       {SLIDES.map((s, i) => (
         <div key={s.id} className={`hero-slide ${i === active ? 'active' : ''}`}>
           <img src={s.img} alt="" />
@@ -58,6 +69,15 @@ export default function Hero() {
               />
             </button>
           ))}
+          <button
+            type="button"
+            className="hero-pause"
+            aria-label={manualPause ? 'Play slideshow' : 'Pause slideshow'}
+            aria-pressed={manualPause}
+            onClick={() => setManualPause((v) => !v)}
+          >
+            {manualPause ? '▶' : '❚❚'}
+          </button>
         </div>
         </div>
       </div>

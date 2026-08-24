@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
         <Header />
         {children}
         <Footer />

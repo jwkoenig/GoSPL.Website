@@ -8,7 +8,7 @@
   --paper-2: #f6f6f4;
   --ink: #0b0b0c;
   --ink-2: #6c6c72;
-  --ink-3: #a0a0a6;
+  --ink-3: #74747a;
   --line: rgba(12,12,14,0.12);
   --line-soft: rgba(12,12,14,0.07);
   --maxw: 1280px;
@@ -55,6 +55,45 @@ img { display: block; max-width: 100%; }
   .tile             { transition: none !important; opacity: 1 !important; transform: none !important; }
   .hero-slide       { transition: none !important; }
   .hero-title .word { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .detail-scrim,
+  .detail-clone,
+  .detail-inner,
+  .detail-splash,
+  .detail-close-persistent,
+  .detail-prevnext-bar { transition: none !important; }
+}
+
+/* ---- Accessibility: skip link ---- */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: var(--gutter);
+  z-index: 200;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: top .2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---- Accessibility: focus visibility ---- */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.topbar.transparent :focus-visible,
+.hero :focus-visible,
+.foot :focus-visible,
+.detail-inner :focus-visible,
+.detail-close-persistent:focus-visible,
+.detail-prevnext:focus-visible {
+  outline-color: #fff;
 }
 
 /* ---- Utility classes ---- */
@@ -209,6 +248,12 @@ img { display: block; max-width: 100%; }
 .hero-dot { padding: 0; transition: width .3s; }
 .hero-dot img { width: 28px; height: 8px; display: block; transition: width .3s; }
 .hero-dot.active img { width: 40px; }
+.hero-pause {
+  margin-left: 4px; padding: 0 4px;
+  font-size: 10px; line-height: 8px; height: 8px;
+  color: rgba(255,255,255,0.7); transition: color .2s;
+}
+.hero-pause:hover { color: #fff; }
 
 /* ---- Stats ---- */
 .stats {
@@ -413,11 +458,11 @@ img { display: block; max-width: 100%; }
 .detail-splash-specs {
   display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px;
 }
-.detail-splash-specs .spec-item { font-size: 12px; color: rgba(255,255,255,0.5); }
+.detail-splash-specs .spec-item { font-size: 12px; color: rgba(255,255,255,0.65); }
 .detail-splash-specs .spec-item b { color: rgba(255,255,255,0.88); font-weight: 600; }
 .detail-splash-hint {
   margin-top: 24px; font-size: 14px; font-weight: 400;
-  letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4);
+  letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6);
 }
 
 /* ---- About / process ---- */
@@ -560,7 +605,7 @@ img { display: block; max-width: 100%; }
 .foot-col a:hover { color: #fff; }
 .foot-bottom {
   margin-top: clamp(40px,6vh,64px); padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 12px; color: rgba(255,255,255,0.4);
+  font-size: 12px; color: rgba(255,255,255,0.6);
 }
 
 /* ---- Legal ---- */

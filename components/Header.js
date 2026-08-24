@@ -36,12 +36,20 @@ export default function Header() {
         </a>
         <nav className="nav">
           {LINKS.map((l) => (
-            <a key={l.href} href={`${BASE}${l.href}`}>{l.label}</a>
+            <a
+              key={l.href}
+              href={`${BASE}${l.href}`}
+              aria-current={pathname === l.href ? 'page' : undefined}
+            >
+              {l.label}
+            </a>
           ))}
         </nav>
         <button
           className={`burger ${open ? 'open' : ''}`}
           aria-label="Toggle menu"
+          aria-expanded={open}
+          aria-controls="nav-drawer"
           onClick={() => setOpen((v) => !v)}
         >
           <span />
@@ -50,9 +58,16 @@ export default function Header() {
         </button>
       </div>
       {open && (
-        <div className="nav-drawer">
+        <div id="nav-drawer" className="nav-drawer">
           {LINKS.map((l) => (
-            <a key={l.href} href={`${BASE}${l.href}`} onClick={() => setOpen(false)}>{l.label}</a>
+            <a
+              key={l.href}
+              href={`${BASE}${l.href}`}
+              aria-current={pathname === l.href ? 'page' : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </a>
           ))}
         </div>
       )}

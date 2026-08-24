@@ -25,8 +25,9 @@ export default function Footer() {
           </div>
           <div className="foot-col">
             <div className="h">Legal</div>
-            <a href={`${BASE}/impressum/`}>Impressum</a>
-            <a href={`${BASE}/datenschutz/`}>Datenschutz</a>
+            <a href={`${BASE}/imprint/`}>Imprint</a>
+            <a href={`${BASE}/privacy-policy/`}>Privacy Policy</a>
+            <a href={`${BASE}/accessibility/`}>Accessibility</a>
           </div>
         </div>
 

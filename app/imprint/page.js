@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function ImprintPage() {
   return (
-    <main className="page page-offset">
+    <main id="main" className="page page-offset">
       <div className="wrap">
         <div className="legal">
           <div className="kicker">Legal</div>

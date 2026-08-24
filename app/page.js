@@ -34,7 +34,7 @@ export default function HomePage() {
   const idx = detail ? PROJECTS.findIndex((p) => p.id === detail.project.id) : -1
 
   return (
-    <main className="page">
+    <main id="main" className="page">
       <Hero />
       <Stats />
       <WorkGrid onOpen={handleOpen} />
