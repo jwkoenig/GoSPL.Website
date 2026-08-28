@@ -16,14 +16,17 @@ export default function ImpressumPage() {
           <div className="legal-body">
             <div className="legal-block">
 
-					<p>Johannes Wolfgang K&ouml;nig<br />
+					<p>Werbegrafik K&ouml;nig<br />
+					Johannes Wolfgang K&ouml;nig<br />
 					GoSPL.io<br />
 					Mauerstr 23<br />
 					10117 Berlin</p>
 
 					<h2>Kontakt</h2>
-					<p>Telefon: +49 1792925060<br />
-					E-Mail: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a></p>
+					<p>E-Mail: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a></p>
+
+					<h2>Design + UX</h2>
+					<p><a href="https://polinasogo.myportfolio.com/projects" target="_blank">Polina Sogolov</a></p>
 
 					<h2>Umsatzsteuer-ID</h2>
 					<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />
@@ -38,6 +41,7 @@ export default function ImpressumPage() {
             </div>
           </div>
 
+          <a className="legal-back" href={`${BASE}/contact/`}>Kontaktformular →</a>
           <a className="legal-back" href={`${BASE}/`}>← Back to home</a>
         </div>
       </div>

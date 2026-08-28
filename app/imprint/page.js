@@ -16,14 +16,19 @@ export default function ImprintPage() {
           <div className="legal-body">
             <div className="legal-block">
 
-					<p>Johannes Wolfgang K&ouml;nig<br />
+					<p>Werbegrafik K&ouml;nig<br />
+					Johannes Wolfgang K&ouml;nig<br />
 					GoSPL.io<br />
 					Mauerstr 23<br />
 					10117 Berlin, Germany</p>
 
 					<h2>Contact</h2>
-					<p>Phone: +49 1792925060<br />
-					Email: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a></p>
+					<p>Email: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a></p>
+
+
+					<h2>Design + UX</h2>
+					<p><a href="https://polinasogo.myportfolio.com/projects" target="_blank">Polina Sogolov</a></p>
+
 
 					<h2>VAT ID</h2>
 					<p>VAT identification number pursuant to Section 27a of the German VAT Act (Umsatzsteuergesetz):<br />
@@ -38,6 +43,7 @@ export default function ImprintPage() {
             </div>
           </div>
 
+          <a className="legal-back" href={`${BASE}/contact/`}>Get in touch via our contact form →</a>
           <a className="legal-back" href={`${BASE}/`}>← Back to home</a>
         </div>
       </div>
