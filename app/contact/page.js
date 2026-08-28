@@ -1,3 +1,5 @@
+import ContactForm from '@/components/ContactForm'
+
 export const metadata = {
   title: 'Contact — GoSPL',
 }
@@ -8,9 +10,7 @@ export default function ContactPage() {
       <div className="wrap">
         <div className="contact-wrap">
           <h1>Have a space to showcase?</h1>
-          <a className="big-mail" href="mailto:studio@gospl.io">
-            studio@gospl.io →
-          </a>
+          <ContactForm />
         </div>
       </div>
     </main>
