@@ -23,19 +23,20 @@ export default function ImprintPage() {
 					10117 Berlin, Germany</p>
 
 					<h2>Contact</h2>
-					<p>Email: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a></p>
+					<p>Email: <a href="mailto:studio@gospl.io">studio@gospl.io</a></p>
 
+					<h2>Responsible for editorial content</h2>
+					<p>Johannes Wolfgang K&ouml;nig</p>
 
 					<h2>Design + UX</h2>
 					<p><a href="https://polinasogo.myportfolio.com/projects" target="_blank">Polina Sogolov</a></p>
 
+					<h2>Web Development</h2>
+					<p>Johannes Wolfgang K&ouml;nig</p>
 
 					<h2>VAT ID</h2>
 					<p>VAT identification number pursuant to Section 27a of the German VAT Act (Umsatzsteuergesetz):<br />
 					DE359776964</p>
-
-					<h2>Responsible for editorial content</h2>
-					<p>Johannes Wolfgang K&ouml;nig</p>
 
 					<h2>Consumer dispute resolution / universal arbitration board</h2>
 					<p>We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
@@ -43,8 +44,7 @@ export default function ImprintPage() {
             </div>
           </div>
 
-          <a className="legal-back" href={`${BASE}/contact/`}>Get in touch via our contact form →</a>
-          <a className="legal-back" href={`${BASE}/`}>← Back to home</a>
+          <a className="legal-contact" href={`${BASE}/contact/`}>Get in touch via our contact form →</a>
         </div>
       </div>
     </main>

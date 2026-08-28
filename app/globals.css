@@ -673,3 +673,14 @@ img { display: block; max-width: 100%; }
   display: inline-block;
 }
 .legal-back:hover { color: var(--ink); }
+.legal-contact {
+  font-family: var(--font-sans); font-weight: 700;
+  letter-spacing: 0; line-height: normal;
+  font-size: 24px; margin-top: clamp(40px,6vh,64px);
+  color: var(--ink); transition: color .2s;
+  display: inline-block;
+}
+@media (min-width: 641px) {
+  .legal-contact { font-size: 32px; letter-spacing: -1px; line-height: 1.1; }
+}
+.legal-contact:hover { color: var(--ink-2); }
