@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const basePath = isProd ? (process.env.NEXT_BASE_PATH ?? '/BETA') : ''
 
 // Send the exported static site outside the Dropbox-synced project folder.
-const distDir = path.relative(process.cwd(), path.join(os.homedir(), 'Desktop', 'BUILD'))
+const distDir = process.env.NEXT_DIST_DIR ?? path.relative(process.cwd(), path.join(os.homedir(), 'Desktop', 'BUILD'))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
