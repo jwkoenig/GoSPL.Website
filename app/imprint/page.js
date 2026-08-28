@@ -14,7 +14,8 @@ export default function ImprintPage() {
           <a className="legal-lang" href={`${BASE}/impressum/`}>Deutsche Version →</a>
 
           <div className="legal-body">
-            <div className="legal-block">
+            <div className="legal-cols">
+              <div className="legal-block">
 
 					<p>Werbegrafik K&ouml;nig<br />
 					Johannes Wolfgang K&ouml;nig<br />
@@ -25,6 +26,9 @@ export default function ImprintPage() {
 					<h2>Contact</h2>
 					<p>Email: <a href="mailto:studio@gospl.io">studio@gospl.io</a></p>
 
+              </div>
+              <div className="legal-block">
+
 					<h2>Responsible for editorial content</h2>
 					<p>Johannes Wolfgang K&ouml;nig</p>
 
@@ -33,6 +37,11 @@ export default function ImprintPage() {
 
 					<h2>Web Development</h2>
 					<p>Johannes Wolfgang K&ouml;nig</p>
+
+              </div>
+            </div>
+
+            <div className="legal-block">
 
 					<h2>VAT ID</h2>
 					<p>VAT identification number pursuant to Section 27a of the German VAT Act (Umsatzsteuergesetz):<br />

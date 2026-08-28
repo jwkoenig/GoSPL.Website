@@ -14,7 +14,8 @@ export default function ImpressumPage() {
           <a className="legal-lang" href={`${BASE}/imprint/`}>English version →</a>
 
           <div className="legal-body">
-            <div className="legal-block">
+            <div className="legal-cols">
+              <div className="legal-block">
 
 					<p>Werbegrafik K&ouml;nig<br />
 					Johannes Wolfgang K&ouml;nig<br />
@@ -25,6 +26,9 @@ export default function ImpressumPage() {
 					<h2>Kontakt</h2>
 					<p>E-Mail: <a href="mailto:studio@gospl.io">studio@gospl.io</a></p>
 
+              </div>
+              <div className="legal-block">
+
 					<h2>Redaktionell verantwortlich</h2>
 					<p>Johannes Wolfgang K&ouml;nig</p>
 
@@ -33,6 +37,11 @@ export default function ImpressumPage() {
 
 					<h2>Web-Entwicklung</h2>
 					<p>Johannes Wolfgang K&ouml;nig</p>
+
+              </div>
+            </div>
+
+            <div className="legal-block">
 
 					<h2>Umsatzsteuer-ID</h2>
 					<p>Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a Umsatzsteuergesetz:<br />

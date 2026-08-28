@@ -650,6 +650,14 @@ img { display: block; max-width: 100%; }
 .legal-lang:hover { color: var(--ink); }
 .legal-body { margin-top: clamp(34px,6vh,60px); border-top: 1px solid var(--line); }
 .legal-block { padding: 24px 0; border-bottom: 1px solid var(--line-soft); }
+.legal-cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+  padding: 24px 0; border-bottom: 1px solid var(--line-soft);
+}
+.legal-cols .legal-block { padding: 0; border-bottom: none; }
+@media (max-width: 640px) {
+  .legal-cols { grid-template-columns: 1fr; gap: 32px; }
+}
 .legal-block h2 {
   font-size: 14px; font-weight: 400; letter-spacing: 1px;
   text-transform: uppercase; color: var(--ink-3);
