@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GoSPL — Style Overview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   1) SITE TOKENS + COMPONENT STYLES — copied verbatim from
+      app/globals.css (minus the Tailwind @import / @theme block,
+      which this standalone page doesn't need). Keep this block in
+      sync with globals.css so previews below stay pixel-accurate.
+   ============================================================ */
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --paper: #ffffff;
+  --paper-2: #f6f6f4;
+  --ink: #0b0b0c;
+  --ink-2: #6c6c72;
+  --ink-3: #74747a;
+  --line: rgba(12,12,14,0.12);
+  --line-soft: rgba(12,12,14,0.07);
+  --maxw: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+.kicker { font-family: var(--font-sans); font-size: 14px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-2); }
+.skip-link { display: inline-block; background: var(--ink); color: var(--paper); padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+.nav a { font-family: var(--font-sans); font-weight: 400; font-size: 16px; letter-spacing: 0; color: var(--ink-2); }
+.nav-drawer a { font-family: var(--font-sans); font-weight: 600; font-size: 15px; letter-spacing: 0.01em; color: var(--ink-2); }
+.hero-title { font-family: var(--font-sans); font-weight: 700; letter-spacing: -1px; line-height: 1.1; font-size: 50px; color:#fff; }
+@media (min-width: 641px) { .hero-title { font-size: clamp(60px, 6vw, 90px); letter-spacing: 1px; } }
+.hero-sub { font-weight: 400; font-size: 18px; line-height: 1.3; letter-spacing: 0; color: rgba(255,255,255,0.86); }
+.hero-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 16px; border: 2px solid #fff; border-radius: 999px; font-weight: 400; font-size: 16px; letter-spacing: 0; color: #fff; background: rgba(255,255,255,0.2); }
+.stat .n { font-family: var(--font-sans); font-weight: 700; letter-spacing: -1px; line-height: 1.1; font-size: 50px; color: var(--ink); }
+@media (min-width: 641px) { .stat .n { font-size: clamp(60px, 6vw, 90px); letter-spacing: 1px; } }
+.stat .l { font-size: 15px; color: var(--ink-2); }
+.work-head h2, .cta-band h2 { font-family: var(--font-sans); font-weight: 700; font-size: 32px; letter-spacing: 0; line-height: normal; color: var(--ink); }
+@media (min-width: 641px) { .work-head h2, .cta-band h2 { font-size: clamp(40px, 5vw, 60px); letter-spacing: -1px; line-height: 1.1; } }
+.work-head p { font-weight: 400; font-size: 18px; line-height: 1.3; letter-spacing: 0; color: var(--ink-2); }
+.about-section h2 { font-family: var(--font-sans); font-weight: 700; font-size: 48px; letter-spacing: -1px; line-height: 1.1; color: var(--ink); }
+@media (min-width: 641px) { .about-section h2 { font-size: clamp(48px, 6vw, 72px); } }
+.about-section p { font-weight: 400; font-size: 18px; line-height: 1.6; letter-spacing: 0; color: var(--ink); }
+.pstep .num { font-size: 14px; font-weight: 400; letter-spacing: 1px; color: var(--ink-3); }
+.pstep h3 { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; line-height: normal; font-size: 24px; color: var(--ink); margin: 10px 0; }
+@media (min-width: 641px) { .pstep h3 { font-size: 32px; letter-spacing: -1px; line-height: 1.1; } }
+.pstep p { font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.tile-type { font-size: 14px; font-weight: 400; letter-spacing: 1px; color: rgba(255,255,255,0.72); }
+.tile-title { font-family: var(--font-sans); font-weight: 700; font-size: 24px; line-height: 1.1; letter-spacing: 0; color: #fff; }
+.detail-tour-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 32px; border: 1px solid rgba(255,255,255,0.5); color: #fff; font-size: 16px; font-weight: 400; letter-spacing: 0; border-radius: 999px; }
+.detail-close { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: #fff; display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.4); border-radius: 999px; padding: 9px 16px; }
+.detail-splash-inner h1 { font-family: var(--font-sans); font-weight: 700; font-size: 50px; line-height: 1.1; letter-spacing: -1px; color: #fff; }
+@media (min-width: 641px) { .detail-splash-inner h1 { font-size: clamp(60px, 6vw, 90px); letter-spacing: 1px; } }
+.detail-splash-meta { font-size: 14px; font-weight: 400; letter-spacing: 1px; color: rgba(255,255,255,0.65); display: flex; gap: 10px; flex-wrap: wrap; }
+.detail-splash-lead { font-size: clamp(16px,1.6vw,19px); line-height: 1.5; color: rgba(255,255,255,0.92); }
+.detail-splash-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.6); }
+.detail-splash-hint { font-size: 14px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.about-hero h1 { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; line-height: normal; font-size: 32px; color: var(--ink); }
+@media (min-width: 641px) { .about-hero h1 { font-size: clamp(40px, 5.5vw, 60px); letter-spacing: -1px; line-height: 1.1; } }
+.about-grid .lead p { font-size: 18px; line-height: 1.65; color: var(--ink); }
+.cap-block .h { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.cap-list .row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; color: var(--ink); }
+.cap-list .row span:last-child { font-size: 13px; color: var(--ink-2); }
+.cta-band .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: 16px; font-weight: 400; letter-spacing: 0; }
+.contact-wrap h1 { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; line-height: normal; font-size: 32px; color: var(--ink); }
+@media (min-width: 641px) { .contact-wrap h1 { font-size: clamp(40px, 6vw, 60px); letter-spacing: -1px; line-height: 1.1; } }
+.big-mail { display: inline-flex; align-items: center; gap: 18px; font-family: var(--font-sans); font-weight: 700; font-size: clamp(22px,3.4vw,42px); letter-spacing: -0.01em; color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+.form-field label { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--ink-2); }
+.form-field input { font-family: var(--font-sans); font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.form-submit { font-family: var(--font-sans); font-weight: 700; font-size: 16px; color: var(--paper); background: var(--ink); border-radius: 999px; padding: 14px 28px; display:inline-block; }
+.form-error { font-size: 14px; color: #b3261e; }
+.form-success { font-size: 18px; color: var(--ink-2); }
+.foot-col .h { font-size: 14px; font-weight: 400; letter-spacing: 1px; color: #979797; }
+.foot-col a { display: inline-block; font-size: 16px; line-height: 1.9; color: #fff; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); text-underline-offset: 3px; }
+.foot-bottom { font-size: 12px; color: rgba(255,255,255,0.6); }
+.legal-title { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; line-height: normal; font-size: 32px; color: var(--ink); }
+@media (min-width: 641px) { .legal-title { font-size: clamp(40px, 5.5vw, 60px); letter-spacing: -1px; line-height: 1.1; } }
+.legal-lang { font-size: 13px; color: var(--ink-2); }
+.legal-block h2 { font-size: 14px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-3); }
+.legal-block h3 { font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--ink); }
+.legal-block p { font-size: 16px; line-height: 1.75; color: var(--ink-2); }
+.legal-block p.lead { font-size: 17px; color: var(--ink); }
+.legal-updated { font-size: 11px; color: var(--ink-3); line-height: 1.6; }
+.legal-back { font-size: 13px; color: var(--ink-2); }
+.legal-contact { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; line-height: normal; font-size: 24px; color: var(--ink); }
+@media (min-width: 641px) { .legal-contact { font-size: 32px; letter-spacing: -1px; line-height: 1.1; } }
+
+/* ============================================================
+   2) PAGE CHROME — layout for this reference doc only, not part
+      of the site's own CSS.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+body {
+  font-family: var(--font-sans);
+  background: var(--paper-2);
+  color: var(--ink);
+  margin: 0;
+  padding: 0 0 120px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+header.page-head {
+  padding: 56px var(--gutter) 40px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+header.page-head .kicker { margin-bottom: 10px; }
+header.page-head h1 {
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(34px, 4.5vw, 52px); letter-spacing: -1px; line-height: 1.1;
+  color: var(--ink); margin: 0 0 14px;
+}
+header.page-head p {
+  max-width: 62ch; font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 0;
+}
+header.page-head code {
+  background: var(--line-soft); padding: 1px 6px; border-radius: 4px; font-size: 0.9em;
+}
+
+.toc {
+  max-width: var(--maxw); margin: 0 auto 8px; padding: 0 var(--gutter);
+  display: flex; flex-wrap: wrap; gap: 8px 10px;
+}
+.toc a {
+  font-size: 13px; color: var(--ink-2); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px;
+  transition: color .15s, border-color .15s;
+}
+.toc a:hover { color: var(--ink); border-color: var(--ink); }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+section.group { margin-top: 64px; }
+section.group h2 {
+  font-family: var(--font-sans); font-weight: 700; font-size: 22px;
+  letter-spacing: -0.3px; color: var(--ink); margin: 0 0 4px;
+  scroll-margin-top: 24px;
+}
+section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20px; }
+
+.style-table {
+  width: 100%; border-collapse: collapse; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  font-size: 14px;
+}
+.style-table th {
+  text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3);
+  padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2);
+  white-space: nowrap;
+}
+.style-table td {
+  padding: 16px; border-bottom: 1px solid var(--line-soft); vertical-align: middle;
+}
+.style-table tr:last-child td { border-bottom: none; }
+.style-table td.name { min-width: 150px; }
+.style-table td.name .n { font-weight: 600; color: var(--ink); font-size: 14px; }
+.style-table td.name .sel { display: block; margin-top: 3px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ink-2); }
+.style-table td.settings { font-size: 12.5px; color: var(--ink-2); min-width: 210px; }
+.style-table td.settings div { padding: 1px 0; }
+.style-table td.settings b { color: var(--ink); font-weight: 600; }
+.style-table td.used { font-size: 12.5px; color: var(--ink-2); min-width: 160px; }
+.swatch-cell { min-width: 260px; max-width: 380px; }
+
+.preview {
+  border-radius: 8px; padding: 18px 20px; display: flex; align-items: center;
+  min-height: 44px; overflow: hidden;
+}
+.preview.light { background: var(--paper-2); border: 1px solid var(--line); }
+.preview.dark { background: #16161a; }
+.preview.footer-bg { background: #16161a; }
+
+.new-badge {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #fff; background: var(--ink);
+  border-radius: 999px; padding: 3px 8px; margin-left: 8px; vertical-align: middle;
+}
+
+.token-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px;
+}
+.token-card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+}
+.token-swatch { height: 64px; }
+.token-meta { padding: 12px 14px; }
+.token-meta .n { font-size: 13px; font-weight: 600; color: var(--ink); }
+.token-meta .v { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+
+@media (max-width: 720px) {
+  .style-table, .style-table thead { display: none; }
+  .style-table, .style-table tbody, .style-table tr, .style-table td { display: block; width: 100%; }
+  .style-table tr { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .style-table td { border-bottom: none; padding: 6px 0; }
+  .style-table td.settings div::before { content: attr(data-label) ': '; color: var(--ink-3); }
+}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <div class="kicker">GoSPL — Design Reference</div>
+  <h1>Style Overview</h1>
+  <p>
+    Every named text style and component pattern used across the site, rendered with the
+    site's real CSS (copied from <code>app/globals.css</code>) so this preview stays visually accurate.
+    Use it to pick an existing style before inventing a new one. Font sizes shown as
+    <code>mobile → desktop (≥641px)</code> where the two differ.
+  </p>
+</header>
+
+<nav class="toc">
+  <a href="#tokens">Tokens</a>
+  <a href="#nav">Navigation</a>
+  <a href="#hero">Hero</a>
+  <a href="#headings">Section headings</a>
+  <a href="#process">Process steps</a>
+  <a href="#tiles">Work tiles</a>
+  <a href="#detail">Project detail</a>
+  <a href="#buttons">Buttons &amp; CTAs</a>
+  <a href="#forms">Forms</a>
+  <a href="#footer">Footer</a>
+  <a href="#legal">Legal pages</a>
+</nav>
+
+<main>
+
+  <section class="group" id="tokens">
+    <h2>Design tokens</h2>
+    <p class="group-desc">Core color variables, defined once in <code>:root</code> and reused everywhere below.</p>
+    <div class="token-grid">
+      <div class="token-card"><div class="token-swatch" style="background:#ffffff;border-bottom:1px solid var(--line)"></div><div class="token-meta"><div class="n">Paper</div><div class="v">--paper · #ffffff</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#f6f6f4"></div><div class="token-meta"><div class="n">Paper 2</div><div class="v">--paper-2 · #f6f6f4</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#0b0b0c"></div><div class="token-meta"><div class="n">Ink</div><div class="v">--ink · #0b0b0c</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#6c6c72"></div><div class="token-meta"><div class="n">Ink 2</div><div class="v">--ink-2 · #6c6c72</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#74747a"></div><div class="token-meta"><div class="n">Ink 3</div><div class="v">--ink-3 · #74747a</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#faf9f8;border:1px solid rgba(12,12,14,0.12)"></div><div class="token-meta"><div class="n">Line</div><div class="v">--line · rgba(12,12,14,.12)</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:#fbfbfa;border:1px solid rgba(12,12,14,0.07)"></div><div class="token-meta"><div class="n">Line soft</div><div class="v">--line-soft · rgba(12,12,14,.07)</div></div></div>
+    </div>
+  </section>
+
+  <section class="group" id="nav">
+    <h2>Navigation</h2>
+    <p class="group-desc">Top bar and mobile drawer links.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="nav"><a href="#">Work</a></span></div></td>
+          <td class="name"><span class="n">Nav link</span><span class="sel">.nav a</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Weight">400</div><div data-label="Spacing">0</div><div data-label="Color">ink-2 (white 82% on transparent header)</div></td>
+          <td class="used">Header.js — top bar</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="nav-drawer"><a href="#">Contact</a></span></div></td>
+          <td class="name"><span class="n">Nav drawer link</span><span class="sel">.nav-drawer a</span></td>
+          <td class="settings"><div data-label="Size">15px</div><div data-label="Weight">600</div><div data-label="Spacing">0.01em</div><div data-label="Color">ink-2</div></td>
+          <td class="used">Header.js — mobile burger menu</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><a class="skip-link" href="#">Skip to content</a></div></td>
+          <td class="name"><span class="n">Skip link</span><span class="sel">.skip-link</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">600</div><div data-label="Color">paper on ink pill</div></td>
+          <td class="used">layout.js — a11y skip-to-content</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="hero">
+    <h2>Hero</h2>
+    <p class="group-desc">Full-bleed homepage hero, white text over image.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="hero-title" style="font-size:32px">Cinematic by design</span></div></td>
+          <td class="name"><span class="n">Hero title</span><span class="sel">.hero-title</span></td>
+          <td class="settings"><div data-label="Size">50px → clamp(60,6vw,90px)</div><div data-label="Weight">700</div><div data-label="Spacing">-1px → 1px</div><div data-label="Line-height">1.1</div><div data-label="Color">white</div></td>
+          <td class="used">Hero.js — homepage headline</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="hero-sub">Interactive digital twins, explorable online.</span></div></td>
+          <td class="name"><span class="n">Hero subtitle</span><span class="sel">.hero-sub</span></td>
+          <td class="settings"><div data-label="Size">18px</div><div data-label="Weight">400</div><div data-label="Line-height">1.3</div><div data-label="Color">white 86%</div></td>
+          <td class="used">Hero.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><a class="hero-cta" href="#">Explore work →</a></div></td>
+          <td class="name"><span class="n">Hero CTA (outline pill)</span><span class="sel">.hero-cta</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Weight">400</div><div data-label="Style">2px white border, translucent fill, 999px radius</div></td>
+          <td class="used">Hero.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="stat"><span class="n" style="font-size:32px">120+</span></span></div></td>
+          <td class="name"><span class="n">Stat number</span><span class="sel">.stat .n</span></td>
+          <td class="settings"><div data-label="Size">50px → clamp(60,6vw,90px)</div><div data-label="Weight">700</div><div data-label="Spacing">-1px → 1px</div><div data-label="Color">ink</div></td>
+          <td class="used">Stats.js — homepage stat row</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="stat"><span class="l">Projects delivered</span></span></div></td>
+          <td class="name"><span class="n">Stat label</span><span class="sel">.stat .l</span></td>
+          <td class="settings"><div data-label="Size">15px</div><div data-label="Weight">400</div><div data-label="Color">ink-2</div></td>
+          <td class="used">Stats.js</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="headings">
+    <h2>Section headings &amp; kickers</h2>
+    <p class="group-desc">Reused across Work, About, and CTA sections.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="kicker">Legal</span></div></td>
+          <td class="name"><span class="n">Kicker / eyebrow</span><span class="sel">.kicker</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">400</div><div data-label="Spacing">1px, uppercase</div><div data-label="Color">ink-2</div></td>
+          <td class="used">Section eyebrows; legal page headers</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light work-head"><h2 style="font-size:28px">Selected Work</h2></div></td>
+          <td class="name"><span class="n">Section heading</span><span class="sel">.work-head h2 / .cta-band h2</span></td>
+          <td class="settings"><div data-label="Size">32px → clamp(40,5vw,60px)</div><div data-label="Weight">700</div><div data-label="Spacing">0 → -1px</div><div data-label="Color">ink</div></td>
+          <td class="used">Work section, CTA band</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light work-head"><p>A curated set of recent Gaussian-splat tours.</p></div></td>
+          <td class="name"><span class="n">Section subhead</span><span class="sel">.work-head p</span></td>
+          <td class="settings"><div data-label="Size">18px</div><div data-label="Weight">400</div><div data-label="Line-height">1.3</div><div data-label="Color">ink-2</div></td>
+          <td class="used">Work section intro</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light about-section"><h2 style="font-size:32px">About GoSPL</h2></div></td>
+          <td class="name"><span class="n">About heading</span><span class="sel">.about-section h2</span></td>
+          <td class="settings"><div data-label="Size">48px → clamp(48,6vw,72px)</div><div data-label="Weight">700</div><div data-label="Spacing">-1px</div><div data-label="Color">ink</div></td>
+          <td class="used">AboutTeaser.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light about-hero"><h1 style="font-size:26px">Real spaces, real-time.</h1></div></td>
+          <td class="name"><span class="n">About-page hero H1</span><span class="sel">.about-hero h1</span></td>
+          <td class="settings"><div data-label="Size">32px → clamp(40,5.5vw,60px)</div><div data-label="Weight">700</div><div data-label="Color">ink (em → ink-3)</div></td>
+          <td class="used">app/about page</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="process">
+    <h2>Process steps <span class="new-badge">reference for “match this style”</span></h2>
+    <p class="group-desc">The Capture / Reconstruct / Author / Deliver steps under “About GoSPL”. <code>.legal-contact</code> (see Legal section) intentionally reuses the <code>.pstep h3</code> type scale.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="pstep"><span class="num">01</span></span></div></td>
+          <td class="name"><span class="n">Step number</span><span class="sel">.pstep .num</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">400</div><div data-label="Spacing">1px</div><div data-label="Color">ink-3</div></td>
+          <td class="used">ProcessSteps.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light pstep"><h3 style="font-size:24px">Capture</h3></div></td>
+          <td class="name"><span class="n">Step title</span><span class="sel">.pstep h3</span></td>
+          <td class="settings"><div data-label="Size">24px → 32px</div><div data-label="Weight">700</div><div data-label="Spacing">0 → -1px</div><div data-label="Color">ink</div></td>
+          <td class="used">ProcessSteps.js — data/process.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light pstep"><p>On-location photography in available light.</p></div></td>
+          <td class="name"><span class="n">Step body</span><span class="sel">.pstep p</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">400</div><div data-label="Line-height">1.6</div><div data-label="Color">ink-2</div></td>
+          <td class="used">ProcessSteps.js</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="tiles">
+    <h2>Work tiles</h2>
+    <p class="group-desc">Project cards in the Work grid, white text over a photo with a dark gradient veil.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="tile-type">Retail Interior</span></div></td>
+          <td class="name"><span class="n">Tile type / category</span><span class="sel">.tile-type</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">400</div><div data-label="Spacing">1px</div><div data-label="Color">white 72%</div></td>
+          <td class="used">Tile.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="tile-title">Birfday Studio</span></div></td>
+          <td class="name"><span class="n">Tile title <em>(PTITLE)</em></span><span class="sel">.tile-title</span></td>
+          <td class="settings"><div data-label="Size">24px</div><div data-label="Weight">700</div><div data-label="Line-height">1.1</div><div data-label="Color">white</div></td>
+          <td class="used">Tile.js — project/work-tile title</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="detail">
+    <h2>Project detail overlay</h2>
+    <p class="group-desc">Full-screen splash shown when a work tile opens.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="detail-splash-inner"><h1 style="font-size:30px">Birfday Studio</h1></span></div></td>
+          <td class="name"><span class="n">Splash headline</span><span class="sel">.detail-splash-inner h1</span></td>
+          <td class="settings"><div data-label="Size">50px → clamp(60,6vw,90px)</div><div data-label="Weight">700</div><div data-label="Color">white</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><div class="detail-splash-meta"><span>Retail</span><span>Berlin</span><span>2025</span></div></div></td>
+          <td class="name"><span class="n">Splash meta row</span><span class="sel">.detail-splash-meta</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Spacing">1px</div><div data-label="Color">white 65%</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><p class="detail-splash-lead">A full digital twin of the flagship space, walkable in-browser.</p></div></td>
+          <td class="name"><span class="n">Splash lead</span><span class="sel">.detail-splash-lead</span></td>
+          <td class="settings"><div data-label="Size">clamp(16,1.6vw,19px)</div><div data-label="Line-height">1.5</div><div data-label="Color">white 92%</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><p class="detail-splash-body">Captured across four orbital sweeps and reconstructed as a Gaussian-splat scene.</p></div></td>
+          <td class="name"><span class="n">Splash body</span><span class="sel">.detail-splash-body</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Line-height">1.65</div><div data-label="Color">white 60%</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><span class="detail-splash-hint">Scroll to explore</span></div></td>
+          <td class="name"><span class="n">Splash hint</span><span class="sel">.detail-splash-hint</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Spacing">1px, uppercase</div><div data-label="Color">white 60%</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><a class="detail-tour-btn" href="#">View tour →</a></div></td>
+          <td class="name"><span class="n">Tour button (outline pill)</span><span class="sel">.detail-tour-btn</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Style">1px white 50% border, 999px radius</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview dark"><button class="detail-close">← Close</button></div></td>
+          <td class="name"><span class="n">Close / prev-next control</span><span class="sel">.detail-close, .detail-close-persistent, .detail-prevnext</span></td>
+          <td class="settings"><div data-label="Size">13px</div><div data-label="Weight">600</div><div data-label="Style">glass pill, blurred backdrop</div></td>
+          <td class="used">Detail.js</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="buttons">
+    <h2>Buttons &amp; CTAs</h2>
+    <p class="group-desc">Solid, outline, and link-style calls to action.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light cta-band"><a class="btn" href="#">Get in touch →</a></div></td>
+          <td class="name"><span class="n">Solid pill button</span><span class="sel">.cta-band .btn</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Weight">400</div><div data-label="Style">ink fill, paper text, 999px radius</div></td>
+          <td class="used">CTA band</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><a class="big-mail" href="#">hannes@gospl.io</a></div></td>
+          <td class="name"><span class="n">Big mail link</span><span class="sel">.big-mail</span></td>
+          <td class="settings"><div data-label="Size">clamp(22,3.4vw,42px)</div><div data-label="Weight">700</div><div data-label="Style">2px ink underline</div></td>
+          <td class="used">Contact page</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="forms">
+    <h2>Forms</h2>
+    <p class="group-desc">Contact form fields and states.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light form-field"><label>Your name</label></div></td>
+          <td class="name"><span class="n">Field label</span><span class="sel">.form-field label</span></td>
+          <td class="settings"><div data-label="Size">13px</div><div data-label="Weight">600</div><div data-label="Color">ink-2</div></td>
+          <td class="used">ContactForm.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light form-field"><input placeholder="jane@example.com" style="width:100%"></div></td>
+          <td class="name"><span class="n">Input / textarea</span><span class="sel">.form-field input, textarea</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Style">1px line border, 8px radius</div></td>
+          <td class="used">ContactForm.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><button class="form-submit">Send message</button></div></td>
+          <td class="name"><span class="n">Submit button</span><span class="sel">.form-submit</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Weight">700</div><div data-label="Style">ink fill pill</div></td>
+          <td class="used">ContactForm.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="form-error">Please enter a valid email.</span></div></td>
+          <td class="name"><span class="n">Error state</span><span class="sel">.form-error</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Color">#b3261e</div></td>
+          <td class="used">ContactForm.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="form-success">Thanks — we'll be in touch shortly.</span></div></td>
+          <td class="name"><span class="n">Success state</span><span class="sel">.form-success</span></td>
+          <td class="settings"><div data-label="Size">18px</div><div data-label="Color">ink-2</div></td>
+          <td class="used">ContactForm.js</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="footer">
+    <h2>Footer</h2>
+    <p class="group-desc">Dark footer band, <code>#16161a</code> background.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview footer-bg foot-col"><span class="h">Company</span></div></td>
+          <td class="name"><span class="n">Column heading</span><span class="sel">.foot-col .h</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Spacing">1px</div><div data-label="Color">#979797</div></td>
+          <td class="used">Footer.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview footer-bg foot-col"><a href="#">Imprint</a></div></td>
+          <td class="name"><span class="n">Footer link</span><span class="sel">.foot-col a</span></td>
+          <td class="settings"><div data-label="Size">16px</div><div data-label="Line-height">1.9</div><div data-label="Style">underline, white 25%</div></td>
+          <td class="used">Footer.js</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview footer-bg"><span class="foot-bottom">© 2026 GoSPL.io — all rights reserved.</span></div></td>
+          <td class="name"><span class="n">Bottom line</span><span class="sel">.foot-bottom</span></td>
+          <td class="settings"><div data-label="Size">12px</div><div data-label="Color">white 60%</div></td>
+          <td class="used">Footer.js</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="group" id="legal">
+    <h2>Legal pages</h2>
+    <p class="group-desc">Imprint, Impressum, Privacy Policy, Accessibility statement.</p>
+    <table class="style-table">
+      <thead><tr><th>Preview</th><th>Name</th><th>Settings</th><th>Used in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><h1 class="legal-title" style="font-size:26px">Imprint</h1></div></td>
+          <td class="name"><span class="n">Page title</span><span class="sel">.legal-title</span></td>
+          <td class="settings"><div data-label="Size">32px → clamp(40,5.5vw,60px)</div><div data-label="Weight">700</div><div data-label="Color">ink</div></td>
+          <td class="used">imprint, impressum, privacy-policy, accessibility</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><a class="legal-lang" href="#">Deutsche Version →</a></div></td>
+          <td class="name"><span class="n">Language switch</span><span class="sel">.legal-lang</span></td>
+          <td class="settings"><div data-label="Size">13px</div><div data-label="Color">ink-2</div></td>
+          <td class="used">imprint ↔ impressum, accessibility ↔ barrierefreiheit</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light legal-block"><h2>VAT ID</h2></div></td>
+          <td class="name"><span class="n">Subsection heading</span><span class="sel">.legal-block h2</span></td>
+          <td class="settings"><div data-label="Size">14px</div><div data-label="Spacing">1px, uppercase</div><div data-label="Color">ink-3</div></td>
+          <td class="used">All legal pages</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light legal-block"><h3>Consumer dispute resolution</h3></div></td>
+          <td class="name"><span class="n">Minor heading</span><span class="sel">.legal-block h3</span></td>
+          <td class="settings"><div data-label="Size">15px</div><div data-label="Weight">600</div><div data-label="Color">ink</div></td>
+          <td class="used">All legal pages</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light legal-block"><p>We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p></div></td>
+          <td class="name"><span class="n">Body copy</span><span class="sel">.legal-block p</span></td>
+          <td class="settings"><div data-label="Size">16px (first block 17px, ink)</div><div data-label="Line-height">1.75</div><div data-label="Color">ink-2</div></td>
+          <td class="used">All legal pages</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><span class="legal-updated">Last updated August 2026</span></div></td>
+          <td class="name"><span class="n">Updated note</span><span class="sel">.legal-updated</span></td>
+          <td class="settings"><div data-label="Size">11px</div><div data-label="Color">ink-3</div></td>
+          <td class="used">Privacy policy / accessibility statement</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><a class="legal-back" href="#">← Back to home</a></div></td>
+          <td class="name"><span class="n">Back link</span><span class="sel">.legal-back</span></td>
+          <td class="settings"><div data-label="Size">13px</div><div data-label="Color">ink-2</div></td>
+          <td class="used">privacy-policy, accessibility, datenschutz, barrierefreiheit, not-found</td>
+        </tr>
+        <tr>
+          <td class="swatch-cell"><div class="preview light"><a class="legal-contact" style="font-size:24px" href="#">Get in touch via our contact form →</a></div></td>
+          <td class="name"><span class="n">Contact CTA link <span class="new-badge">new</span></span><span class="sel">.legal-contact</span></td>
+          <td class="settings"><div data-label="Size">24px → 32px</div><div data-label="Weight">700</div><div data-label="Spacing">0 → -1px</div><div data-label="Color">ink</div><div data-label="Note">shares type scale with .pstep h3</div></td>
+          <td class="used">imprint, impressum</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+</body>
+</html>
