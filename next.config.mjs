@@ -1,5 +1,5 @@
 const isProd = process.env.NODE_ENV === 'production'
-const basePath = isProd ? '/BETA' : ''
+const basePath = isProd ? (process.env.NEXT_BASE_PATH ?? '/BETA') : ''
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
