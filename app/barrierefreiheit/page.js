@@ -45,8 +45,6 @@ export default function BarrierefreiheitPage() {
               </p>
               <p>
                 E-Mail: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a>
-                <br />
-                Telefon: <a href="tel:+491792925060">+49 1792925060</a>
               </p>
               <p>Wir sind bestrebt, auf Rückmeldungen zur Barrierefreiheit innerhalb angemessener Zeit zu antworten.</p>
 

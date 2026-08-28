@@ -44,8 +44,6 @@ export default function AccessibilityPage() {
               </p>
               <p>
                 Email: <a href="mailto:hannes@gospl.io">hannes@gospl.io</a>
-                <br />
-                Phone: <a href="tel:+491792925060">+49 1792925060</a>
               </p>
               <p>We aim to respond to accessibility feedback within a reasonable time.</p>
 

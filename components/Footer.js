@@ -16,7 +16,6 @@ export default function Footer() {
           <div className="foot-col">
             <div className="h">Enquiries</div>
             <a href="mailto:studio@gospl.io">studio@gospl.io</a>
-            <a href="tel:+49.1792925060">+49 1792925060</a>
           </div>
           <div className="foot-col">
             <div className="h">Elsewhere</div>
