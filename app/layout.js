@@ -11,7 +11,7 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: 'GoSPL — Gaussian Splat Portfolio',
+  title: 'GoSPL - Photoreal by Nature, Interactive by Choice',
   description: 'Cinematic by design, interactive by choice. We create interactive digital twins to explore online.',
 }
 
