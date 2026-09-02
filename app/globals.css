@@ -248,13 +248,6 @@ img { display: block; max-width: 100%; }
 .hero-dot { padding: 0; transition: width .3s; }
 .hero-dot img { width: 28px; height: 8px; display: block; transition: width .3s; }
 .hero-dot.active img { width: 40px; }
-.hero-pause {
-  margin-left: 4px; padding: 0 4px;
-  font-size: 10px; line-height: 8px; height: 8px;
-  color: rgba(255,255,255,0.7); transition: color .2s;
-}
-.hero-pause:hover { color: #fff; }
-
 /* ---- Stats ---- */
 .stats {
   border-top: 1px solid var(--line);

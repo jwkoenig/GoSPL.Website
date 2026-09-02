@@ -10,7 +10,7 @@ export const PROJECTS = [
     splats: '6M',
     area: '60 (int) + thousands (ext) m²',
     capture: 'roughly 1050 images, days of Corona CPU rendering',
-    url: 'https://gospl.io/XOIO_WWL',
+    url: 'https://gospl.io/XOIO_WWL_INT',
     img: `${BASE}/assets/projects/xoiowwl.jpg`,
     lead: 'An Original XOIO Design for the mountains, in full festive mood with tree and presents, cosy fire roasting in the oven and snowy mountains outdoors',
     body: [
