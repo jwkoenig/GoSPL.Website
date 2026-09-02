@@ -1,95 +1,74 @@
-# PC4WEB — Universal Demo Player
+# GoSPL — gospl.io
 
-A single shared player for gaussian-splat demo tours. The player code is
-deployed once; each tour is just a folder of data files. Updating the
-player updates every tour immediately — no more copying the whole site
-per tour.
+GoSPL's marketing site plus the interactive gaussian-splat tour system it
+links out to. Two mostly-independent parts share this one repo:
 
-The interface is chromeless by default on every tour (see "Interface
-visibility" below) — visitors see this project's own tour navigation and
-hotspot markers, not the stock SuperSplat toolbar/settings/branding.
+1. **The marketing site** (`app/`, `components/`, `data/`, `public/`) — a
+   statically-exported Next.js site: home page, work grid, project detail
+   pages, and legal/contact pages.
+2. **The tour player system** (`player/`, `admin/`, `content/`, `tools/`) —
+   a single shared PlayCanvas/SuperSplat viewer that renders every gaussian-
+   splat "step inside the space" tour linked from the marketing site's work
+   grid. See `player/README.md` for how it works, `admin/README.md` for the
+   password-protected authoring copy, and `handover.md` for a full
+   implementation deep-dive (physics, hotspots, collision, debug mode, and
+   more).
 
-## Layout
+## Marketing site
 
-```
-SITE/                everything below lives inside this one folder on the live server (public_html/SITE/)
-  player/            the public player (index.html, index.js, index.css) — update once, applies to all tours
-  admin/             password-protected copy of player/ + a tour-authoring overlay (editor.js/editor.css)
-                      — see admin/README.md. index.js/index.css must stay byte-identical to player/'s
-                      (re-copy after every player/ change); index.html has its own small set of
-                      manually-mirrored additions on top of player/'s.
-  content/
-    kramer/           one folder per tour, named by its slug
-      scene.sog          the gaussian-splat scene (not committed to git, see below)
-      settings.json      camera defaults, post-fx, annotations
-      tourSOG.json       tour/hotspot definitions (hotspots, infoSpots, optional collisionUrl/backgroundSphere/moveMode)
-      scene.voxel.json    voxel collision (optional) — or point tourSOG.json's collisionUrl at a
-      scene.voxel.bin      .glb instead for mesh collision (see handover.md §10.5); pick one, not both
-      splash.json          optional {"title","body"} for the welcome splash; falls back to generic copy
-      poster.jpg            optional poster image, matches ?poster=
-      logo.png               loading-screen + splash logo, matches ?logo= (this tour's is committed as kramer.png)
-tools/devserver.py    local dev server that mirrors the .htaccess rewrite (clean /tours/<slug>/ URLs)
-```
-
-On the live server, `public_html/.htaccess` (not tracked in this repo — hand-maintained)
-does the HTTPS redirect, the `/tours/<slug>` → `SITE/player/...` clean-URL rewrite, and a
-blanket internal rewrite that forwards every other request into `SITE/` — so the whole
-site (this player system, the Next.js marketing site, and assorted other project folders)
-is served from `public_html/SITE/` while still appearing at `gospl.io/...` root URLs.
-
-`*.sog` files are large binary splat exports and are gitignored — drop them
-into each tour's `content/<slug>/` folder manually (or via whatever export
-pipeline produced them) after deploying.
-
-## Adding a new tour
-
-1. Create `content/<slug>/` with the same file names as `content/kramer/`
-   (`scene.sog`, `settings.json`, `tourSOG.json`, optionally
-   `scene.voxel.json`/`.bin` **or** a collision `.glb`, `splash.json`, and
-   `poster.jpg`).
-2. Deploy (upload the new folder alongside the existing site — no player
-   redeploy needed, and no `.htaccess` change needed, since the rewrite
-   rule is slug-generic).
-3. Visit `https://<your-domain>/tours/<slug>/`.
-
-## Interface visibility
-
-The stock SuperSplat chrome (toolbar, settings/help panels, joystick,
-branding) is hidden by default on every tour, on every device — this
-project's own tour navigation pillbox, hotspot markers, and tooltips stay
-visible and functional regardless. There is no URL param for this any more
-(the old `?noui` was removed — it's now simply always the case). To see the
-full stock UI (e.g. for QA), add `?debug` to the URL or press
-**Ctrl+Shift+U**.
-
-## Updating the player for all tours
-
-Edit files under `player/` and deploy that folder. Every tour picks up the
-change on next load — nothing tour-specific needs to change. If you touched
-`player/index.js` or `player/index.css`, also re-copy them into `admin/`
-(`cp player/index.js player/index.css admin/`) — `admin/`'s own README
-explains why.
-
-## Local development
-
-For clean `/tours/<slug>/` URLs locally (recommended — matches production
-routing, including the `/tours/<slug>` → `/tours/<slug>/` redirect):
+Next.js 16 (App Router), React 19, Tailwind 4, exported as a fully static
+site (`output: 'export'` in `next.config.mjs` — no Node server at runtime).
 
 ```bash
-python tools/devserver.py 8420
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export
+npm run lint
 ```
 
-then open `http://localhost:8420/tours/kramer/`.
+- `app/` — pages: home (`page.js`), legal/contact pages, `not-found.js`.
+- `components/` — shared UI (`Header`, `Footer`, `Hero`, `WorkGrid`,
+  `Detail`, `ContactForm`, etc.).
+- `data/projects.js` — the portfolio/work content: one entry per project,
+  each with a `url` pointing at its tour (or an external link). Body
+  paragraphs support `[text](url)` markdown-style links, rendered as real
+  links in `Detail.js`.
+- `public/assets/` — images copied as-is into the export.
 
-A plain static server (`python -m http.server`, `npx serve`) also works but
-knows nothing about the `.htaccess` rewrite, so `/tours/<slug>/` 404s —
-open the player directly with explicit query params instead:
+## Tour player system
 
-```
-http://localhost:8000/player/index.html?content=/content/kramer/scene.sog&settings=/content/kramer/settings.json&tour=/content/kramer/tourSOG.json
-```
+A tour is just a folder of data files under `content/<slug>/`; the same
+`player/` code renders all of them, updated once and applied everywhere.
+`admin/` is a password-gated copy with an in-browser authoring overlay for
+placing hotspots and tuning tours without touching JSON by hand. Full
+details, adding a new tour, and local dev instructions live in
+`player/README.md` and `admin/README.md`.
 
-See `handover.md` for implementation notes on the player itself (walk-mode
-physics, tour hotspot math, coordinate handling, debug mode, and — in §10 —
-background spheres, scene-linking hotspots, the welcome splash, mesh
-collision, and locking a tour to fly/walk/orbit via `moveMode`).
+## Deployment
+
+`gospl.io` is on fixed shared hosting with no control over Apache's
+DocumentRoot, so the whole site — this Next.js app's build output plus
+`player/`, `admin/`, and `content/` — is deployed into one
+`public_html/SITE/` folder, and the root `.htaccess` (hand-maintained on
+the server, not tracked in this repo) transparently rewrites requests into
+`SITE/`, so the site still appears at `gospl.io/...` root URLs. A handful
+of unrelated legacy client-project folders also live at `public_html`
+root, untouched and excluded from that rewrite.
+
+Because of this, the production build must use root-relative asset paths:
+`next.config.mjs` defaults `basePath` to `''` when `NODE_ENV=production`
+(overridable via a `NEXT_BASE_PATH` env var). The build output location is
+controlled by `NEXT_DIST_DIR` (default: `~/Desktop/BUILD`, outside the
+repo) — on Windows, Turbopack refuses a `distDir` outside the project
+folder, so use e.g. `NEXT_DIST_DIR=build` (already gitignored) instead.
+
+A separate GitHub Pages preview (`.github/workflows/deploy.yml`) auto-
+deploys `main` on every push, with `NEXT_BASE_PATH=/GoSPL.Website` and
+`NEXT_DIST_DIR=out` — unrelated to and independent from the live
+`gospl.io` deployment described above.
+
+## Source of truth
+
+This repo is the sole source of truth for `player/`/`admin/`/`content/`/
+`tools/` — see `handover.md` for why (a separate `PLAY` repo held a
+drifted copy and should no longer be deployed from).
