@@ -453,7 +453,7 @@ re-trigger it).
   (`"Welcome"` / generic controls blurb) when the file is absent — a 404 here is the **normal**
   case (most tours don't have one) — see `content/rndr_xoiochalet_ext/splash.json` for a
   worked example.
-- **Style**: ported from the marketing site's own `globals.css` (`/BETA/app/globals.css` on the
+- **Style**: ported from the marketing site's own `globals.css` (`/SITE/app/globals.css` on the
   server) — `--font-sans: 'Inter', sans-serif` (Google Fonts, linked in `<head>`), the same dark
   scrim/pill-button visual language as that site's `.detail-splash`/`.detail-tour-btn`. Content
   is horizontally centered (own request superseded an earlier bottom-left layout copied more
