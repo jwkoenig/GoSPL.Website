@@ -80,11 +80,9 @@ export const PROJECTS = [
     lead: 'A baroque chapel preserved as a virtual twin — candle gold against cool vaulted shadow.',
     body: [
       'Jaeger-LeCoultre Master Hometime',
-      'Scanned utilising with a robotic arm and "optic snorkel",  The Jaeger-LeCoultre Master Hometime is a luxury wristwatch manufactured by the renowned Swiss watch brand Jaeger-LeCoultre. It belongs to the Master Collection, known for its elegant and timeless aesthetic.
-		The watch features an automatic mechanical movement developed by Jaeger-LeCoultre. It offers a power reserve of approximately 48 hours and is visible through a sapphire crystal case back, allowing a view of the precisely working inner workings.
-		A special feature of this watch is the home time function, which allows the wearer to display a second time zone. This is achieved by an additional hand on the dial.',
-		
-	
+      'Scanned utilising with a robotic arm and "optic snorkel", The Jaeger-LeCoultre Master Hometime is a luxury wristwatch manufactured by the renowned Swiss watch brand Jaeger-LeCoultre. It belongs to the Master Collection, known for its elegant and timeless aesthetic.',
+      'The watch features an automatic mechanical movement developed by Jaeger-LeCoultre. It offers a power reserve of approximately 48 hours and is visible through a sapphire crystal case back, allowing a view of the precisely working inner workings.',
+      'A special feature of this watch is the home time function, which allows the wearer to display a second time zone. This is achieved by an additional hand on the dial.',
     ],
   },
   {
