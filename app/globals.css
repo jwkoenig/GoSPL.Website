@@ -456,6 +456,12 @@ img { display: block; max-width: 100%; }
 }
 .detail-splash-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.6); max-width: 52ch; }
 .detail-splash-body p + p { margin-top: 12px; }
+.detail-splash-body a {
+  color: rgba(255,255,255,0.88); text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.4); text-underline-offset: 2px;
+  transition: color .2s;
+}
+.detail-splash-body a:hover { color: #fff; }
 .detail-splash-specs {
   display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px;
 }

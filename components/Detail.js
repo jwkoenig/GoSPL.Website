@@ -13,6 +13,24 @@ const SPECS = [
   { k: 'Capture', key: 'capture' },
 ]
 
+// Parses markdown-style [text](url) links inside project body copy into real anchors.
+const LINK_RE = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
+function renderBodyLinks(text) {
+  const parts = []
+  let last = 0
+  for (const m of text.matchAll(LINK_RE)) {
+    if (m.index > last) parts.push(text.slice(last, m.index))
+    parts.push(
+      <a key={m.index} href={m[2]} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+        {m[1]}
+      </a>
+    )
+    last = m.index + m[0].length
+  }
+  if (last < text.length) parts.push(text.slice(last))
+  return parts
+}
+
 export default function Detail({ project, originRect, onClose, onNav, hasPrev, hasNext }) {
   const [phase, setPhase] = useState('in') // 'in' -> 'open' -> 'closing'
   const [innerOn, setInnerOn] = useState(false)
@@ -160,7 +178,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
               <p className="detail-splash-lead">{project.lead}</p>
               <div className="detail-splash-body">
                 {project.body.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p key={i}>{renderBodyLinks(p)}</p>
                 ))}
               </div>
 
