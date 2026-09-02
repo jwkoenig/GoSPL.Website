@@ -10,7 +10,7 @@ export const PROJECTS = [
     splats: '6M',
     area: '60 (int) + thousands (ext) m²',
     capture: 'roughly 1050 images, days of Corona CPU rendering',
-    url: 'https://gospl.io/XOIO_WWL_INT/',
+    url: 'https://gospl.io/XOIO_WWL',
     img: `${BASE}/assets/projects/xoiowwl.jpg`,
     lead: 'An Original XOIO Design for the mountains, in full festive mood with tree and presents, cosy fire roasting in the oven and snowy mountains outdoors',
     body: [
@@ -26,7 +26,7 @@ export const PROJECTS = [
     splats: '2M',
     area: '160 m²',
     capture: '3 hr · 677 Photos',
-    url: 'https://gospl.io/KRAMERFIRE/',
+    url: 'https://gospl.io/tours/kramer/',
     img: `${BASE}/assets/projects/kramer.jpg`,
     lead: 'Mixology and Fine Dining cooked over open fire in Neukölln,',
     body: [
@@ -43,7 +43,7 @@ export const PROJECTS = [
     splats: '2M',
     area: '120 m²',
     capture: '2 hr · 11 sweeps',
-    url: 'https://gospl.io/NIK-MOTODEMO/',
+    url: 'https://gospl.io/tours/moto_zerofx',
     img: `${BASE}/assets/projects/moto.jpg`,
     lead: 'Filmstudio Hangar in Adlershof offering a lot of space and functionality for shoots of any type, from film production to automotive scans',
     body: [
@@ -75,7 +75,7 @@ export const PROJECTS = [
     splats: '2M',
     area: '0 m²',
     capture: '30mins (after a longer setup process)',
-    url: 'https://gospl.io/KRAMER_PC/',
+    url: 'https://gospl.io/tours/watch_jlc',
     img: `${BASE}/assets/projects/watch_jlc.jpg`,
     lead: 'A baroque chapel preserved as a virtual twin — candle gold against cool vaulted shadow.',
     body: [
