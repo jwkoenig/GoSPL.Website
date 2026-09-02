@@ -12,24 +12,30 @@ hotspot markers, not the stock SuperSplat toolbar/settings/branding.
 ## Layout
 
 ```
-player/            the public player (index.html, index.js, index.css) — update once, applies to all tours
-admin/             password-protected copy of player/ + a tour-authoring overlay (editor.js/editor.css)
-                    — see admin/README.md. index.js/index.css must stay byte-identical to player/'s
-                    (re-copy after every player/ change); index.html has its own small set of
-                    manually-mirrored additions on top of player/'s.
-content/
-  kramer/           one folder per tour, named by its slug
-    scene.sog          the gaussian-splat scene (not committed to git, see below)
-    settings.json      camera defaults, post-fx, annotations
-    tourSOG.json       tour/hotspot definitions (hotspots, infoSpots, optional collisionUrl/backgroundSphere/moveMode)
-    scene.voxel.json    voxel collision (optional) — or point tourSOG.json's collisionUrl at a
-    scene.voxel.bin      .glb instead for mesh collision (see handover.md §10.5); pick one, not both
-    splash.json          optional {"title","body"} for the welcome splash; falls back to generic copy
-    poster.jpg            optional poster image, matches ?poster=
-    logo.png               loading-screen + splash logo, matches ?logo= (this tour's is committed as kramer.png)
+SITE/                everything below lives inside this one folder on the live server (public_html/SITE/)
+  player/            the public player (index.html, index.js, index.css) — update once, applies to all tours
+  admin/             password-protected copy of player/ + a tour-authoring overlay (editor.js/editor.css)
+                      — see admin/README.md. index.js/index.css must stay byte-identical to player/'s
+                      (re-copy after every player/ change); index.html has its own small set of
+                      manually-mirrored additions on top of player/'s.
+  content/
+    kramer/           one folder per tour, named by its slug
+      scene.sog          the gaussian-splat scene (not committed to git, see below)
+      settings.json      camera defaults, post-fx, annotations
+      tourSOG.json       tour/hotspot definitions (hotspots, infoSpots, optional collisionUrl/backgroundSphere/moveMode)
+      scene.voxel.json    voxel collision (optional) — or point tourSOG.json's collisionUrl at a
+      scene.voxel.bin      .glb instead for mesh collision (see handover.md §10.5); pick one, not both
+      splash.json          optional {"title","body"} for the welcome splash; falls back to generic copy
+      poster.jpg            optional poster image, matches ?poster=
+      logo.png               loading-screen + splash logo, matches ?logo= (this tour's is committed as kramer.png)
 tools/devserver.py    local dev server that mirrors the .htaccess rewrite (clean /tours/<slug>/ URLs)
-.htaccess              Apache rewrite: /tours/<slug> -> player/index.html
 ```
+
+On the live server, `public_html/.htaccess` (not tracked in this repo — hand-maintained)
+does the HTTPS redirect, the `/tours/<slug>` → `SITE/player/...` clean-URL rewrite, and a
+blanket internal rewrite that forwards every other request into `SITE/` — so the whole
+site (this player system, the Next.js marketing site, and assorted other project folders)
+is served from `public_html/SITE/` while still appearing at `gospl.io/...` root URLs.
 
 `*.sog` files are large binary splat exports and are gitignored — drop them
 into each tour's `content/<slug>/` folder manually (or via whatever export

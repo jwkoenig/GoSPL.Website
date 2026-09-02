@@ -215,7 +215,7 @@ body.chrome-hidden #viewerBranding {
 /* introWrap — welcome splash shown once per session, after loadingWrap's fade.
    Styled after the GoSPL marketing site's own tour-detail splash
    (.detail-splash / .detail-splash-inner / .detail-tour-btn in that site's
-   globals.css, at /BETA/app/globals.css on the server) — same dark gradient
+   globals.css, at /SITE/app/globals.css on the server) — same dark gradient
    scrim and Inter type, but all content horizontally centered rather than
    that site's bottom-left layout. Gradient is centered to match (a
    left-fading scrim under centered copy would look like a leftover).

@@ -1,0 +1,97 @@
+{
+  "scene": "scene.sog",
+  "renderer": "playcanvas",
+  "moveSpeed": 20,
+  "hotspots": [
+    {
+      "id": "hsmthfgy8v5so",
+      "name": "START",
+      "x": -4.7823,
+      "y": 0.2809,
+      "z": 0.1295,
+      "hlookat": 3.1267,
+      "vlookat": -0.0471,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfh86hgu",
+      "name": "TREE",
+      "x": -4.8009,
+      "y": 0.2355,
+      "z": 1.2351,
+      "hlookat": 2.7994,
+      "vlookat": -0.147,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfi5o23qw",
+      "name": "TOPDOWN",
+      "x": -4.7128,
+      "y": 4.4286,
+      "z": 2.8078,
+      "hlookat": 0.008,
+      "vlookat": -1.3182,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfizkg746",
+      "name": "BED",
+      "x": -4.6436,
+      "y": 4.3422,
+      "z": 0.6318,
+      "hlookat": -0.0253,
+      "vlookat": -0.7797,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfjmhg2k1",
+      "name": "OUT BACK",
+      "x": -4.6929,
+      "y": 4.6235,
+      "z": -3.1884,
+      "hlookat": -0.0115,
+      "vlookat": -0.7303,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfkh4x1w0",
+      "name": "ENTRANCE",
+      "x": -5.7694,
+      "y": 1.5278,
+      "z": -3.0333,
+      "hlookat": 0.0034,
+      "vlookat": -0.1573,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfllz2648",
+      "name": "KITCHEN",
+      "x": -6.0372,
+      "y": 1.3413,
+      "z": -2.6415,
+      "hlookat": -1.588,
+      "vlookat": -0.0689,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfm205tm",
+      "name": "KITCHEN 2",
+      "x": -6.0766,
+      "y": 1.3413,
+      "z": -0.3516,
+      "hlookat": -1.588,
+      "vlookat": -0.0689,
+      "fov": 75
+    },
+    {
+      "id": "hsmthfn8k4211",
+      "name": "COUCH",
+      "x": -6.1987,
+      "y": 0.2668,
+      "z": 2.5124,
+      "hlookat": -0.6751,
+      "vlookat": -0.0379,
+      "fov": 75
+    }
+  ]
+}

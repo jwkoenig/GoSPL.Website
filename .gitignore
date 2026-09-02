@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Claude Code session-local state (PID/session lock, not project config)
 .claude/scheduled_tasks.lock
+
+# gaussian-splat scene exports — large binaries, dropped in manually per
+# content/<slug>/ (see README.md)
+*.sog

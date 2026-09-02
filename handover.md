@@ -21,6 +21,23 @@ from a downstream copy. It covers the two-scene "XOIO_WWL" chalet tour
 by real content, a per-tour welcome splash, and an icon-based hotspot that links two tours
 together. Read §10 first if you're picking this repo up after that session.
 
+## 0. This repo is now the single source of truth for player/admin/content
+
+A separate repo, `jwkoenig/PLAY`, held its own independently-maintained
+copy of `player/`, `admin/`, and `tools/devserver.py` (plus committed
+`content/kramer/` and `content/sample/`, which this repo never had). The
+two had drifted — `PLAY` was missing this repo's newer bugfixes (GLB
+collision, the clean `/tours/<slug>/` rewrite scheme replacing the older
+query-string one) while only `PLAY` had the actual tour `content/` data
+committed. Deploying from the wrong one silently reverted the other's
+changes on the live server.
+
+As of 2026-09-02, `content/kramer/` and `content/sample/` were copied over
+from `PLAY` into this repo (scene `.sog` files excluded per `.gitignore`,
+as before — drop those in manually). This repo is now the sole source of
+truth for the whole player/admin/content/tools system; `PLAY` should not
+be deployed from going forward.
+
 ## Running it locally
 
 Static site — any file server works, from inside the `PC4WEB` folder:
@@ -453,7 +470,7 @@ re-trigger it).
   (`"Welcome"` / generic controls blurb) when the file is absent — a 404 here is the **normal**
   case (most tours don't have one) — see `content/rndr_xoiochalet_ext/splash.json` for a
   worked example.
-- **Style**: ported from the marketing site's own `globals.css` (`/BETA/app/globals.css` on the
+- **Style**: ported from the marketing site's own `globals.css` (`/SITE/app/globals.css` on the
   server) — `--font-sans: 'Inter', sans-serif` (Google Fonts, linked in `<head>`), the same dark
   scrim/pill-button visual language as that site's `.detail-splash`/`.detail-tour-btn`. Content
   is horizontally centered (own request superseded an earlier bottom-left layout copied more

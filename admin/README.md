@@ -1,14 +1,16 @@
 # admin/ — password-protected PLAY mirror with tour editing
 
 `admin/` is a **copy of `player/`** with an authoring overlay added. It sits
-beside `player/` and `content/` in the same web root:
+beside `player/` and `content/`, all inside `SITE/` on the live server:
 
 ```
-docroot/
-  player/     PLAY — public, no auth
-  admin/      PLAY + editor — HTTP basic auth   <- this folder
-  content/    the tours (shared by both)
-  .htaccess   HTTPS redirect + /tours/<slug> clean URLs
+public_html/
+  SITE/
+    player/     PLAY — public, no auth
+    admin/      PLAY + editor — HTTP basic auth   <- this folder
+    content/    the tours (shared by both)
+  .htaccess     HTTPS redirect + /tours/<slug> clean URLs (into SITE/player/)
+                + blanket rewrite forwarding everything else into SITE/
 ```
 
 Same engine, same rendering, same physics — because it *is* the same engine.
