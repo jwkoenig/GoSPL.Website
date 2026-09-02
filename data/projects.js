@@ -36,7 +36,7 @@ export const PROJECTS = [
   },
   {
     id: 'hangar',
-    title: 'Automotive @Hangar, Adlershof',
+    title: 'E-Motorbike ZeroFX @Hangar, Adlershof',
     type: 'Commercial',
     place: 'Berlin Adlershof, DE',
     year: '2026',
