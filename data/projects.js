@@ -87,7 +87,7 @@ export const PROJECTS = [
   },
   {
     id: 'sofi',
-    title: 'Solar Eclipse Tempelhof',
+    title: 'Solar Eclipse Tempelhof - COMING SOON!',
     type: 'Commercial',
     place: 'Berlin, Germany',
     year: '2026',
