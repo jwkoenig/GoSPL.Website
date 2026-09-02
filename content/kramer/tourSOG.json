@@ -1,0 +1,167 @@
+{
+  "scene": "kramerSOG.sog",
+  "renderer": "playcanvas",
+  "moveMode": "walking",
+  "hotspots": [
+    {
+      "id": "hs1",
+      "name": "Entrance",
+      "x": -17.6094,
+      "y": 3.304,
+      "z": -7.992,
+      "hlookat": 4.8,
+      "vlookat": 0.04,
+      "fov": 75
+    },
+    {
+      "id": "hs2",
+      "name": "F's Clay Workshop",
+      "x": -11.2861,
+      "y": 3.804,
+      "z": -6.3125,
+      "hlookat": 6.84,
+      "vlookat": 0.04,
+      "fov": 71.4
+    },
+    {
+      "id": "hs3",
+      "name": "F's Clay Workshop Detail",
+      "x": -12.0937,
+      "y": 3.804,
+      "z": -10.7403,
+      "hlookat": 7.34,
+      "vlookat": -0.16,
+      "fov": 71.4
+    },
+    {
+      "id": "hs4",
+      "name": "Bar Entrance",
+      "x": -13.4039,
+      "y": 3.304,
+      "z": -7.5159,
+      "hlookat": 9.6,
+      "vlookat": -0.02,
+      "fov": 55.6
+    },
+    {
+      "id": "hs5",
+      "name": "Bar Corner",
+      "x": -13.4326,
+      "y": 3.304,
+      "z": 5.7393,
+      "hlookat": 11.12,
+      "vlookat": 0.04,
+      "fov": 55.6
+    },
+    {
+      "id": "hs6",
+      "name": "Chef's Table",
+      "x": 0.1513,
+      "y": 3.164,
+      "z": 5.9714,
+      "hlookat": 12.7,
+      "vlookat": 0.04,
+      "fov": 55.6
+    },
+    {
+      "id": "hs7",
+      "name": "Cocktail Bar",
+      "x": 11.5658,
+      "y": 3.304,
+      "z": 4.545,
+      "hlookat": 12.7,
+      "vlookat": -0.02,
+      "fov": 57.4
+    },
+    {
+      "id": "hs8",
+      "name": "Schroeders Grand Piano",
+      "x": 16.5113,
+      "y": 3.024,
+      "z": 4.2034,
+      "hlookat": 12.66,
+      "vlookat": -0.04,
+      "fov": 57.4
+    },
+    {
+      "id": "hs9",
+      "name": "All That Bar",
+      "x": 18.4964,
+      "y": 2.884,
+      "z": 2.1353,
+      "hlookat": 14.24,
+      "vlookat": -0.02,
+      "fov": 57.4
+    },
+    {
+      "id": "hs10",
+      "name": "Full Moon",
+      "x": 2.6878,
+      "y": 3.584,
+      "z": 1.8512,
+      "hlookat": 14.66,
+      "vlookat": -0.04,
+      "fov": 57.4
+    },
+    {
+      "id": "hs11",
+      "name": "Corner Table Date",
+      "x": -10.56,
+      "y": 3.024,
+      "z": 11.0505,
+      "hlookat": 12.66,
+      "vlookat": -0.04,
+      "fov": 57.4
+    },
+    {
+      "id": "hs12",
+      "name": "Caffeine n Spices",
+      "x": -12.7411,
+      "y": 3.236,
+      "z": -0.4175,
+      "hlookat": 11.72,
+      "vlookat": -0.02,
+      "fov": 57.4
+    },
+    {
+      "id": "hs13",
+      "name": "Hasta Pronto",
+      "x": -11.6534,
+      "y": 3.448,
+      "z": -8.9383,
+      "hlookat": 14.22,
+      "vlookat": 0.02,
+      "fov": 87.8
+    }
+  ],
+  "infoSpots": [
+    {
+      "id": "is1776419605197",
+      "name": "Wait here to be seated",
+      "x": -13.8683,
+      "y": 2.5679,
+      "z": -6.4521,
+      "type": "info",
+      "content": "blablablab"
+    },
+    {
+      "id": "is1776419681970",
+      "name": "Yes, you can buy these!",
+      "x": -13.9759,
+      "y": 1.8985,
+      "z": -11.5798,
+      "type": "info",
+      "content": "ask our staff, we are happy to help you if you are interested!"
+    },
+    {
+      "id": "is1776420624228",
+      "name": "MENU",
+      "x": -2.237,
+      "y": 1.4921,
+      "z": -0.8949,
+      "type": "link",
+      "content": "https://kramerberlin.com/media/pages/home/cbfa487a09-1775557812/main-menu-eng-1600x.png",
+      "description": "(english)"
+    }
+  ]
+}
