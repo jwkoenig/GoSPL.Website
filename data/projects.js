@@ -26,7 +26,7 @@ export const PROJECTS = [
     splats: '2M',
     area: '160 m²',
     capture: '3 hr · 677 Photos',
-    url: 'https://gospl.io/tours/kramer/',
+    url: 'https://gospl.io/tours/space_kramer/',
     img: `${BASE}/assets/projects/kramer.jpg`,
     lead: 'Mixology and Fine Dining cooked over open fire in Neukölln,',
     body: [
