@@ -34,6 +34,13 @@ npm run lint
   paragraphs support `[text](url)` markdown-style links, rendered as real
   links in `Detail.js`.
 - `public/assets/` — images copied as-is into the export.
+- `app/layout.js` — site-wide `<title>`/description metadata (currently
+  "GoSPL - Photoreal by Nature, Interactive by Choice").
+
+Recent content edits: removed the manual pause button from the hero
+slideshow (`components/Hero.js`, `app/globals.css` — hover-to-pause still
+works), updated the XOIO Mountain Chalet tour link, and flagged the Solar
+Eclipse Tempelhof project as "COMING SOON!" in its title.
 
 ## Tour player system
 
