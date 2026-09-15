@@ -14,6 +14,14 @@ links out to. Two mostly-independent parts share this one repo:
    implementation deep-dive (physics, hotspots, collision, debug mode, and
    more).
 
+## Documentation
+
+Full documentation — architecture, the design system and its
+responsive-behavior rules, component reference, content-editing guide,
+deployment process, and a registry of easy-to-accidentally-revert
+features — lives in [`docs/`](./docs/README.md). Start there for anything
+beyond a quick orientation.
+
 ## Marketing site
 
 Next.js 16 (App Router), React 19, Tailwind 4, exported as a fully static
