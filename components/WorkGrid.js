@@ -30,9 +30,9 @@ export default function WorkGrid({ onOpen }) {
         <div className="work-head">
           <h2>Selected work</h2>
           <p>
-            We create interactive digital twins to explore interactively online.
+            We create interactive scenes to explore interactively online.
             <br />
-            No App. No Pixelstreaming. No Plugin. No BS
+            Straight in your browser. No Installation, no bulky download, no waiting around.
           </p>
         </div>
 
