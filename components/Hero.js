@@ -46,7 +46,7 @@ export default function Hero() {
           ))}
         </h1>
         <p className="hero-sub">
-          We turn your spaces and products interactive online, mobile first. <br> We are
+          We turn your spaces and products interactive online, mobile first.  <br /> We are
           your partner for capture, authoring and delivery.
         </p>
         <a href="#work" className="hero-cta">
