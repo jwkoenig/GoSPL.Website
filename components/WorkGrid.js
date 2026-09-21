@@ -32,7 +32,7 @@ export default function WorkGrid({ onOpen }) {
           <p>
             We create interactive scenes to explore interactively online.
             <br />
-            Straight in your browser, no installation, no logn waiting times.
+            Straight in your browser without install.
           </p>
         </div>
 
