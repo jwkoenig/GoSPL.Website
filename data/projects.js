@@ -59,7 +59,7 @@ export const PROJECTS = [
     splats: '120Mio',
     area: '15 m²',
     capture: '3hrs - ~200Datasets turned into galery of 60',
-    url: 'https://gospl.io/BIRFDAY/',
+    url: 'https://gospl.io/gallery/birfday/',
     img: `${BASE}/assets/projects/birfday.jpg`,
     lead: 'A special photobooth for a special event',
     body: [
