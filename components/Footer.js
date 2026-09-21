@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="foot-cols">
           <div className="foot-col">
             <div className="h">Studio</div>
-            <p>Mobile first, <br />capturing worldwide <br />and in cyberspace</p>
+            <p>Based in Berlin, <br />capturing worldwide <br />and in cyberspace</p>
           </div>
           <div className="foot-col">
             <div className="h">Enquiries</div>
