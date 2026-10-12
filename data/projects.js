@@ -94,7 +94,7 @@ export const PROJECTS = [
     splats: '20M',
     area: '355 Ha',
     capture: '3hrs during solar eclipse',
-    url: 'https://gospl.io/SOLAR',
+    url: 'https://gospl.io/gallery/event_soleclipse_pub',
     img: `${BASE}/assets/projects/solareclipse.jpg`,
     lead: 'Historic stellar constellation watched by thousands of Berliners at the former airfield, captured and turned into a virtual tour by GoSPL...',
     body: [
