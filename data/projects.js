@@ -87,8 +87,8 @@ export const PROJECTS = [
   },
   {
     id: 'sofi',
-    title: 'Solar Eclipse Tempelhof - COMING SOON!',
-    type: 'Commercial',
+    title: 'Solar Eclipse Tempelhof',
+    type: 'Event',
     place: 'Berlin, Germany',
     year: '2026',
     splats: '20M',
@@ -98,7 +98,7 @@ export const PROJECTS = [
     img: `${BASE}/assets/projects/solareclipse.jpg`,
     lead: 'Historic stellar constellation watched by thousands of Berliners at the former airfield, captured and turned into a virtual tour by GoSPL...',
     body: [
-      'To be updated asap',
+      'Happy Berliners spectating a historic stellar moment together from the former airfield',
     ],
   },
 ]
