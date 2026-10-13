@@ -28,12 +28,8 @@ export default function WorkGrid({ onOpen }) {
     <section id="work" className="work-section">
       <div className="wrap">
         <div className="work-head">
-          <h2>Selected work</h2>
-          <p>
-            We create interactive scenes to explore interactively online.
-            <br />
-            Straight in your browser without install.
-          </p>
+          <h2>Experiments</h2>
+          <p>Six questions we couldn&apos;t stop asking.</p>
         </div>
 
         <div className="grid-work">

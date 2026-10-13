@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata = {
   title: 'GoSPL - Photoreal by Nature, Interactive by Choice',
-  description: 'Cinematic by design, interactive by choice. We create interactive digital twins to explore online.',
+  description: 'What if you could step inside the photo? GoSPL is a Berlin studio exploring photoreal 3D: spaces, objects and moments you can explore in any browser.',
 }
 
 export default function RootLayout({ children }) {

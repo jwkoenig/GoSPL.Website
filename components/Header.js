@@ -6,8 +6,8 @@ import { usePathname } from 'next/navigation'
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
 const LINKS = [
-  { href: '/#work', label: 'Work' },
-  { href: '/#about', label: 'About' },
+  { href: '/#work', label: 'Experiments' },
+  { href: '/#lab', label: 'Lab' },
   { href: '/contact/', label: 'Contact' },
 ]
 

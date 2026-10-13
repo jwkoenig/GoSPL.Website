@@ -1,18 +1,37 @@
 import ProcessSteps from './ProcessSteps'
 
+const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
+
 export default function AboutTeaser() {
   return (
-    <section id="about" className="about-section">
-      <div className="wrap">
-        <h2>About GoSPL</h2>
-        <p>
-          GoSPL is a viewer and authoring suite for Gaussian Splatting — a real-time, photoreal 3D
-          capture format. We photograph a space in available light or render the scene from a 3D
-          model, reconstruct it as a volumetric scene, and hand you a tour that runs in any browser.
-        </p>
+    <>
+      <section id="lab" className="about-section">
+        <div className="wrap">
+          <h2>The Lab</h2>
+          <p>
+            Splatting moves fast. We stay ahead by testing it on real spaces, objects and moments,
+            then turning what works into tools and spin-offs.
+          </p>
+          <p>
+            We don&apos;t show up with a package. We sit down, ask questions, and find out together
+            whether, where and how our tech can solve your problem. Some of those conversations have
+            become confidential prototypes with partners. Got a hard visual problem? Let&apos;s
+            explore it.
+          </p>
+          <a className="lab-cta" href={`${BASE}/contact/`}>
+            Explore with us
+            <img className="arrow" src={`${BASE}/assets/icon_arrow_r.png`} alt="" />
+          </a>
+        </div>
+      </section>
 
-        <ProcessSteps />
-      </div>
-    </section>
+      <section id="toolkit" className="about-section toolkit-section">
+        <div className="wrap">
+          <h2>Every project is different. Our toolkit isn&apos;t.</h2>
+          <p>We mix and match, depending on what you&apos;re showing, who it&apos;s for and how fast you need it.</p>
+          <ProcessSteps />
+        </div>
+      </section>
+    </>
   )
 }

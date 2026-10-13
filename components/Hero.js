@@ -5,7 +5,7 @@ import { PROJECTS } from '@/data/projects'
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 const SLIDES = PROJECTS.slice(0, 4)
-const TITLE = 'Step inside the space'
+const TITLE = 'What if you could step inside the photo?'
 
 export default function Hero() {
   const [active, setActive] = useState(0)
@@ -46,13 +46,19 @@ export default function Hero() {
           ))}
         </h1>
         <p className="hero-sub">
-          We turn your spaces and products interactive online, mobile first.  <br /> We are
-          your partner for capture, authoring and delivery.
+          GoSPL is a Berlin studio exploring the edge of photoreal 3D. We capture and render
+          spaces, objects and moments, and you explore them in your browser, on any phone or
+          desktop. Every project below started as a question. We&apos;d love to hear yours.
         </p>
-        <a href="#work" className="hero-cta">
-          Take a tour
-          <img className="arrow" src={`${BASE}/assets/icon_arrow_r.png`} alt="" />
-        </a>
+        <div className="hero-ctas">
+          <a href="#work" className="hero-cta">
+            See the experiments
+            <img className="arrow" src={`${BASE}/assets/icon_arrow_r.png`} alt="" />
+          </a>
+          <a href={`${BASE}/contact/`} className="hero-cta hero-cta-ghost">
+            Bring us a space
+          </a>
+        </div>
 
         <div className="hero-dots">
           {SLIDES.map((s, i) => (

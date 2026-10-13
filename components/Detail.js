@@ -11,6 +11,7 @@ const SPECS = [
   { k: 'Splats', key: 'splats' },
   { k: 'Area', key: 'area' },
   { k: 'Capture', key: 'capture' },
+  { k: 'Good for', key: 'goodFor' },
 ]
 
 // Parses markdown-style [text](url) links inside project body copy into real anchors.
@@ -175,6 +176,12 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
                 <span>·</span>
                 <span>{project.year}</span>
               </div>
+              {project.question && (
+                <div className="detail-splash-qa">
+                  <p className="q">{project.question}</p>
+                  <p className="a">→ {project.finding}</p>
+                </div>
+              )}
               <p className="detail-splash-lead">{project.lead}</p>
               <div className="detail-splash-body">
                 {project.body.map((p, i) => (

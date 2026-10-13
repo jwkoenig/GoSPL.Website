@@ -3,6 +3,9 @@ const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 export const PROJECTS = [
     {
     id: 'xoiowwl',
+    question: 'Can a 3D render feel like a real place?',
+    finding: 'Yes, and you can walk right through it.',
+    goodFor: 'Architects, developers, pre-sales',
     title: 'XOIO Mountain Chalet',
     type: 'Architecture',
     place: 'Somewhere in the Alps, Austria',
@@ -19,6 +22,9 @@ export const PROJECTS = [
   },
   {
     id: 'kramer',
+    question: "Can our scans preserve a room's atmosphere, not just its walls?",
+    finding: 'Captured in available light, mood intact.',
+    goodFor: 'Restaurants, hotels, venues',
     title: 'Restaurant Kramer - Light That Fire',
     type: 'Hospitality',
     place: 'Berlin-Neukölln, DE',
@@ -36,6 +42,9 @@ export const PROJECTS = [
   },
   {
     id: 'hangar',
+    question: 'Can a photoshoot result in more than nicely lit stills?',
+    finding: 'Full 360° orbit model included.',
+    goodFor: 'Product launches, retail',
     title: 'E-Motorbike ZeroFX @Hangar, Adlershof',
     type: 'Commercial',
     place: 'Berlin Adlershof, DE',
@@ -52,6 +61,9 @@ export const PROJECTS = [
   },
   {
     id: 'mdwschoener',
+    question: 'Can capture be fun (as in: instant and self-serve)?',
+    finding: 'It worked so well it became LAIKA.',
+    goodFor: 'Parties, brand events',
     title: 'Birthday Photobooth',
     type: 'Entertainment',
     place: 'Berlin, Germany',
@@ -68,6 +80,9 @@ export const PROJECTS = [
   },
   {
     id: 'watch',
+    question: 'How small and shiny can we go?',
+    finding: 'Very, like the palm of your hand without the smudges.',
+    goodFor: 'Luxury, product detail',
     title: 'JLC Master Hometime',
     type: 'Design',
     place: 'Berlin, Germany',
@@ -87,6 +102,9 @@ export const PROJECTS = [
   },
   {
     id: 'sofi',
+    question: 'Why snap a moment as a scene?',
+    finding: 'Stronger immersion and infinite viewpoints to print after.',
+    goodFor: 'Events, culture',
     title: 'Solar Eclipse Tempelhof',
     type: 'Event',
     place: 'Berlin, Germany',
