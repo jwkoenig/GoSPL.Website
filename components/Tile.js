@@ -13,8 +13,8 @@ const Tile = forwardRef(function Tile({ project, onOpen }, ref) {
       <img className="tile-img" src={project.img} alt={project.title} />
       <div className="tile-veil" />
       <div className="tile-info">
-        <div className="tile-type">{project.question}</div>
-        <div className="tile-title">{project.title}</div>
+        <div className="tile-type">{project.title}</div>
+        <div className="tile-title">{project.question}</div>
       </div>
     </button>
   )

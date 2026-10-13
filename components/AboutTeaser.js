@@ -27,8 +27,13 @@ export default function AboutTeaser() {
 
       <section id="toolkit" className="about-section toolkit-section">
         <div className="wrap">
-          <h2>Every project is different. Our toolkit isn&apos;t.</h2>
-          <p>We mix and match, depending on what you&apos;re showing, who it&apos;s for and how fast you need it.</p>
+          <h2>Every project is different. That&apos;s why we ask questions.</h2>
+          <p>
+            Let&apos;s sit down and have a conversation, explore if, where and how our skillset and
+            services can help you promote your product best. Proper research always pays off in
+            production down the line.
+          </p>
+          <p className="toolkit-intro">Our services include, but by no means end with:</p>
           <ProcessSteps />
         </div>
       </section>
