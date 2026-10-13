@@ -694,7 +694,7 @@ img { display: block; max-width: 100%; }
 .legal-contact:hover { color: var(--ink-2); }
 
 /* ---- Copy rework additions ---- */
-.hero-ctas { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-ctas { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 100%; }
 .hero-ctas .hero-cta { margin-top: 0; }
 .hero-cta-ghost { background: transparent; backdrop-filter: none; }
 .hero-cta-ghost:hover { background: rgba(255,255,255,0.14); }
