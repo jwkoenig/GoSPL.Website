@@ -56,7 +56,7 @@ workstation (labels `self-hosted, windows, gospl-gpu`):
 | Workflow | Runs |
 |---|---|
 | `deploy-beta.yml` | `deploy.ps1 beta -Pull` (inputs: `dry_run`, `full`) → `beta.gospl.io` |
-| `promote-live.yml` | `deploy.ps1 live -Yes` (input: `dry_run`) → `gospl.io`, after approval on that repo's `production` environment |
+| `promote-live.yml` | `deploy.ps1 live -Yes` (inputs: `confirm` = `live`, `dry_run`) → `gospl.io` |
 
 The workflows aren't in this repo on purpose. This repo is public, and a
 self-hosted runner on a public repo can be reached by fork pull requests.
@@ -64,7 +64,11 @@ This runner holds the SFTP password and git logins. **Don't add workflows
 that target the workstation runner here.**
 
 Start either workflow from GOSPL.DEPLOY's Actions tab, or ask Claude,
-which starts it with the GitHub tools and reads the job log. Watch the
+which starts it with the GitHub tools and reads the job log. This setup
+works on GitHub Free, which has no approval gate in private repos. Going
+live needs `live` typed into the `confirm` field, and Claude only starts
+it when told to in chat. `deploy.ps1` itself still refuses anything beta
+didn't get first. Watch the
 log for the script's warning about the hashed CSS chunk
 `06k1jxr0bcst_.css`. If it shows, the `gospl-ui.css` alias in the root
 `.htaccess` needs updating on beta and live. Runner setup is in
