@@ -100,7 +100,18 @@ supported anywhere in the site's content; see `data/projects.js`'s
 which maps `data/process.js` into the four numbered `.pstep` columns.
 It also carries the "interactive online, mobile first… capture, authoring
 and delivery" paragraph that used to be the hero subtitle (moved in PR #9;
-the hero now reads "We consult, conceptualise and create.").
+the hero now reads "We consult, conceptualise and create."). The third
+paragraph links to the sister studio Laika. The order is: offering copy →
+`Founders` → `Locations` → `ProcessSteps`.
+
+## `Founders.js` / `Locations.js`
+
+Both read `data/team.js` (see CONTENT-GUIDE). `Founders` is a client
+component. A `matchMedia('(min-width: 821px)')` hook switches between a
+live splat `<iframe>` (desktop, lazy-mounted through IntersectionObserver
+so the page load doesn't start two WebGL contexts) and a still `<img>`
+linking to the splat (mobile, with an initials fallback). `Locations` is
+static and has the same column/border treatment as `.process`.
 
 ## `CtaBand.js`
 

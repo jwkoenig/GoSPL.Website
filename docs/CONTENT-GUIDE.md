@@ -77,6 +77,19 @@ step changes the grid's column count in CSS too (`.process` is
 `components/ProcessSteps.js` / `DESIGN-SYSTEM.md`'s breakpoint table if
 you change the count away from 4.
 
+## Founders & locations (`data/team.js`)
+
+`FOUNDERS` entries are `{ id, name, splat, img }`. `splat` is a PLAY tour
+URL (`https://gospl.io/tours/team_<name>/`, content in
+`content/team_<name>/`) that is embedded live as an iframe on desktop
+(≥821px, mounted only once the card scrolls near the viewport). `img` is a
+still of the same framing (`public/assets/team/<id>.jpg`, portrait 4:5),
+shown on mobile as a link to `splat`. If the still is missing, the card
+shows the person's initials.
+
+`LOCATIONS` entries are `{ id, label, name, place, url, body }` and are
+rendered as the "Where to find us" columns.
+
 ## Legal / static pages
 
 `app/imprint/`, `app/impressum/`, `app/privacy-policy/`,
