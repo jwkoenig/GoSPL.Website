@@ -1,7 +1,7 @@
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
 export const metadata = {
-  title: 'Barrierefreiheit — GoSPL',
+  title: 'Barrierefreiheit - GoSPL',
 }
 
 export default function BarrierefreiheitPage() {

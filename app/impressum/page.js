@@ -1,7 +1,7 @@
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
 export const metadata = {
-  title: 'Impressum — GoSPL',
+  title: 'Impressum - GoSPL',
 }
 
 export default function ImpressumPage() {

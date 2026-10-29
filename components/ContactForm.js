@@ -26,7 +26,7 @@ export default function ContactForm() {
     if (form.botcheck.checked) return // honeypot tripped, silently ignore
 
     if (captchaInput.trim() !== captcha.answer) {
-      setErrorMsg('That answer isn’t quite right — please try again.')
+      setErrorMsg('That answer isn’t quite right - please try again.')
       setCaptcha(makeCaptcha())
       setCaptchaInput('')
       return
@@ -58,12 +58,12 @@ export default function ContactForm() {
       }
     } catch (err) {
       setStatus('error')
-      setErrorMsg('Something went wrong — please email us directly at studio@gospl.io.')
+      setErrorMsg('Something went wrong - please email us directly at studio@gospl.io.')
     }
   }
 
   if (status === 'success') {
-    return <p className="form-success">Thanks — your message is on its way. We’ll get back to you soon.</p>
+    return <p className="form-success">Thanks - your message is on its way. We’ll get back to you soon.</p>
   }
 
   return (

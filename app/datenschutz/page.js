@@ -1,7 +1,7 @@
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
 export const metadata = {
-  title: 'Datenschutz — GoSPL',
+  title: 'Datenschutz - GoSPL',
 }
 
 export default function DatenschutzPage() {

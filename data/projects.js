@@ -77,7 +77,7 @@ export const PROJECTS = [
     capture: '30mins (after a longer setup process)',
     url: 'https://gospl.io/tours/watch_jlc',
     img: `${BASE}/assets/projects/watch_jlc.jpg`,
-    lead: 'A baroque chapel preserved as a virtual twin — candle gold against cool vaulted shadow.',
+    lead: 'A baroque chapel preserved as a virtual twin - candle gold against cool vaulted shadow.',
     body: [
       'Jaeger-LeCoultre Master Hometime',
       'Scanned utilising with a robotic arm and "optic snorkel" ([video](https://youtu.be/zmA3dLPjBMQ?si=M8a1AGHley_vjFu0)), The Jaeger-LeCoultre Master Hometime is a luxury wristwatch manufactured by the renowned Swiss watch brand Jaeger-LeCoultre. It belongs to the Master Collection, known for its elegant and timeless aesthetic.',

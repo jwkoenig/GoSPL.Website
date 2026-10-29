@@ -17,6 +17,6 @@ export const PROCESS = [
   {
     num: '04',
     title: 'Deliver',
-    body: 'Export tour.json + scene — self-hosted, opens as a link in any browser.',
+    body: 'Export tour.json + scene - self-hosted, opens as a link in any browser.',
   },
 ]

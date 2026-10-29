@@ -61515,7 +61515,7 @@ class GSplatShadowRenderer {
 	// The cull/args shaders are shared, but each light entry gets its OWN Compute instances
 	// (created in _createEntry). A Compute owns a persistent uniform buffer, so a single shared
 	// Compute dispatched once per light per frame would have all dispatches read the last-written
-	// uniforms (frustum planes / draw slot) — making all but one light's shadow draw empty.
+	// uniforms (frustum planes / draw slot) - making all but one light's shadow draw empty.
 	_cullShader = null;
 	_cullBindGroupFormat = null;
 	_cullFormatVersion = -1;
@@ -79469,19 +79469,19 @@ class MeshCollision {
                 asset.unload();
             };
             asset.on('load', () => {
-                // Instantiated but never parented into the scene — used only
+                // Instantiated but never parented into the scene - used only
                 // to read each mesh's real node transform (translation/
                 // rotation/scale within the GLB's own scene graph), via
                 // getWorldTransform() composed purely within this detached
                 // tree. That's safe here (unlike parenting an entity into
-                // the live scene to read its transform — see the
+                // the live scene to read its transform - see the
                 // background-sphere note in handover.md §10.1) because
                 // nothing outside this GLB's own hierarchy is involved.
                 //
                 // The previous version read raw vertex-buffer positions
                 // directly with no transform applied at all, which only
                 // produced correct geometry when a GLB's node happened to be
-                // an identity transform — any authored translation/rotation/
+                // an identity transform - any authored translation/rotation/
                 // scale (i.e. any real collision GLB) put the geometry
                 // nowhere near the visible splat.
                 const root = asset.resource.instantiateRenderEntity();
@@ -79490,7 +79490,7 @@ class MeshCollision {
                 let vertexOffset = 0;
                 let sawMesh = false;
                 // Local (GLB authoring frame) -> world: same 180°-about-Y
-                // conversion tour hotspots/backgroundSphere use (§10.1) —
+                // conversion tour hotspots/backgroundSphere use (§10.1) -
                 // this GLB is authored in that same local frame.
                 const flip = new Quat().setFromEulerAngles(0, 180, 0);
                 const tmpVec = new Vec3();
@@ -79796,7 +79796,7 @@ class VoxelCollision {
         return false;
     }
     isFreeAt(x, y, z) {
-        // Without voxel data, there's no carve to consult — report not-free
+        // Without voxel data, there's no carve to consult - report not-free
         // rather than have the lattice search treat the world as wide open.
         if (this._nodes.length === 0) {
             return false;
@@ -79805,7 +79805,7 @@ class VoxelCollision {
         const ix = Math.floor((x - this._gridMinX) / res);
         const iy = Math.floor((y - this._gridMinY) / res);
         const iz = Math.floor((z - this._gridMinZ) / res);
-        // Outside the carved grid is "no data" — also not-free. Without this
+        // Outside the carved grid is "no data" - also not-free. Without this
         // check the lattice search would spend candidates on out-of-bounds
         // cells (and `isVoxelSolid` would mislead callers by returning false).
         if (ix < 0 || iy < 0 || iz < 0 ||
@@ -81444,7 +81444,7 @@ const initAnnotationNav = (dom, events, state, annotations) => {
     const updateDisplay = () => {
         dom.annotationNavTitle.textContent = annotations[currentIndex].title || '';
     };
-    // Hidden in normal use (for now) — infoSpot content is read at the
+    // Hidden in normal use (for now) - infoSpot content is read at the
     // marker itself (the tooltip), not via a prev/next browser. Only shown
     // in debug mode (?debug or Ctrl+Shift+U) as an authoring/QA aid.
     const updateMode = () => {
@@ -81504,7 +81504,7 @@ const initTourNav = (dom, events, state, hotspots) => {
     const updateDisplay = () => {
         dom.tourNavTitle.textContent = hotspots[currentIndex].name || '';
     };
-    // Always visible once loaded — unlike the auto-hiding controlsWrap/annotationNav,
+    // Always visible once loaded - unlike the auto-hiding controlsWrap/annotationNav,
     // the tour navigator is a persistent wayfinding aid, not ephemeral chrome, so it
     // is intentionally NOT wired to controlsHidden's inactivity auto-fade.
     const updateMode = () => {
@@ -81651,11 +81651,11 @@ const initUI = (global) => {
         setTimeout(() => dom.loadingWrap.classList.add('leaving'), 150);
         setTimeout(() => dom.loadingWrap.classList.add('hidden'), 1100);
     });
-    // Welcome splash — shown once per browser session (not per-tour: using
+    // Welcome splash - shown once per browser session (not per-tour: using
     // the interior/exterior scene-link hotspot is a full page reload and
     // shouldn't re-trigger it), timed to appear as loadingWrap above finishes
     // fading out. Copy comes from the tour's own splash.json (title/body)
-    // when present, falling back to generic copy otherwise — most tours
+    // when present, falling back to generic copy otherwise - most tours
     // don't have one, so a missing/404ing splash.json is the normal case,
     // not an error (see main()'s splashPromise).
     if (!sessionStorage.getItem('gospl.introSeen')) {
@@ -81677,7 +81677,7 @@ const initUI = (global) => {
             setTimeout(() => {
                 dom.introWrap.classList.remove('hidden');
                 requestAnimationFrame(() => dom.introWrap.classList.add('visible'));
-                // Registered here, not at initUI() time — a keydown listener
+                // Registered here, not at initUI() time - a keydown listener
                 // added earlier would catch any keypress during loading (e.g.
                 // someone tapping WASD while impatient) and dismiss the splash
                 // before it was ever shown, permanently marking it "seen".
@@ -81771,7 +81771,7 @@ const initUI = (global) => {
     // When a session can't start on the current (WebGPU) device but would work on
     // WebGL, prompt the user to reload the viewer with the WebGL renderer before
     // starting AR/VR. Use replace() so the renderer-switch reload doesn't add a
-    // back-button entry — important because the viewer often runs inside an
+    // back-button entry - important because the viewer often runs inside an
     // iframe (e.g. superspl.at /scene).
     const reloadWithWebgl = () => {
         const reloadUrl = new URL(location.href);
@@ -82054,7 +82054,7 @@ const initUI = (global) => {
     // Initialize tour navigator
     initTourNav(dom, events, state, global.tour?.hotspots);
     // Debug mode: Ctrl+Shift+U (or ?debug) forces the full stock SuperSplat UI
-    // visible — overrides the chrome-hidden default below, and bypasses the
+    // visible - overrides the chrome-hidden default below, and bypasses the
     // gaming-controls auto-hide, since otherwise there'd be no way back to
     // Settings to turn gaming controls off again once it's on (see
     // isPointerCapturedMode/hideUI above).
@@ -82079,7 +82079,7 @@ const initUI = (global) => {
         state.debugUi = true;
     }
     // Hide the stock SuperSplat chrome (toolbar, buttons, settings/help
-    // panels, joystick, branding) by default, on every device — this
+    // panels, joystick, branding) by default, on every device - this
     // project's own tour navigation, info markers, and tooltips are
     // unaffected (they live outside this class's selector list). Debug mode
     // remains the one escape hatch.
@@ -82107,7 +82107,7 @@ const initUI = (global) => {
             return window.location.hostname !== window.parent.location.hostname;
         }
         catch (e) {
-            // cross-origin iframe — parent location is inaccessible
+            // cross-origin iframe - parent location is inaccessible
             return true;
         }
     };
@@ -82151,7 +82151,7 @@ const vec$1 = new Vec3();
 class Annotation extends Script {
     static scriptName = 'annotation';
     static hotspotSize = 25;
-    // 4x the default marker size — type 'scene' icons (ski/hut) are meant to
+    // 4x the default marker size - type 'scene' icons (ski/hut) are meant to
     // read as a wayfinding sign, not a small numbered dot.
     static iconHotspotSize = 100;
     static hotspotColor = new Color(0.8, 0.8, 0.8);
@@ -82159,7 +82159,7 @@ class Annotation extends Script {
     static parentDom = null;
     // Preloaded icon images for type 'scene' markers, keyed by resolved URL
     // (populated by Annotations' constructor from global.iconCache before
-    // any Annotation.initialize() runs — see main()'s icon preload).
+    // any Annotation.initialize() runs - see main()'s icon preload).
     static iconCache = null;
     static styleSheet = null;
     static camera = null;
@@ -82186,7 +82186,7 @@ class Annotation extends Script {
     text;
     /**
      * InfoSpot kind ('info' | 'link' | undefined for plain settings.json
-     * annotations). Only 'link' changes rendering — see showTooltip().
+     * annotations). Only 'link' changes rendering - see showTooltip().
      * @attribute
      */
     type;
@@ -82203,7 +82203,7 @@ class Annotation extends Script {
     /**
      * For type 'scene': resolved URL of the icon image drawn on the marker
      * instead of the usual text-label circle. Looked up in
-     * Annotation.iconCache (populated before Annotations is constructed —
+     * Annotation.iconCache (populated before Annotations is constructed -
      * see main()'s icon preload) rather than loaded here, since the marker
      * texture is built synchronously in initialize().
      * @attribute
@@ -82438,7 +82438,7 @@ class Annotation extends Script {
     /**
      * Creates a hotspot texture from a preloaded icon image (type 'scene'
      * markers) instead of a drawn text label. The source PNGs are already
-     * transparent, so — unlike _createHotspotTexture — no circular backdrop
+     * transparent, so - unlike _createHotspotTexture - no circular backdrop
      * is drawn and no edge-pixel whitening is applied (that trick is for
      * anti-aliased text against transparent background; doing it here would
      * put a white fringe around the icon's own colors).
@@ -82507,7 +82507,7 @@ class Annotation extends Script {
     initialize() {
         // Ensure static resources are initialized
         Annotation._initializeStatic(this.app);
-        // Create texture — an icon image for 'scene' markers (falls back to
+        // Create texture - an icon image for 'scene' markers (falls back to
         // the usual text-label circle if the icon failed to preload), the
         // text-label circle for everything else.
         const iconImage = this.type === 'scene' ? Annotation.iconCache?.get(this.icon) : null;
@@ -82550,10 +82550,10 @@ class Annotation extends Script {
         this.hotspotDom.addEventListener('click', (e) => {
             e.stopPropagation();
             // 'scene' markers link to a sibling tour (e.g. exterior <->
-            // interior) — navigate directly rather than showing a tooltip.
+            // interior) - navigate directly rather than showing a tooltip.
             if (this.type === 'scene' && this.target) {
                 // Carry over the current query params (?debug, ?noui, etc.)
-                // onto the target — this is a full page navigation, not an
+                // onto the target - this is a full page navigation, not an
                 // in-app swap, so without this a debug-mode session silently
                 // drops back to the production chromeless (?noui) default
                 // on the other side.
@@ -82792,7 +82792,7 @@ class Annotations {
         this.annotations = global.settings.annotations;
         this.parentDom = parentDom;
         // InfoSpot markers are persistent content, not player chrome or a
-        // gaming-controls HUD — they're always shown at the container level.
+        // gaming-controls HUD - they're always shown at the container level.
         // Per-marker visibility (occluded/dimmed behind splats, hidden when
         // behind the camera) is still handled individually by each
         // Annotation's own _update()/_hideElements(), unaffected by this.
@@ -82980,7 +82980,7 @@ const damp = (damping, dt) => 1 - Math.pow(damping, dt * 1000);
  */
 const easeOut = (x) => (1 - (2 ** (-10 * x))) / (1 - (2 ** -10));
 /**
- * Steeper variant of easeOut, used only for tour hotspot transitions — the
+ * Steeper variant of easeOut, used only for tour hotspot transitions - the
  * exponent's steepness constant is doubled (10 -> 20), so the curve reaches
  * "essentially arrived" in about half the relative time easeOut does. Used
  * so a longer hotspot-to-hotspot duration doesn't read as a long dead
@@ -83642,13 +83642,13 @@ const SEARCH_RADIUS = 5;
 const SEARCH_RADIUS_SQ = SEARCH_RADIUS * SEARCH_RADIUS;
 /** Ray budget when probing for ground/ceiling under or above a candidate column. */
 const RAY_MAX_DIST = 1000;
-// Scratch values reused across calls — these helpers run only at spawn time
+// Scratch values reused across calls - these helpers run only at spawn time
 // so the lack of re-entrancy is fine.
 const scratchPush = { x: 0, y: 0, z: 0 };
 /**
  * Find the closest sphere placement to (ox, oy, oz) where a sphere of `radius`
  * fits clear of geometry. Output is the sphere centre. Used for fly-camera
- * spawn — fly cameras have no ground constraint.
+ * spawn - fly cameras have no ground constraint.
  *
  * Lattice search across voxel-spaced offsets from the origin (step =
  * `collision.voxelResolution`), ordered by Chebyshev shell with Euclidean
@@ -83707,7 +83707,7 @@ const findSphereSpawn = (collision, ox, oy, oz, radius, out) => {
  * The algorithm:
  *
  * 1. Lattice search for the closest free voxel `C` (per `isFreeAt`) that has
- *    geometry somewhere below — i.e. a downward ray from `C` hits.
+ *    geometry somewhere below - i.e. a downward ray from `C` hits.
  * 2. At `(C.x, C.z)`, fan rays up and down from `C.y` through every cell
  *    (step = `collision.voxelResolution`) within the xz footprint disc.
  *    Compute, across columns:
@@ -83759,7 +83759,7 @@ const findCylinderSpawn = (collision, ox, oy, oz, halfHeight, radius, out) => {
                     const cx = ox + dx * step;
                     const cy = oy + dy * step;
                     const cz = oz + dz * step;
-                    // Stage 1: cheap filter — only consider free voxels.
+                    // Stage 1: cheap filter - only consider free voxels.
                     // The footprint loop below will reject candidates whose
                     // center column has no ground support, so no separate
                     // down-ray probe is needed here.
@@ -84193,7 +84193,7 @@ class WalkController {
     /**
      * Movement speed in m/s when grounded. Governs both WASD (via
      * KeyboardMouseDevice's move deltas) and double-click/tap-to-walk (via
-     * WalkSource) — both funnel through this same _step() multiplication, so
+     * WalkSource) - both funnel through this same _step() multiplication, so
      * scaling this one constant scales both consistently. 7 * 1.5 = 10.5.
      */
     moveGroundSpeed = 10.5;
@@ -84232,7 +84232,7 @@ class WalkController {
      */
     groundProbeRange = 1.0;
     /**
-     * Tour hotspots (with worldPosition already computed) — when set, eye
+     * Tour hotspots (with worldPosition already computed) - when set, eye
      * height auto-tracks the nearest one's authored Y as the camera moves in
      * X/Z, so different rooms/levels get their own correct height. Cleared
      * by manual Q/E override until the next hotspot teleport (see goto()).
@@ -84244,7 +84244,7 @@ class WalkController {
     verticalSpeed = 1.5;
     /**
      * How quickly eye height glides toward the nearest hotspot's Y
-     * (0 = never moves, 1 = instant snap) — a plain exponential glide, not a
+     * (0 = never moves, 1 = instant snap) - a plain exponential glide, not a
      * spring, so it can't overshoot/bounce.
      */
     heightTrackRate = 0.85;
@@ -84261,7 +84261,7 @@ class WalkController {
     _grounded = false;
     _jumping = false;
     _jumpHeld = false;
-    /** True once the user manually adjusts height via Q/E — suppresses
+    /** True once the user manually adjusts height via Q/E - suppresses
      *  nearest-hotspot auto-tracking until the next goto() (hotspot teleport). */
     _yOverride = false;
     onEnter(camera) {
@@ -84320,7 +84320,7 @@ class WalkController {
         camera.fov = this.fov;
     }
     _step(dt, move) {
-        // Gravity/ground-follow disabled for this tour — eye height only changes
+        // Gravity/ground-follow disabled for this tour - eye height only changes
         // via manual Q/E override or by gliding toward the nearest hotspot's
         // authored height; horizontal (X/Z) movement is separate, below.
         // No jumping, no falling, no spring-to-floor bob.
@@ -84354,7 +84354,7 @@ class WalkController {
         this._velocity.z = math.lerp(this._velocity.z, 0, alpha);
         this._position.add(v.copy(this._velocity).mulScalar(dt));
         // capsule collision: walls (vertical push-out here is just anti-clipping
-        // safety, not ground-following — velocity.y is always 0 now)
+        // safety, not ground-following - velocity.y is always 0 now)
         this._checkCollision(this._position, d);
     }
     onExit(_camera) {
@@ -84369,7 +84369,7 @@ class WalkController {
         // position
         this._position.copy(camera.position);
         this._prevPosition.copy(this._position);
-        // any hotspot teleport is authoritative on height — resume
+        // any hotspot teleport is authoritative on height - resume
         // nearest-hotspot auto-tracking until the user overrides again
         this._yOverride = false;
         // angles (clamp pitch to avoid gimbal lock)
@@ -84585,7 +84585,7 @@ class WalkSource {
 const tmpCamera = new Camera();
 const tmpv = new Vec3();
 // Walk mode is only enabled when the scene's horizontal footprint is large
-// enough to walk around in. Vertical extent (Y) is irrelevant — a tall but
+// enough to walk around in. Vertical extent (Y) is irrelevant - a tall but
 // narrow scene isn't walkable. Both X and Z ranges must exceed this
 // minimum (in metres); below it walk mode is hidden and the viewer falls
 // back to fly as the default first-person mode.
@@ -84624,12 +84624,12 @@ class CameraManager {
         // Optional per-tour override of which mode the scene starts/settles
         // in. Falls back to null (auto-detect below) when the tour has no
         // moveMode field, or asks for walking on a scene that can't support
-        // it (mirrors the toggleWalk gate further down) — so existing tours,
+        // it (mirrors the toggleWalk gate further down) - so existing tours,
         // and tours whose collision didn't load, are unaffected.
         const modeFromTour = { flying: 'fly', walking: 'walk', orbit: 'orbit' }[global.tour?.moveMode] ?? null;
         const tourMode = (modeFromTour === 'walk' && !walkAllowed) ? null : modeFromTour;
         // Tour hotspots teleport within whichever first-person mode is available
-        // for this scene, rather than switching out to orbit — unless the tour
+        // for this scene, rather than switching out to orbit - unless the tour
         // explicitly asked for a mode via moveMode.
         const hotspotMode = tourMode ?? (walkAllowed ? 'walk' : 'fly');
         const camera0 = settings.cameras[0]?.initial;
@@ -84675,7 +84675,7 @@ class CameraManager {
             controllers.walk.moveGroundSpeed = global.tour.moveSpeed;
         }
         // Exposed so the admin editor can preview moveSpeed changes live via
-        // __playAdmin.setMoveSpeed — the tour's value above is read once at
+        // __playAdmin.setMoveSpeed - the tour's value above is read once at
         // construction, so without this a slider change needs a full reload.
         this.controllers = controllers;
         const walkSource = new WalkSource();
@@ -84698,7 +84698,7 @@ class CameraManager {
         this.camera.copy(resetCamera);
         // If a tour is loaded, start at its first hotspot in walk mode (or fly,
         // if walking isn't available for this scene) instead of the
-        // settings.json default camera / built-in auto-pan animation — this
+        // settings.json default camera / built-in auto-pan animation - this
         // scene always has an animTrack (the figure-8 fallback createAnimTrack
         // falls back to when settings.json has none), so state.hasAnimation is
         // unconditionally true here and would otherwise always win below.
@@ -84882,16 +84882,16 @@ class CameraManager {
         });
         // fly the camera to a tour hotspot. Prefers the world-space position/angles
         // precomputed in the Viewer (see "Convert tour hotspots" in the load-complete
-        // callback) — falls back to raw local values if that hasn't run yet for some
+        // callback) - falls back to raw local values if that hasn't run yet for some
         // reason. Runs at 1/3 of the normal transition speed (~3s instead of ~1s),
         // with a steeper easeOutTour curve so that extra duration reads as a
-        // slower approach rather than a longer dead "settling tail" — hotspot
+        // slower approach rather than a longer dead "settling tail" - hotspot
         // jumps cover much more ground than frame/reset/pick, so they get their
         // own speed/curve via startTransition's optional arguments; every other
         // transition keeps the default speed/curve untouched.
         events.on('hotspot.goto', (hotspot) => {
             events.fire('orbitTarget:clear');
-            // stay in (or switch to) walk mode rather than dropping to orbit —
+            // stay in (or switch to) walk mode rather than dropping to orbit -
             // this scene is a walkthrough, hotspots are waypoints within it
             state.cameraMode = hotspotMode;
             const radToDeg = 180 / Math.PI;
@@ -84925,7 +84925,7 @@ class CameraManager {
 }
 
 // Box-average downsample of a supersampled render. Each output texel averages the
-// `uRatio` x `uRatio` block of source texels it covers — true NxN supersampling, which
+// `uRatio` x `uRatio` block of source texels it covers - true NxN supersampling, which
 // keeps thin high-frequency features (splat strings, edges) smooth, unlike a
 // bilinear/compositor downscale which aliases them. `uFlipY` flips vertically because
 // render targets and readback disagree on row order.
@@ -84958,7 +84958,7 @@ void main(void) {
 }
 `;
 // WGSL twin of the box downsample (WebGPU can't compile GLSL, so a custom fullscreen
-// shader must supply WGSL too — the built-in fullscreenQuadVS chunk covers the vertex).
+// shader must supply WGSL too - the built-in fullscreenQuadVS chunk covers the vertex).
 const boxDownsampleWGSL = /* wgsl */ `
 varying vUv0: vec2f;
 var source: texture_2d<f32>;
@@ -85018,10 +85018,10 @@ class Capture {
     }
     makeRT(name, width, height, depth) {
         // Plain RGBA8 (RGBA channel order, non-sRGB) so the box shader samples raw bytes
-        // and the readback returns raw RGBA — no channel swap (WebGPU backbuffers are
+        // and the readback returns raw RGBA - no channel swap (WebGPU backbuffers are
         // often BGRA) and no sRGB decode/encode surprises; we average in the same gamma
         // space sharp did. We only mirror the backbuffer's sRGB *flag* (which the viewer
-        // sets true only when post effects are active) — that drives the gamma the render
+        // sets true only when post effects are active) - that drives the gamma the render
         // pipeline writes with, so our target receives identical bytes to the screen.
         const dev = this.device;
         const srgb = dev.backBuffer?.isColorBufferSrgb?.(0) ?? false;
@@ -85053,7 +85053,7 @@ class Capture {
     }
     // Point the camera at `renderTarget` and re-target CameraFrame's compose pass. Post
     // effects bind their output inside setupRenderPasses, which only re-runs on a reset,
-    // so a plain renderTarget change doesn't take effect — force a reset via layersDirty,
+    // so a plain renderTarget change doesn't take effect - force a reset via layersDirty,
     // otherwise the composited frame keeps going to the old target (reads back black).
     setCameraTarget(renderTarget) {
         this.camera.renderTarget = renderTarget;
@@ -85252,7 +85252,7 @@ class DebugPanel {
     _visible = false;
     _onPrerender = () => this._render();
     _onKeyDown = (event) => {
-        // Ctrl+Shift+D — also accept Meta+Shift+D on macOS for parity
+        // Ctrl+Shift+D - also accept Meta+Shift+D on macOS for parity
         if (event.code === 'KeyD' && event.shiftKey && (event.ctrlKey || event.metaKey)) {
             event.preventDefault();
             this.toggle();
@@ -85315,8 +85315,8 @@ class DebugPanel {
         const root = document.createElement('div');
         root.id = PANEL_ID;
         root.innerHTML = `
-            <div class="row"><span class="label">camera</span><span class="value" data-id="position" contenteditable="plaintext-only" spellcheck="false" title="Edit to set camera position">—</span></div>
-            <div class="row"><span class="label">focus</span><span class="value" data-id="focus" contenteditable="plaintext-only" spellcheck="false" title="Edit to look at this point">—</span></div>
+            <div class="row"><span class="label">camera</span><span class="value" data-id="position" contenteditable="plaintext-only" spellcheck="false" title="Edit to set camera position">-</span></div>
+            <div class="row"><span class="label">focus</span><span class="value" data-id="focus" contenteditable="plaintext-only" spellcheck="false" title="Edit to look at this point">-</span></div>
             <div class="buttons">
                 <button data-id="copy">Copy</button>
                 <button data-id="paste">Paste</button>
@@ -85452,7 +85452,7 @@ class DebugPanel {
         app.once('frameend', () => {
             // Quality 1.0 with image/webp produces lossless WebP in
             // Chromium / Firefox. Safari (which lacks WebP encode) falls
-            // back to PNG automatically — blob.type tells us which.
+            // back to PNG automatically - blob.type tells us which.
             canvas.toBlob((blob) => {
                 if (!blob) {
                     console.warn('[debug-panel] screenshot toBlob returned null');
@@ -85856,7 +85856,7 @@ class NavInteraction {
         // dblclick swaps the active mode and uses the picked target:
         //   fly    → orbit, focus orbit at point
         //   orbit  → fly, navigate fly toward point
-        //   walk   → stays walk (this tour is walk-only) — same as a regular
+        //   walk   → stays walk (this tour is walk-only) - same as a regular
         //            single-click walk-to, just also reachable via dblclick.
         const request = ++this._targetPickRequest;
         const target = await this._pickSceneTarget(event.offsetX, event.offsetY);
@@ -85865,7 +85865,7 @@ class NavInteraction {
         const currentMode = this._global?.state.cameraMode;
         if (currentMode === 'fly') {
             // 'pick' switches mode to orbit, which cancels the active fly nav
-            // and would clobber any pre-set orbit target — set it after.
+            // and would clobber any pre-set orbit target - set it after.
             events.fire('pick', target.position);
             events.fire('orbitTarget:set', target.position, target.normal);
         }
@@ -85876,7 +85876,7 @@ class NavInteraction {
             events.fire('navigateTo', target.position, target.normal, speedMul);
         }
         else if (currentMode === 'walk') {
-            // Stay in walk — WalkSource only ever reads target.x/z (see
+            // Stay in walk - WalkSource only ever reads target.x/z (see
             // WalkSource.update()), so the picked point's height is already
             // ignored regardless of what's on the surface clicked.
             const speedMul = computeClickSpeedMul(event, 'walk');
@@ -86034,7 +86034,7 @@ class PointerLockManager {
         }
     };
     _activate() {
-        // Pointer lock intentionally disabled — the mouse cursor must never be
+        // Pointer lock intentionally disabled - the mouse cursor must never be
         // hidden. KeyboardMouseDevice already falls back to drag-based look
         // (this._movementState.move(event)) when _pointerLock is falsy/unlocked.
     }
@@ -86088,7 +86088,7 @@ class GamepadDevice {
     _global = null;
     attach(_canvas, global) {
         this._global = global;
-        // GamepadSource polls navigator.getGamepads() — no DOM attach needed.
+        // GamepadSource polls navigator.getGamepads() - no DOM attach needed.
     }
     detach() {
         this._global = null;
@@ -86241,7 +86241,7 @@ class KeyboardMouseDevice {
         if (isWalk) {
             // Manual height override reuses the same E/Q axis as fly mode's
             // vertical (E = up, Q = down). WalkController treats this as a
-            // direct nudge, not a jump trigger — walk mode has no
+            // direct nudge, not a jump trigger - walk mode has no
             // gravity/jumping (see WalkController).
             v.y = this._axis.y > 0 ? 1 : (this._axis.y < 0 ? -1 : 0);
         }
@@ -86275,7 +86275,7 @@ class TouchDevice {
     _touchCount = 0;
     /** UI joystick value [x, y], -1..1. */
     _joystick = [0, 0];
-    /** Tap-detection state — touch count, max touches, and accumulated movement. */
+    /** Tap-detection state - touch count, max touches, and accumulated movement. */
     _tapTouches = 0;
     _tapMaxTouches = 0;
     _tapDelta = 0;
@@ -86369,7 +86369,7 @@ class TouchDevice {
         // Two-finger pan: orbit pans the target; fly strafes/rises in the
         // camera basis; walk strafes along the ground plane and (now) walks
         // forward/back. Identical 1:1 screen-space mapping in every mode so
-        // dragging feels the same — what your fingers move, the camera
+        // dragging feels the same - what your fingers move, the camera
         // moves. Walk remaps vertical drag onto z (forward/back) rather than
         // dropping it, since WalkController treats any nonzero move[1] as a
         // manual height override, not movement.
@@ -86386,7 +86386,7 @@ class TouchDevice {
         }
         // Two-finger pinch z: orbit interprets +z as "farther from target"
         // (close-pinch = +pinch[0] = zoom out). First-person modes interpret
-        // +z as "forward", so spreading (pinch[0] < 0) should move forward —
+        // +z as "forward", so spreading (pinch[0] < 0) should move forward -
         // flip the sign there.
         pinchMoveTmp.set(0, 0, (orbit - directFirstPerson) * pinch[0]);
         v.add(pinchMoveTmp.mulScalar(double * this.pinchSpeed * DISPLACEMENT_SCALE));
@@ -86422,7 +86422,7 @@ class TrackpadDevice {
     // Tracks physical Ctrl key state so we can distinguish macOS-synthesized
     // pinch events (wheel + ctrlKey, no physical Ctrl) from a user holding
     // Ctrl while spinning a mouse wheel. The synthetic-Ctrl signal is the
-    // one reliable trackpad indicator the platform gives us — every other
+    // one reliable trackpad indicator the platform gives us - every other
     // per-event heuristic has been tried (wheelDelta % 120, deltaMode,
     // fractional/diagonal deltas) and misfires on hi-res mice or in
     // momentum tails. Modifier-key state we can trust 100%.
@@ -86450,10 +86450,10 @@ class TrackpadDevice {
         const isPinch = event.ctrlKey && !this._ctrlDown;
         // Physical Ctrl + wheel/swipe: rotate. In orbit mode rotates around
         // the target; in fly/walk mode looks around. Applies to both mouse
-        // wheel and trackpad swipe — we can't distinguish them, and the
+        // wheel and trackpad swipe - we can't distinguish them, and the
         // modifier signals intent either way.
         // Corner case: user physically holds Ctrl AND pinches at the same
-        // time — both flags are true, the gesture lands here as rotate
+        // time - both flags are true, the gesture lands here as rotate
         // rather than pinch. Intentional: physical Ctrl is the explicit
         // signal, so it wins over the synthetic-Ctrl pinch heuristic.
         const isCtrlRotate = event.ctrlKey && this._ctrlDown;
@@ -86464,7 +86464,7 @@ class TrackpadDevice {
         const isShiftPan = event.shiftKey;
         if (!isPinch && !isCtrlRotate && !isShiftPan) {
             // Bare wheel (mouse or trackpad swipe), unmodified fly/walk
-            // wheels — all fall through to KeyboardMouseDevice for
+            // wheels - all fall through to KeyboardMouseDevice for
             // standard forward/back motion (which dollys toward the orbit
             // target in orbit mode via flipZForOrbit, giving the universal
             // bare-scroll-zooms behavior).
@@ -86597,8 +86597,8 @@ class InputController {
     };
     /**
      * Scales WASD/stick movement, as a multiple of each device's stock speed.
-     * This is the only movement scale fly and orbit have — neither controller
-     * applies one of its own — so it's how a tour's moveSpeed reaches them.
+     * This is the only movement scale fly and orbit have - neither controller
+     * applies one of its own - so it's how a tour's moveSpeed reaches them.
      * Walk is driven from WalkController.moveGroundSpeed instead; see
      * Viewer's _applyMoveScale for why the two must not both apply.
      */
@@ -86687,10 +86687,10 @@ class InputController {
 // All three passes use BLEND_NORMAL so they share the layer's *transparent*
 // render action. PlayCanvas creates separate opaque and transparent render
 // actions per layer and `clearDepthBuffer` clears the depth buffer for each
-// of them — if the depth pre-pass were opaque, the transparent action would
+// of them - if the depth pre-pass were opaque, the transparent action would
 // wipe the depth before pass 2 and FUNC_EQUAL would always fail.
 // Linear gray levels picked by dominant face axis, plus the surface alpha.
-// These values are what we want the framebuffer to actually contain — pre-
+// These values are what we want the framebuffer to actually contain - pre-
 // encoding below makes that true regardless of the gamma path taken.
 const SURFACE_GRAY_X = 0.85;
 const SURFACE_GRAY_Y = 0.55;
@@ -86705,7 +86705,7 @@ const SURFACE_ALPHA = 0.30;
 // overlay looks identical between the WebGL (no CameraFrame) and
 // WebGPU (CameraFrame) paths. With CameraFrame on, the engine's
 // `gammaCorrectOutput` is a no-op (GAMMA_NONE) and the StandardMaterial
-// output lands in the framebuffer as-is — so we feed the raw gray value.
+// output lands in the framebuffer as-is - so we feed the raw gray value.
 // Without CameraFrame, `gammaCorrectOutput` applies `pow(1/2.2)` to the
 // material output, so we feed `pow(gray, 2.2)` here and gamma-correct
 // undoes it; the framebuffer ends up storing the same raw gray value.
@@ -86868,7 +86868,7 @@ class MeshDebugOverlay {
             meshInstances: [surfaceInstance],
             layers: [this.layer.id]
         });
-        // Pass 3: wireframe — black lines depth-tested against the surface so
+        // Pass 3: wireframe - black lines depth-tested against the surface so
         // back-facing edges are hidden. BLEND_NORMAL with opacity = 1 looks
         // opaque but routes through the same transparent render action as the
         // other two passes, keeping all three under one depth clear.
@@ -86907,7 +86907,7 @@ class MeshDebugOverlay {
     set enabled(value) {
         this._enabled = value;
         this.entity.enabled = value;
-        // Disable the layer too — otherwise its render actions still execute
+        // Disable the layer too - otherwise its render actions still execute
         // each frame and the per-layer `clearDepthBuffer` would wipe depth
         // even when no overlay meshes are submitted.
         this.layer.enabled = value;
@@ -87225,10 +87225,10 @@ class NavCursor {
         updateActive();
     }
     // Ring sizing is per-scene: walk-sized scenes (collision present and
-    // bbox large enough — same predicate as walk mode) get world-space
+    // bbox large enough - same predicate as walk mode) get world-space
     // rings, which read as physical footprints on the surface with visible
     // orientation. Smaller scenes or scenes without collision use a fixed
-    // screen-pixel ring — 0.2 world units would dominate a small scene,
+    // screen-pixel ring - 0.2 world units would dominate a small scene,
     // and the pick already falls back to splat depth without collision.
     screenPixelsForRing() {
         return this.state.walkAllowed ? null : SCREEN_OUTER_PIXELS;
@@ -87751,7 +87751,7 @@ class Picker {
             });
             accumTarget = new RenderTarget({
                 colorBuffer: accumBuffer,
-                depth: false // not needed — gaussians are rendered back to front
+                depth: false // not needed - gaussians are rendered back to front
             });
             accumPass = new RenderPassPicker(graphicsDevice, app.renderer);
             // RGB: additive depth accumulation. Alpha: multiplicative transmittance.
@@ -88709,7 +88709,7 @@ class Viewer {
         // Render every frame while the scene loads, then switch to on-demand rendering once the
         // first complete frame is ready (autoRender is disabled in the frame:ready handler below).
         // Loading progress and the ready transition are both reported via frame:ready, which only
-        // fires when a frame is rendered — so we must render continuously through loading. After
+        // fires when a frame is rendered - so we must render continuously through loading. After
         // that, rendering is driven on demand by frame:request and camera-change detection. This
         // mirrors the engine's simple-on-demand gsplat example.
         app.autoRender = true;
@@ -88814,7 +88814,7 @@ class Viewer {
             // Capture hook for the thumbnail pipeline. Renders the scene (with post
             // effects) into an offscreen supersampled target, GPU box-downsamples it to
             // the requested size and returns just that small buffer. Lazily created on
-            // first use — no ?capture flag and no preserveDrawingBuffer needed, and it
+            // first use - no ?capture flag and no preserveDrawingBuffer needed, and it
             // works on both WebGL and WebGPU.
             let capture = null;
             let captureQueue = Promise.resolve();
@@ -88854,7 +88854,7 @@ class Viewer {
                 sceneBound.setFromTransformedAabb(gsplatBbox, results[0].getWorldTransform());
             }
             // (tour hotspot/infoSpot world-space conversion now happens earlier,
-            // in main() before initUI — see there for why)
+            // in main() before initUI - see there for why)
             this.annotations = new Annotations(global, this.cameraFrame != null);
             this.picker = new Picker(app, camera);
             this.inputController = new InputController(global, this.picker);
@@ -88888,7 +88888,7 @@ class Viewer {
             // Background sphere (e.g. interior scenes, so windows/gaps show
             // something instead of nothing). The glTF node's translation/
             // rotation are authored in the same local frame as tour hotspots
-            // (see "Convert tour hotspots" in main()) — apply the exact same
+            // (see "Convert tour hotspots" in main()) - apply the exact same
             // verified conversion here (180 degrees about world Y) instead of
             // parenting to the gsplat entity and trusting its actual applied
             // transform. That was tried for hotspots first and produced a
@@ -88922,7 +88922,7 @@ class Viewer {
             // the engine default). It scales WASD in every camera mode, but
             // by two different routes, and applying both at once would square
             // it:
-            //   walk        WalkController.moveGroundSpeed — which also drives
+            //   walk        WalkController.moveGroundSpeed - which also drives
             //               click/tap-to-walk, so both stay in step. The input
             //               devices are left at their stock scale here.
             //   fly, orbit  the input devices' own move scale, since neither
@@ -88950,7 +88950,7 @@ class Viewer {
             // camera state for hotspot capture, without pulling in the
             // visible ?debug panel. Mirrors captureCameraState's shape
             // (world-space position/angles, radians->degrees already done by
-            // the camera manager) — callers apply the same inverse transform
+            // the camera manager) - callers apply the same inverse transform
             // documented for "Convert tour hotspots" to get back to the
             // tour's local authoring frame (x/y/z, hlookat/vlookat).
             if (config.admin) {
@@ -88958,7 +88958,7 @@ class Viewer {
                     getCameraState: () => captureCameraState(this.cameraManager, state),
                     getTourState: () => global.tour ?? null,
                     // Live preview of the tour's moveSpeed (walk metres/sec).
-                    // Applies to WASD in all three modes — see setMoveSpeed.
+                    // Applies to WASD in all three modes - see setMoveSpeed.
                     // Returns false for a non-finite or non-positive value.
                     setMoveSpeed: (speed) => this.setMoveSpeed(speed),
                     // Live preview of the tour's camera mode, so the admin's
@@ -88979,10 +88979,10 @@ class Viewer {
                     },
                     // Click-to-pick: normX/normY are 0..1 fractions of the
                     // canvas (matching NavCursor's own offsetX/clientWidth
-                    // normalization — see NavInteraction._pickSceneTarget).
+                    // normalization - see NavInteraction._pickSceneTarget).
                     // Reuses the same Picker instance (this.picker) the
                     // click-to-walk/fly nav already renders a pick pass
-                    // with — see CLAUDE.md's picker perf guidance (one call
+                    // with - see CLAUDE.md's picker perf guidance (one call
                     // = one full splat render pass; only call on discrete
                     // clicks, never per-frame). Resolves to world-space
                     // {position:[x,y,z]} or null off the splat.
@@ -89475,7 +89475,7 @@ class XrControllers extends Script {
  *
  * Teleportation: Point and teleport using trigger/pinch gestures
  * Smooth Locomotion: Use left thumbstick for XZ movement
- * Turning: Right thumbstick X-axis — snap turn (default) or continuous smooth turn, selected
+ * Turning: Right thumbstick X-axis - snap turn (default) or continuous smooth turn, selected
  *   via {@link XrNavigation#turnMode}
  * Snap Vertical: Use right thumbstick Y-axis to snap up/down (right grip for larger jumps)
  *
@@ -89937,7 +89937,7 @@ class XrNavigation extends Script {
         let rightController = null;
 
         for (const inputSource of this.inputSources) {
-            // Require a gamepad with thumbstick axes — see handleSmoothLocomotion.
+            // Require a gamepad with thumbstick axes - see handleSmoothLocomotion.
             if (!inputSource.gamepad || inputSource.gamepad.axes.length < 4) continue;
             if (inputSource.handedness === 'right') {
                 rightController = inputSource;
@@ -90044,7 +90044,7 @@ const initXr = (global) => {
     // reported available when it can start on the current device (browser exposes
     // XRGPUBinding, e.g. Safari on Apple Vision Pro). A session the WebGPU device
     // can't host may still run after reloading into WebGL, so keep the buttons
-    // visible then — the UI offers that reload when the session can't start directly.
+    // visible then - the UI offers that reload when the session can't start directly.
     let webglAR = false;
     let webglVR = false;
     const updateAvailable = () => {
@@ -90177,7 +90177,7 @@ const loadSkybox = (app, url) => {
 };
 // Loads a .glb used as a background sphere (a large textured mesh surrounding
 // the splat, e.g. for interior scenes where windows/gaps would otherwise show
-// nothing) — same 'container' asset type MeshCollision.fromGlb already uses
+// nothing) - same 'container' asset type MeshCollision.fromGlb already uses
 // for .glb collision meshes, but here we want the rendered entity, not raw
 // geometry, so the caller instantiates it via asset.resource.instantiateRenderEntity().
 const loadBackgroundSphere = (app, url) => {
@@ -90197,8 +90197,8 @@ const loadBackgroundSphere = (app, url) => {
 const createApp = async (canvas, config) => {
     const useWebGPU = config.renderer === 'webgpu';
     // Create the graphics device. The engine auto-appends WebGL2/null fallbacks
-    // when WebGPU isn't supported. Request xrCompatible so the device — WebGPU
-    // (via XRGPUBinding) or the WebGL fallback — is usable for AR/VR.
+    // when WebGPU isn't supported. Request xrCompatible so the device - WebGPU
+    // (via XRGPUBinding) or the WebGL fallback - is usable for AR/VR.
     const device = await createGraphicsDevice(canvas, {
         deviceTypes: useWebGPU ? ['webgpu'] : [],
         antialias: false,
@@ -90281,7 +90281,7 @@ const initCanvas = (global) => {
     });
     // Resize canvas before render() so the swap chain texture is acquired at the correct size.
     app.on('framerender', apply);
-    // Disable the engine's built-in canvas resize — we handle it via ResizeObserver
+    // Disable the engine's built-in canvas resize - we handle it via ResizeObserver
     // @ts-ignore
     app._allowResize = false;
     set(canvas.clientWidth, canvas.clientHeight);
@@ -90289,7 +90289,7 @@ const initCanvas = (global) => {
 };
 const main = async (canvas, settingsJson, config) => {
     // Kick off the tour fetch (hotspots + infoSpots + optional moveMode) in parallel
-    // with app creation — awaited below so it's ready before initUI runs.
+    // with app creation - awaited below so it's ready before initUI runs.
     const tourPromise = config.tourUrl ? fetch(config.tourUrl).then((response) => {
         if (!response.ok) {
             throw new Error(response.statusText);
@@ -90299,7 +90299,7 @@ const main = async (canvas, settingsJson, config) => {
         console.warn('Failed to load tour data:', err);
         return null;
     }) : Promise.resolve(null);
-    // Optional per-tour welcome-splash copy (title/body) — 404s silently to
+    // Optional per-tour welcome-splash copy (title/body) - 404s silently to
     // null when absent (the common case, most tours don't have one);
     // initUI() falls back to built-in copy in that case.
     const splashPromise = config.splashUrl ? fetch(config.splashUrl).then((response) => {
@@ -90335,7 +90335,7 @@ const main = async (canvas, settingsJson, config) => {
         controlsHidden: false,
         gamingControls: localStorage.getItem('gamingControls') === 'true',
         // Forces the SuperSplat UI visible, overriding ?noui and the
-        // gaming-controls auto-hide — toggled with Ctrl+Shift+U, or auto-on
+        // gaming-controls auto-hide - toggled with Ctrl+Shift+U, or auto-on
         // with ?debug. Exists as an escape hatch: with ?noui set (or gaming
         // controls left on from a previous session) there's otherwise no way
         // to reach Settings to turn things back off.
@@ -90360,11 +90360,11 @@ const main = async (canvas, settingsJson, config) => {
     // frame (what they were authored against) into world space. The gsplat
     // entity carries a 180° reorientation around the vertical (Y) axis (see
     // loadGsplat's setLocalEulerAngles), which only mirrors the horizontal
-    // plane (X and Z) — Y (height) is untouched (confirmed against visual
-    // testing — an earlier version derived this from the entity's full world
+    // plane (X and Z) - Y (height) is untouched (confirmed against visual
+    // testing - an earlier version derived this from the entity's full world
     // transform matrix, which incorrectly also flipped Y).
     // Done here (before initUI) rather than after the gsplat loads, so
-    // initAnnotationNav/initTourNav — both called synchronously from initUI —
+    // initAnnotationNav/initTourNav - both called synchronously from initUI -
     // see the final hotspot/infoSpot data on their first read.
     if (global.tour?.hotspots?.length) {
         const radToDeg = 180 / Math.PI;
@@ -90375,11 +90375,11 @@ const main = async (canvas, settingsJson, config) => {
         }
     }
     // Feed tour infoSpots into the existing annotation marker system (same
-    // world-space correction as hotspots above — same authoring frame).
+    // world-space correction as hotspots above - same authoring frame).
     // 'info' spots render as plain-text tooltips (title/text); 'link' spots
     // additionally get a clickable button (see Annotation.showTooltip's
     // isLink branch). 'scene' spots render as an icon (content = icon image
-    // URL) and, on click, navigate the page directly to `target` — a link to
+    // URL) and, on click, navigate the page directly to `target` - a link to
     // a sibling tour (e.g. exterior <-> interior), not an in-app scene swap.
     if (global.tour?.infoSpots?.length) {
         const tourAnnotations = global.tour.infoSpots.map((spot) => ({
@@ -90412,7 +90412,7 @@ const main = async (canvas, settingsJson, config) => {
     const gsplatLoad = loadGsplat(app, config, (progress) => {
         state.progress = progress;
     });
-    // Load skybox (continue without if it fails — e.g. CORS, 404)
+    // Load skybox (continue without if it fails - e.g. CORS, 404)
     const skyboxLoad = config.skyboxUrl &&
         loadSkybox(app, config.skyboxUrl).then((asset) => {
             app.scene.envAtlas = asset.resource;
@@ -90444,7 +90444,7 @@ const main = async (canvas, settingsJson, config) => {
         }
     }
     // Load background sphere (a large textured mesh, e.g. for interior scenes
-    // where windows/gaps would otherwise show nothing) — resolved relative to
+    // where windows/gaps would otherwise show nothing) - resolved relative to
     // tourSOG.json's own location, same as collisionUrl above.
     const sphereLoad = global.tour?.backgroundSphere ?
         loadBackgroundSphere(app, new URL(global.tour.backgroundSphere, tourUrlAbs).href).catch((err) => {
@@ -90453,8 +90453,8 @@ const main = async (canvas, settingsJson, config) => {
         }) :
         Promise.resolve(null);
     // Preload 'scene' infoSpot icon images (decoded HTMLImageElements, keyed
-    // by their resolved URL) so Annotation.initialize() — which builds the
-    // marker texture synchronously — can read them straight from the cache
+    // by their resolved URL) so Annotation.initialize() - which builds the
+    // marker texture synchronously - can read them straight from the cache
     // instead of waiting on a load itself. global.iconCache is populated
     // before Annotations is constructed (inside Viewer's Promise.all below),
     // same "wire data before it's read" rule the tour hotspot/infoSpot

@@ -1,7 +1,7 @@
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
 export const metadata = {
-  title: '404 — GoSPL',
+  title: '404 - GoSPL',
 }
 
 export default function NotFound() {

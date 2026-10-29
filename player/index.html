@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
         <base href="">
         <link rel="stylesheet" href="/player/index.css">
-        <!-- Inter — matches the marketing site's globals.css (--font-sans),
+        <!-- Inter - matches the marketing site's globals.css (--font-sans),
              used for the welcome-splash copy only; the rest of the player UI
              keeps its own mono stack. -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,14 +22,14 @@
             const url = new URL(location.href);
 
             // Under the clean /tours/<slug>/ URL the Apache rewrite is internal, so the
-            // browser URL carries no query string — derive the tour folder from the path.
+            // browser URL carries no query string - derive the tour folder from the path.
             // Opened directly at /player/index.html we fall back to the kramer tour.
             const slug = location.pathname.match(/^\/tours\/([a-zA-Z0-9_-]+)\/?$/)?.[1] ?? 'kramer';
             const tourAsset = name => `/content/${slug}/${name}`;
 
             const posterUrl = url.searchParams.get('poster');
             const skyboxUrl = url.searchParams.get('skybox');
-            // Explicit override only — a tour's own collisionUrl (if any)
+            // Explicit override only - a tour's own collisionUrl (if any)
             // takes priority over the folder-convention default, but an
             // explicit ?collision=/?voxel= still wins over both. The tour
             // isn't loaded yet at this point, so main() resolves the actual
@@ -41,7 +41,7 @@
             const tourUrl = url.searchParams.has('tour') ? url.searchParams.get('tour') : tourAsset('tourSOG.json');
             const logoUrl = url.searchParams.has('logo') ? url.searchParams.get('logo') : tourAsset('logo.png');
             // Optional per-tour welcome-splash copy (title/body). Absent by
-            // default for most tours — main() falls back to built-in copy
+            // default for most tours - main() falls back to built-in copy
             // when the fetch 404s, so this file is opt-in, not required.
             const splashUrl = url.searchParams.has('splash') ? url.searchParams.get('splash') : tourAsset('splash.json');
 
@@ -123,7 +123,7 @@
                 </div>
             </div>
 
-            <!-- Welcome splash — shown once per browser session, after the loading
+            <!-- Welcome splash - shown once per browser session, after the loading
                  splash above finishes. Separate from loadingWrap: that one reports
                  real download progress and must keep doing only that. -->
             <div id="introWrap" class="hidden">

@@ -321,7 +321,7 @@ img { display: block; max-width: 100%; }
 .tile-type {
   font-size: 14px; font-weight: 400; letter-spacing: 1px; color: rgba(255,255,255,0.72);
 }
-/* PTITLE — project/work-tile title style */
+/* PTITLE - project/work-tile title style */
 .tile-title {
   margin-top: 6px;
   font-family: var(--font-sans); font-weight: 700;

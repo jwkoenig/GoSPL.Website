@@ -1,4 +1,4 @@
-/* GoSPL Admin — tour editor overlay.
+/* GoSPL Admin - tour editor overlay.
    Loaded only by admin/index.html; player/ never sees this file.
    Scoped under #gosplEditorPanel / .ge-* so it cannot collide with the
    engine's own index.css. */

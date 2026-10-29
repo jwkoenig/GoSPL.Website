@@ -2,8 +2,8 @@
   --canvas-opacity: 1;
   /* Design tokens ported from GoSPL.PC.DEPLOY (dark blurred pills), font
      ported from the marketing site's globals.css (--font-sans) so every
-     piece of this project's own UI — pillbox nav, tooltips, and the intro
-     splash — reads as one system. --ui-font is kept as the name every
+     piece of this project's own UI - pillbox nav, tooltips, and the intro
+     splash - reads as one system. --ui-font is kept as the name every
      existing rule already references; --font-sans is the canonical token,
      matching the site's own variable name for anyone diffing the two. */
   --font-sans: 'Inter', sans-serif;
@@ -70,14 +70,14 @@ button {
   display: none !important;
 }
 
-/* chrome-hidden — hides the stock SuperSplat chrome (toolbar, buttons,
+/* chrome-hidden - hides the stock SuperSplat chrome (toolbar, buttons,
    settings/help panels, joystick, branding) by default, on every device.
    This project's own tour nav (#tourNav), annotation markers (#annotations),
    annotation nav (#annotationNav) and tooltip (#tooltip) are deliberately
-   not in this list — they stay visible and functional. Debug mode
+   not in this list - they stay visible and functional. Debug mode
    (Ctrl+Shift+U / ?debug) removes this class as the one escape hatch.
    !important because #controlsWrap already toggles .hidden/.faded-in/
-   .faded-out itself for the inactivity fade — this must win regardless of
+   .faded-out itself for the inactivity fade - this must win regardless of
    that state. */
 body.chrome-hidden #controlsWrap,
 body.chrome-hidden #settingsPanel,
@@ -164,7 +164,7 @@ body.chrome-hidden #viewerBranding {
   background-repeat: no-repeat;
 }
 
-/* loadingWrap — full-screen splash, styled after GoSPL.PC.DEPLOY's LoadScreen */
+/* loadingWrap - full-screen splash, styled after GoSPL.PC.DEPLOY's LoadScreen */
 #loadingWrap {
   position: fixed;
   top: 0;
@@ -192,7 +192,7 @@ body.chrome-hidden #viewerBranding {
   animation: logo-pulse 3s ease-in-out infinite;
 }
 #loadingWrap > #loadingText {
-  /* GoSPL's LoadScreen shows no numeric readout — kept in the DOM (updated in
+  /* GoSPL's LoadScreen shows no numeric readout - kept in the DOM (updated in
      index.js) in case it's wanted back, just not displayed. */
   display: none;
 }
@@ -212,10 +212,10 @@ body.chrome-hidden #viewerBranding {
   transition: width 200ms ease-out;
 }
 
-/* introWrap — welcome splash shown once per session, after loadingWrap's fade.
+/* introWrap - welcome splash shown once per session, after loadingWrap's fade.
    Styled after the GoSPL marketing site's own tour-detail splash
    (.detail-splash / .detail-splash-inner / .detail-tour-btn in that site's
-   globals.css, at /SITE/app/globals.css on the server) — same dark gradient
+   globals.css, at /SITE/app/globals.css on the server) - same dark gradient
    scrim and Inter type, but all content horizontally centered rather than
    that site's bottom-left layout. Gradient is centered to match (a
    left-fading scrim under centered copy would look like a leftover).
@@ -914,7 +914,7 @@ body.chrome-hidden #viewerBranding {
   border-radius: 6px 0 0 6px;
 }
 
-/* tourNav — bottom-center blurred pill, ported from GoSPL.PC.DEPLOY's TourBar */
+/* tourNav - bottom-center blurred pill, ported from GoSPL.PC.DEPLOY's TourBar */
 #tourNav {
   pointer-events: none;
   position: absolute;

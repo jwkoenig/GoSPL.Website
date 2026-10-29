@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node tools/check-no-emdash.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:emdash": "node tools/check-no-emdash.mjs"
   },
   "dependencies": {
     "next": "16.2.7",

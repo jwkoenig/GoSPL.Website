@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>GoSPL — Style Overview</title>
+<title>GoSPL - Style Overview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +10,7 @@
 <style>
 
 /* ============================================================
-   1) SITE TOKENS + COMPONENT STYLES — copied verbatim from
+   1) SITE TOKENS + COMPONENT STYLES - copied verbatim from
       app/globals.css (minus the Tailwind @import / @theme block,
       which this standalone page doesn't need). Keep this block in
       sync with globals.css so previews below stay pixel-accurate.
@@ -93,7 +93,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (min-width: 641px) { .legal-contact { font-size: 32px; letter-spacing: -1px; line-height: 1.1; } }
 
 /* ============================================================
-   2) PAGE CHROME — layout for this reference doc only, not part
+   2) PAGE CHROME - layout for this reference doc only, not part
       of the site's own CSS.
    ============================================================ */
 
@@ -207,7 +207,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
 <body>
 
 <header class="page-head">
-  <div class="kicker">GoSPL — Design Reference</div>
+  <div class="kicker">GoSPL - Design Reference</div>
   <h1>Style Overview</h1>
   <p>
     Every named text style and component pattern used across the site, rendered with the
@@ -257,19 +257,19 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="swatch-cell"><div class="preview light"><span class="nav"><a href="#">Work</a></span></div></td>
           <td class="name"><span class="n">Nav link</span><span class="sel">.nav a</span></td>
           <td class="settings"><div data-label="Size">16px</div><div data-label="Weight">400</div><div data-label="Spacing">0</div><div data-label="Color">ink-2 (white 82% on transparent header)</div></td>
-          <td class="used">Header.js — top bar</td>
+          <td class="used">Header.js - top bar</td>
         </tr>
         <tr>
           <td class="swatch-cell"><div class="preview light"><span class="nav-drawer"><a href="#">Contact</a></span></div></td>
           <td class="name"><span class="n">Nav drawer link</span><span class="sel">.nav-drawer a</span></td>
           <td class="settings"><div data-label="Size">15px</div><div data-label="Weight">600</div><div data-label="Spacing">0.01em</div><div data-label="Color">ink-2</div></td>
-          <td class="used">Header.js — mobile burger menu</td>
+          <td class="used">Header.js - mobile burger menu</td>
         </tr>
         <tr>
           <td class="swatch-cell"><div class="preview dark"><a class="skip-link" href="#">Skip to content</a></div></td>
           <td class="name"><span class="n">Skip link</span><span class="sel">.skip-link</span></td>
           <td class="settings"><div data-label="Size">14px</div><div data-label="Weight">600</div><div data-label="Color">paper on ink pill</div></td>
-          <td class="used">layout.js — a11y skip-to-content</td>
+          <td class="used">layout.js - a11y skip-to-content</td>
         </tr>
       </tbody>
     </table>
@@ -285,7 +285,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="swatch-cell"><div class="preview dark"><span class="hero-title" style="font-size:32px">Cinematic by design</span></div></td>
           <td class="name"><span class="n">Hero title</span><span class="sel">.hero-title</span></td>
           <td class="settings"><div data-label="Size">50px → clamp(60,6vw,90px)</div><div data-label="Weight">700</div><div data-label="Spacing">-1px → 1px</div><div data-label="Line-height">1.1</div><div data-label="Color">white</div></td>
-          <td class="used">Hero.js — homepage headline</td>
+          <td class="used">Hero.js - homepage headline</td>
         </tr>
         <tr>
           <td class="swatch-cell"><div class="preview dark"><span class="hero-sub">Interactive digital twins, explorable online.</span></div></td>
@@ -303,7 +303,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="swatch-cell"><div class="preview light"><span class="stat"><span class="n" style="font-size:32px">120+</span></span></div></td>
           <td class="name"><span class="n">Stat number</span><span class="sel">.stat .n</span></td>
           <td class="settings"><div data-label="Size">50px → clamp(60,6vw,90px)</div><div data-label="Weight">700</div><div data-label="Spacing">-1px → 1px</div><div data-label="Color">ink</div></td>
-          <td class="used">Stats.js — homepage stat row</td>
+          <td class="used">Stats.js - homepage stat row</td>
         </tr>
         <tr>
           <td class="swatch-cell"><div class="preview light"><span class="stat"><span class="l">Projects delivered</span></span></div></td>
@@ -371,7 +371,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="swatch-cell"><div class="preview light pstep"><h3 style="font-size:24px">Capture</h3></div></td>
           <td class="name"><span class="n">Step title</span><span class="sel">.pstep h3</span></td>
           <td class="settings"><div data-label="Size">24px → 32px</div><div data-label="Weight">700</div><div data-label="Spacing">0 → -1px</div><div data-label="Color">ink</div></td>
-          <td class="used">ProcessSteps.js — data/process.js</td>
+          <td class="used">ProcessSteps.js - data/process.js</td>
         </tr>
         <tr>
           <td class="swatch-cell"><div class="preview light pstep"><p>On-location photography in available light.</p></div></td>
@@ -399,7 +399,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="swatch-cell"><div class="preview dark"><span class="tile-title">Birfday Studio</span></div></td>
           <td class="name"><span class="n">Tile title <em>(PTITLE)</em></span><span class="sel">.tile-title</span></td>
           <td class="settings"><div data-label="Size">24px</div><div data-label="Weight">700</div><div data-label="Line-height">1.1</div><div data-label="Color">white</div></td>
-          <td class="used">Tile.js — project/work-tile title</td>
+          <td class="used">Tile.js - project/work-tile title</td>
         </tr>
       </tbody>
     </table>
@@ -510,7 +510,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="used">ContactForm.js</td>
         </tr>
         <tr>
-          <td class="swatch-cell"><div class="preview light"><span class="form-success">Thanks — we'll be in touch shortly.</span></div></td>
+          <td class="swatch-cell"><div class="preview light"><span class="form-success">Thanks - we'll be in touch shortly.</span></div></td>
           <td class="name"><span class="n">Success state</span><span class="sel">.form-success</span></td>
           <td class="settings"><div data-label="Size">18px</div><div data-label="Color">ink-2</div></td>
           <td class="used">ContactForm.js</td>
@@ -538,7 +538,7 @@ section.group .group-desc { font-size: 14px; color: var(--ink-2); margin: 0 0 20
           <td class="used">Footer.js</td>
         </tr>
         <tr>
-          <td class="swatch-cell"><div class="preview footer-bg"><span class="foot-bottom">© 2026 GoSPL.io — all rights reserved.</span></div></td>
+          <td class="swatch-cell"><div class="preview footer-bg"><span class="foot-bottom">© 2026 GoSPL.io - all rights reserved.</span></div></td>
           <td class="name"><span class="n">Bottom line</span><span class="sel">.foot-bottom</span></td>
           <td class="settings"><div data-label="Size">12px</div><div data-label="Color">white 60%</div></td>
           <td class="used">Footer.js</td>

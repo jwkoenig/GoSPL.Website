@@ -1,7 +1,7 @@
 import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
-  title: 'Contact — GoSPL',
+  title: 'Contact - GoSPL',
 }
 
 export default function ContactPage() {

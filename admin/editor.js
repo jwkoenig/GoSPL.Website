@@ -1,8 +1,8 @@
 /**
- * GoSPL Admin — tour authoring overlay.
+ * GoSPL Admin - tour authoring overlay.
  *
  * This file is the ONLY functional difference between admin/ and player/.
- * The engine (index.js) is a byte-identical copy and is never modified —
+ * The engine (index.js) is a byte-identical copy and is never modified -
  * this overlay drives the read-only hooks it already exposes when
  * config.admin is set (see handover.md §6a):
  *
@@ -13,14 +13,14 @@
  * Authoring model is deliberately the same one GoSPL.PC.DEPLOY's ?editor
  * used: everything is client-side, and saving means downloading a
  * tourSOG.json that you drop into content/<slug>/ on the webspace. There is
- * no server here — admin/ is static files behind HTTP basic auth, exactly
+ * no server here - admin/ is static files behind HTTP basic auth, exactly
  * like player/ is static files without it.
  *
  * Coordinate frames: getCameraState/pickSurface report PLAY's *world* frame,
  * but tourSOG.json stores the splat's *local* authoring frame. PLAY's own
  * "Convert tour hotspots" step (handover.md §2) maps local -> world as
  *   position = [-x, y, -z],  yawDeg = hlookat*180/PI + 180,  pitchDeg = vlookat*180/PI
- * so writing a tour means applying the inverse of that — see toLocal* below.
+ * so writing a tour means applying the inverse of that - see toLocal* below.
  */
 
 const PANEL_ID = 'gosplEditorPanel';
@@ -56,7 +56,7 @@ function toLocalPosition([wx, wy, wz]) {
 // Forward direction of the same transform: tour-local -> PLAY world.
 // The engine's 'hotspot.goto' handler reads worldPosition/worldYaw/worldPitch
 // when present and otherwise falls back to using the raw local x/y/z and
-// hlookat AS IF they were world values — which is mirrored in x/z and 180°
+// hlookat AS IF they were world values - which is mirrored in x/z and 180°
 // out in yaw. That fallback only exists for the case where the engine's own
 // "Convert tour hotspots" pass hasn't run; editor-side hotspots (freshly
 // captured, or read straight from tourSOG.json) never have those fields, so
@@ -91,7 +91,7 @@ const state = {
     collisionUrl: '',
     hotspots: [],
     infoSpots: [],
-    // Fields present in the loaded tour that this editor doesn't manage —
+    // Fields present in the loaded tour that this editor doesn't manage -
     // preserved verbatim on download so hand-authored keys aren't silently
     // dropped just because the UI has no control for them.
     passthrough: {},
@@ -137,7 +137,7 @@ async function loadExistingTour() {
         if (!res.ok) return;
         applyTour(await res.json());
     } catch {
-        /* no tour at that path yet — start empty */
+        /* no tour at that path yet - start empty */
     }
 }
 
@@ -157,7 +157,7 @@ async function handleFiles(files) {
             applyTour(tour);
             droppedTour = tour;
             state.dirty = true;
-            toast(`Loaded ${jsonFile.name} — ${tour.hotspots.length} hotspots`);
+            toast(`Loaded ${jsonFile.name} - ${tour.hotspots.length} hotspots`);
         } catch (e) {
             toast(`Invalid tour JSON: ${e.message}`);
         }
@@ -231,7 +231,9 @@ function buildTour() {
 }
 
 function download() {
-    const blob = new Blob([JSON.stringify(buildTour(), null, 2)], { type: 'application/json' });
+    // House style: no em dashes in any copy, so swap them for a plain hyphen.
+    const json = JSON.stringify(buildTour(), null, 2).replace(/\u2014/g, '-');
+    const blob = new Blob([json], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'tourSOG.json';
@@ -240,7 +242,7 @@ function download() {
     state.dirty = false;
     render();
     toast(state.slug
-        ? `Downloaded — upload to content/${state.slug}/tourSOG.json`
+        ? `Downloaded - upload to content/${state.slug}/tourSOG.json`
         : 'Downloaded tourSOG.json');
 }
 
@@ -284,7 +286,7 @@ function recaptureHotspot(id) {
 
 // Fly the camera to a hotspot by firing the engine's own 'hotspot.goto'
 // event (the same one PLAY's tour navigator uses). Always hand it explicit
-// world-frame values — see withWorldFrame for why the engine's own fallback
+// world-frame values - see withWorldFrame for why the engine's own fallback
 // can't be relied on here.
 function gotoHotspot(h) {
     const events = window.__gosplViewer?.global?.events;
@@ -326,7 +328,7 @@ async function handlePlaceClick(e) {
     const canvas = document.getElementById('application-canvas');
     if (!canvas || !state.placeMode) return;
 
-    // pickSurface wants 0..1 fractions of the canvas — same normalization
+    // pickSurface wants 0..1 fractions of the canvas - same normalization
     // the engine's own click-to-walk uses (offsetX / clientWidth).
     const rect = canvas.getBoundingClientRect();
     const nx = (e.clientX - rect.left) / rect.width;
@@ -394,12 +396,12 @@ function section(label, children) {
 // after save + reload. The engine reads tour.moveSpeed once at construction
 // (see CameraManager), hence the explicit __playAdmin.setMoveSpeed call.
 //
-// Only walk mode honours moveSpeed — fly and orbit use their own fixed
-// speeds — so in those modes the preview intentionally does nothing, exactly
+// Only walk mode honours moveSpeed - fly and orbit use their own fixed
+// speeds - so in those modes the preview intentionally does nothing, exactly
 // as the player behaves when it loads the saved tour.
 // `live` is true while the slider is being dragged: update the engine and the
 // readout in place, but skip render(). A full render replaces the range input
-// mid-drag, which drops pointer capture and stops the drag dead — so the
+// mid-drag, which drops pointer capture and stops the drag dead - so the
 // re-render is deferred to the change event (drag end).
 function setMoveSpeed(speed, live = false) {
     if (!Number.isFinite(speed)) return;
@@ -421,7 +423,7 @@ function setMoveSpeed(speed, live = false) {
 // control receive the key normally while the event never reaches window.
 // Wheel is stopped too so scrolling a long panel can't zoom the scene.
 //
-// This alone does NOT stop pointer events from leaking through — see
+// This alone does NOT stop pointer events from leaking through - see
 // installNavGuard below for why a plain stopPropagation on the panel isn't
 // enough for those.
 function isolateInput(panel) {
@@ -434,7 +436,7 @@ function isolateInput(panel) {
 // left of the panel) and ends over a panel control never reaches that
 // control: KeyboardMouseSource.setPointerCapture()s the canvas on every
 // pointerdown, and per the Pointer Events spec a captured pointer's later
-// events — including the pointerup the click/drag ends on — are delivered
+// events - including the pointerup the click/drag ends on - are delivered
 // to the capturing element (the canvas) no matter what's visually under the
 // cursor. NavInteraction's own pointerup listener then sees a small-movement
 // "click" on the canvas and navigates the scene, while the panel button the
@@ -561,7 +563,7 @@ function render() {
                             state.moveMode = m;
                             state.dirty = true;
                             // Actually preview the mode, not just relabel the
-                            // button — see __playAdmin.setCameraMode.
+                            // button - see __playAdmin.setCameraMode.
                             window.__playAdmin?.setCameraMode?.(m === 'flying' ? 'fly' : m === 'walking' ? 'walk' : 'orbit');
                             render();
                         }
@@ -666,7 +668,7 @@ function render() {
     state.engine = hooks ? 'ready' : 'empty';
     state.hooksReady = !!hooks;
     render();
-    if (!hooks) toast('Engine did not start — check the scene path');
+    if (!hooks) toast('Engine did not start - check the scene path');
 })();
 
 window.addEventListener('beforeunload', (e) => {

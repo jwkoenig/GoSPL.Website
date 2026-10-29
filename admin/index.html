@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>GoSPL Admin — Tour Editor</title>
+        <title>GoSPL Admin - Tour Editor</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
         <base href="">
         <link rel="stylesheet" href="./index.css">
         <link rel="stylesheet" href="./editor.css">
-        <!-- Inter — matches the marketing site's globals.css (--font-sans),
+        <!-- Inter - matches the marketing site's globals.css (--font-sans),
              used for the welcome-splash copy only; the rest of the player UI
              keeps its own mono stack. -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +24,8 @@
 
             // ── ADMIN ADDITION ─────────────────────────────────────────
             // Unlike player/index.html, nothing defaults to ../content/kramer/.
-            // The admin opens EMPTY — editor panel visible, drop zone waiting
-            // — and only boots the engine once it has a scene, either from
+            // The admin opens EMPTY - editor panel visible, drop zone waiting
+            // - and only boots the engine once it has a scene, either from
             // ?slug=/?content= or from a file dropped into the page.
             //
             // ?slug=<slug> fills in every content path from ../content/<slug>/
@@ -36,7 +36,7 @@
 
             const posterUrl = url.searchParams.get('poster');
             const skyboxUrl = url.searchParams.get('skybox');
-            // Explicit override only — a tour's own collisionUrl (if any)
+            // Explicit override only - a tour's own collisionUrl (if any)
             // takes priority over the folder-convention default, but an
             // explicit ?collision=/?voxel= still wins over both. The tour
             // isn't loaded yet at this point, so main() resolves the actual
@@ -100,13 +100,13 @@
                 // Kill the idle camera drift on load. With no animTrack in
                 // settings the engine synthesises one anyway (a slow orbit
                 // for object-style scenes, a figure-8 drift from inside a
-                // walkthrough) — which fights you while framing a hotspot.
+                // walkthrough) - which fights you while framing a hotspot.
                 // noanim pauses it from the first frame. ?anim re-enables it
                 // if you ever want to preview what a visitor sees.
                 noanim: !url.searchParams.has('anim'),
                 // ── ADMIN ADDITION ──────────────────────────────────────
                 // Always on in this copy (player/ leaves it behind ?admin).
-                // This is what exposes window.__playAdmin — the read-only
+                // This is what exposes window.__playAdmin - the read-only
                 // getCameraState/getTourState/pickSurface hooks editor.js
                 // drives. See handover.md §6a.
                 admin: true,
@@ -176,7 +176,7 @@
                 </div>
             </div>
 
-            <!-- Welcome splash — shown once per browser session, after the loading
+            <!-- Welcome splash - shown once per browser session, after the loading
                  splash above finishes. Separate from loadingWrap: that one reports
                  real download progress and must keep doing only that. -->
             <div id="introWrap" class="hidden">
@@ -705,7 +705,7 @@
             // dropped in. player/index.html just calls main() on DOM ready.
             //
             // main() can only run once per page (it takes over the canvas),
-            // so dropping a second scene reloads instead — see editor.js.
+            // so dropping a second scene reloads instead - see editor.js.
             let booted = false;
             window.__gosplBoot = async (file, settingsOverride, tour) => {
                 if (booted) throw new Error('Engine already started');
