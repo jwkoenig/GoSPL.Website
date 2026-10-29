@@ -36,42 +36,51 @@ does not, by itself, reach `gospl.io`.**
 
 ## Deploying through the office workstation (beta → live)
 
-The office workstation (Windows, GPU) runs a GitHub Actions
-**self-hosted runner** with the labels `self-hosted, windows, gospl-gpu`.
-The runner only makes outbound connections to GitHub, so no ports are
-opened. Two manual workflows use it:
+The production deploy script, `deploy.ps1` with `deploy.config.psd1`,
+lives on the office workstation (Windows) in `C:\GOSPL\SERVER_DEPLOY`,
+**not in this repo**. `deploy.ps1 beta -Pull` hard-resets its own clones of
+PLAY (`master`) and this repo (`main`) to origin, builds the site
+(`NEXT_DIST_DIR=build`, root `basePath`), copies PLAY's `player/`,
+`admin/`, `content/` etc. over the build into `stage\`, and uploads only
+the files whose hash changed over SFTP. `deploy.ps1 live` uploads that
+same stage and **refuses unless beta already received exactly it**. Its
+state (`repos\`, `stage\`, `.manifest-*.json`, `.state-beta.json`,
+encrypted SFTP password) sits next to the script, which is why the
+workflows call it in place instead of checking anything out.
 
-| Workflow | What it does |
+The workstation also runs a GitHub Actions **self-hosted runner**
+(labels `self-hosted, windows, gospl-gpu`). It only makes outbound
+connections to GitHub. Two manual workflows use it:
+
+| Workflow | Runs |
 |---|---|
-| `.github/workflows/deploy-beta.yml` | Checks out `ref`, `npm ci`, builds with `NEXT_DIST_DIR=build`, runs the optional GPU step, then the beta upload command → `beta.gospl.io` |
-| `.github/workflows/promote-live.yml` | Runs the live command → `gospl.io`. Uses the `production` environment, which **requires a human approval** before it runs |
+| `.github/workflows/deploy-beta.yml` | `deploy.ps1 beta -Pull` (inputs: `dry_run`, `full`) → `beta.gospl.io` |
+| `.github/workflows/promote-live.yml` | `deploy.ps1 live -Yes` (input: `dry_run`) → `gospl.io`, after a **required human approval** on the `production` environment |
 
 Start either one from the Actions tab ("Run workflow"), or ask Claude.
-Claude starts it with the GitHub tools and reads the logs. Claude can
-queue `promote-live` but can't approve it; that click stays with a person.
-
-The commands are **repository variables** (Settings → Secrets and
-variables → Actions → Variables), so the workstation's own scripts stay
-where they are:
-
-- `DEPLOY_BETA_CMD`: PowerShell command line that uploads to beta, e.g.
-  `& C:\gospl\deploy.ps1 -Target beta -Source $env:BUILD_DIR`
-  (`BUILD_DIR` points at the fresh build).
-- `DEPLOY_LIVE_CMD`: command line that promotes beta to live.
-- `GPU_PREP_CMD` (optional): GPU convert/compress step, run after the
-  build. The step is skipped when the variable is empty.
-
-Upload credentials stay on the workstation (or in Actions secrets),
-never in the repo.
+Claude starts it with the GitHub tools and reads the job log. Claude can
+queue `promote-live` but can't approve it: that click replaces the
+script's "type 'live'" prompt. Watch the log for the script's warning
+about the hashed CSS chunk `06k1jxr0bcst_.css`. If it shows, the
+`gospl-ui.css` alias in the root `.htaccess` needs updating on beta and
+live.
 
 One-time setup:
 
-1. Repo → Settings → Actions → Runners → *New self-hosted runner* →
-   Windows. Install it **as a service**, with the extra label `gospl-gpu`.
-2. Settings → Environments → create `production` → add yourself under
+1. Run `.\deploy.ps1 beta -Pull` once by hand on the workstation if you
+   haven't yet, so the encrypted password file and SSH known_hosts exist.
+   Unattended runs fail with a clear message instead of prompting.
+2. Repo → Settings → Actions → Runners → *New self-hosted runner* →
+   Windows. Install it **as a service running under your own Windows
+   account** (the installer asks): the DPAPI-encrypted password, git
+   credentials for PLAY and known_hosts only work for that user. Add the
+   label `gospl-gpu`. `git`, `node`/`npm` and `sftp` must be on that
+   user's PATH.
+3. Settings → Environments → create `production` → add yourself under
    *Required reviewers*.
-3. Set the variables above.
-4. Settings → Actions → General → require approval for workflows from
+4. Optional: if the script moves, set the repository variable
+   `DEPLOY_SCRIPT` to its new full path.
+5. Settings → Actions → General → require approval for workflows from
    outside collaborators. **Never** add `pull_request` triggers to
    workflows that run on this runner: fork PRs would run code on the
    workstation.
