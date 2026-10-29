@@ -69,7 +69,22 @@ const ALL_PROJECTS = [
     ],
   },
   {
+    id: 'stearman',
+    title: 'Boeing Stearman N2S-3 with Quax e.V.',
+    type: 'Aviation',
+    place: 'Germany',
+    year: '2026',
+    url: 'https://gospl.io/tours/stearman/',
+    img: `${BASE}/assets/projects/stearman.jpg`,
+    lead: 'The classic biplane trainer that taught a generation of pilots to fly — captured as a gaussian splat together with the historic-aircraft enthusiasts of Quax e.V.',
+    body: [
+      'The Stearman Model 75 "Kaydet" was the primary trainer of the US Army Air Forces and US Navy during the Second World War. Rugged, forgiving and built in the thousands, it was the first aircraft most military pilots of the era ever flew; the N2S-3 is the Navy variant, powered by a Continental R-670 radial engine.',
+      'After the war, Stearmans found new lives as crop dusters, airshow performers and much-loved vintage aircraft. This one is kept flying by [Quax e.V.](https://www.quax-flieger.de), an association dedicated to preserving historic aircraft in airworthy condition.',
+    ],
+  },
+  {
     id: 'bmw_m3',
+    hidden: true, // on hold
     title: 'BMW M3',
     type: 'Automotive',
     place: 'Berlin, Germany',
