@@ -7,8 +7,12 @@
 #   e.g. tools/ply_to_headshot.sh ~/scans/nik.ply team_nik
 #
 # Optional environment overrides:
+#   SCALE=0.01         uniform scale applied after recentering, so the head ends
+#                      up roughly metric (~0.25-0.4 units tall) to match the
+#                      tour settings.json framing. Scans exported in cm need 0.01.
+#                      Default: 1 (no scaling).
 #   CROP_RADIUS=0.35   drop every splat farther than this from the head centre
-#                      (world units; applied after recentering). Default: no crop.
+#                      (world units; applied after recentering and SCALE). Default: no crop.
 #   ROTATE=0,180,0     extra Euler rotation (degrees), e.g. if the viewer opens on
 #                      the back of the head (the tour camera sits on +Z looking at
 #                      the origin) or the head is upside down (try 0,0,180).
@@ -25,7 +29,7 @@
 set -euo pipefail
 
 if [[ $# -lt 2 || $# -gt 3 ]]; then
-    sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '2,28p' "$0" | sed 's/^# \{0,1\}//'
     exit 1
 fi
 
@@ -71,6 +75,7 @@ TRANSLATE=$(node -e 'const [x,y,z]=process.argv.slice(1).map(Number); console.lo
 
 ACTIONS=(-N -t "$TRANSLATE")
 [[ -n "${ROTATE:-}" ]] && ACTIONS+=(-r "$ROTATE")
+[[ -n "${SCALE:-}" ]] && ACTIONS+=(-s "$SCALE")
 [[ -n "${CROP_RADIUS:-}" ]] && ACTIONS+=(-S "0,0,0,$CROP_RADIUS")
 [[ "$SH_BANDS" != 3 ]] && ACTIONS+=(-H "$SH_BANDS")
 
