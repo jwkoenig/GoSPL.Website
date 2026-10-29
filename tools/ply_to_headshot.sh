@@ -71,7 +71,7 @@ echo "    $N0 splats, median position ($MX, $MY, $MZ)"
 # splat-transform's -t is applied in the engine's y-up frame (the PLY is
 # rotated 180 deg about Z on import), so moving the PLY-space median to the
 # origin means translating by (+x, +y, -z) — verified on a synthetic PLY.
-TRANSLATE=$(node -e 'const [x,y,z]=process.argv.slice(1).map(Number); console.log([x, y, -z].join(","))' "$MX" "$MY" "$MZ")
+TRANSLATE=$(node -e 'const [x,y,z]=process.argv.slice(1).map(Number); console.log([x, y, -z].join(","))' -- "$MX" "$MY" "$MZ")
 
 ACTIONS=(-N -t "$TRANSLATE")
 [[ -n "${ROTATE:-}" ]] && ACTIONS+=(-r "$ROTATE")
