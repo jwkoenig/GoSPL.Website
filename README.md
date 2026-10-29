@@ -1,18 +1,14 @@
 # GoSPL — gospl.io
 
-GoSPL's marketing site plus the interactive gaussian-splat tour system it
-links out to. Two mostly-independent parts share this one repo:
+GoSPL's marketing site (`app/`, `components/`, `data/`, `public/`) — a
+statically-exported Next.js site: home page, work grid, project detail
+pages, and legal/contact pages.
 
-1. **The marketing site** (`app/`, `components/`, `data/`, `public/`) — a
-   statically-exported Next.js site: home page, work grid, project detail
-   pages, and legal/contact pages.
-2. **The tour player system** (`player/`, `admin/`, `content/`, `tools/`) —
-   a single shared PlayCanvas/SuperSplat viewer that renders every gaussian-
-   splat "step inside the space" tour linked from the marketing site's work
-   grid. See `player/README.md` for how it works, `admin/README.md` for the
-   password-protected authoring copy, and `handover.md` for a full
-   implementation deep-dive (physics, hotspots, collision, debug mode, and
-   more).
+The interactive gaussian-splat tours it links out to — the shared player,
+its `admin/` authoring copy, and every tour's `content/<slug>/` — live in
+[`jwkoenig/PLAY`](https://github.com/jwkoenig/PLAY), which is their single
+source of truth. Deploys combine the two repos; see
+[`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md).
 
 ## Documentation
 
@@ -52,18 +48,14 @@ Eclipse Tempelhof project as "COMING SOON!" in its title.
 
 ## Tour player system
 
-A tour is just a folder of data files under `content/<slug>/`; the same
-`player/` code renders all of them, updated once and applied everywhere.
-`admin/` is a password-gated copy with an in-browser authoring overlay for
-placing hotspots and tuning tours without touching JSON by hand. Full
-details, adding a new tour, and local dev instructions live in
-`player/README.md` and `admin/README.md`.
+A tour is a folder of data files under `content/<slug>/` in the PLAY repo;
+the marketing site only links to it (`url` in `data/projects.js`).
 
 ## Deployment
 
 `gospl.io` is on fixed shared hosting with no control over Apache's
 DocumentRoot, so the whole site — this Next.js app's build output plus
-`player/`, `admin/`, and `content/` — is deployed into one
+PLAY's `player/`, `admin/`, and `content/` — is deployed into one
 `public_html/SITE/` folder, and the root `.htaccess` (hand-maintained on
 the server, not tracked in this repo) transparently rewrites requests into
 `SITE/`, so the site still appears at `gospl.io/...` root URLs. A handful
@@ -84,6 +76,6 @@ deploys `main` on every push, with `NEXT_BASE_PATH=/GoSPL.Website` and
 
 ## Source of truth
 
-This repo is the sole source of truth for `player/`/`admin/`/`content/`/
-`tools/` — see `handover.md` for why (a separate `PLAY` repo held a
-drifted copy and should no longer be deployed from).
+`player/`, `admin/`, `icons/`, `tools/` and all tour `content/` live only in
+`jwkoenig/PLAY`. This repo used to carry its own copy; it drifted from PLAY
+in both directions and was removed. Add tours and player changes in PLAY.

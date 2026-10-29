@@ -1,13 +1,13 @@
 # Architecture
 
-## Two mostly-independent systems, one repo
+## Two mostly-independent systems, two repos
 
 | | Marketing site | Tour player system |
 |---|---|---|
-| Folders | `app/`, `components/`, `data/`, `public/` | `player/`, `admin/`, `content/`, `tools/` |
+| Folders | `app/`, `components/`, `data/`, `public/` (this repo) | `player/`, `admin/`, `content/`, `tools/` (the `jwkoenig/PLAY` repo) |
 | Stack | Next.js 16 (App Router), React 19, Tailwind 4 | Hand-bundled PlayCanvas + SuperSplat viewer, no build step |
 | Ships as | Static export (`output: 'export'`) | Static files, edited in place |
-| Docs | This `docs/` folder | `player/README.md`, `admin/README.md`, `handover.md` — see [`TOUR-PLAYER-SYSTEM.md`](./TOUR-PLAYER-SYSTEM.md) |
+| Docs | This `docs/` folder | PLAY's `README.md`, `player/README.md`, `admin/README.md`, `handover.md` — see [`TOUR-PLAYER-SYSTEM.md`](./TOUR-PLAYER-SYSTEM.md) |
 
 They meet at exactly one seam: a project in `data/projects.js` has a
 `url` that points at a tour served by the player system (e.g.

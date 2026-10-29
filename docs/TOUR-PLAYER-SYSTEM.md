@@ -1,8 +1,9 @@
 # Tour player system — where to look
 
 The gaussian-splat tour player (`player/`, `admin/`, `content/`,
-`tools/`) already has thorough, actively-maintained documentation of its
-own. This page is just a map so you open the right file instead of
+`tools/`) lives in the **`jwkoenig/PLAY` repo**, not this one, and has
+thorough, actively-maintained documentation of its own there. Every file
+named below is in PLAY. This page is just a map so you open the right file instead of
 searching three of them — it deliberately doesn't duplicate their
 content, since that content is large and would immediately drift out of
 sync.
@@ -18,7 +19,7 @@ sync.
 | "A camera bug looks like a clipping/orbit/black-screen issue — what's the actual cause?" | `handover.md` §8 (bad AABB from outlier splats — reads as three unrelated bugs) |
 | "I'm about to debug something that feels like it should just work" | `handover.md` §9 — engine quirks collected the hard way (a stock getter bug, event-handler duplication, timing gotchas) |
 | "What changed in the two-scene chalet tours / `chrome-hidden` / `moveMode`?" | `handover.md` §10 |
-| "What's `PLAY` and why shouldn't I deploy from it?" | `README.md` (repo root) and `handover.md` §0 — this repo is now the sole source of truth for `player/`/`admin`/`content`/`tools` |
+| "Where do I add a new tour?" | PLAY's `content/<slug>/`; its tile goes in this repo's `data/projects.js` |
 
 ## The one-sentence version
 
@@ -31,9 +32,7 @@ adds a tour without touching the player.
 
 ## Deployment note
 
-Like the marketing site (see [`DEPLOYMENT.md`](./DEPLOYMENT.md)), the
-tour player system ships to `gospl.io` by manual upload into
-`public_html/SITE/` — there's no CI/CD step for it either, and `.sog`
-scene files are gitignored (too large) so they're dropped onto the
-server by hand, separately from any code deploy. The same "it's fixed in
-the repo but not yet on the live server" failure mode applies here too.
+The player and tours ship together with the marketing site: the
+workstation deploy (see [`DEPLOYMENT.md`](./DEPLOYMENT.md)) stages PLAY's
+`player/`, `admin/` and `content/` over this repo's build. `.sog` scene
+files are gitignored (too large) and travel separately from the code.
