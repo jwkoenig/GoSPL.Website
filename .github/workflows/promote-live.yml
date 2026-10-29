@@ -1,0 +1,40 @@
+name: Promote to gospl.io
+
+# Runs deploy.ps1 live on the office workstation: it uploads exactly the
+# stage that beta last received and refuses anything else. The `production`
+# environment requires a human approval, so starting this run (by hand or
+# from Claude) only queues it until someone approves it in GitHub; that
+# approval replaces the script's "type 'live'" prompt. See docs/DEPLOYMENT.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Only list the files that would be uploaded
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workstation-deploy
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: [self-hosted, windows, gospl-gpu]
+    environment:
+      name: production
+      url: https://gospl.io
+    steps:
+      - name: deploy.ps1 live
+        shell: powershell
+        env:
+          DEPLOY_SCRIPT: ${{ vars.DEPLOY_SCRIPT }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          $script = if ($env:DEPLOY_SCRIPT) { $env:DEPLOY_SCRIPT } else { 'C:\GOSPL\SERVER_DEPLOY\deploy.ps1' }
+          $opts = @{ Yes = $true }
+          if ($env:DRY_RUN -eq 'true') { $opts.DryRun = $true }
+          & $script live @opts
