@@ -1,6 +1,7 @@
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 
-export const PROJECTS = [
+// Entries with `hidden: true` are kept here but left out of the site.
+const ALL_PROJECTS = [
     {
     id: 'xoiowwl',
     title: 'XOIO Mountain Chalet',
@@ -52,6 +53,7 @@ export const PROJECTS = [
   },
   {
     id: 'mdwschoener',
+    hidden: true, // moved to Laika
     title: 'Birthday Photobooth',
     type: 'Entertainment',
     place: 'Berlin, Germany',
@@ -65,6 +67,17 @@ export const PROJECTS = [
     body: [
       'A sunny summer afternoon, a prominent anniversary, illustrious guests, radient mood, cold drinks - calls for a special photobooth.',
     ],
+  },
+  {
+    id: 'bmw_m3',
+    title: 'BMW M3',
+    type: 'Automotive',
+    place: 'Berlin, Germany',
+    year: '2026',
+    url: 'https://gospl.io/tours/bmw_m3/',
+    img: `${BASE}/assets/projects/bmw_m3.jpg`,
+    lead: 'A BMW M3 captured as a gaussian splat — orbit the car and zoom in on every detail, straight in the browser.',
+    body: [],
   },
   {
     id: 'watch',
@@ -102,3 +115,5 @@ export const PROJECTS = [
     ],
   },
 ]
+
+export const PROJECTS = ALL_PROJECTS.filter((p) => !p.hidden)
