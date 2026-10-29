@@ -1,0 +1,59 @@
+name: Deploy to beta.gospl.io
+
+# Runs on the office workstation's self-hosted runner (Windows, GPU), so the
+# build, any GPU conversion step and the upload all happen there. Started by
+# hand (Actions tab, or Claude via the GitHub tools); see docs/DEPLOYMENT.md.
+# Never add pull_request triggers here: a self-hosted runner must not run
+# code from forks.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to deploy
+        default: main
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workstation-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, windows, gospl-gpu]
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          NEXT_BASE_PATH: ''
+          # Turbopack refuses an out-of-project distDir on Windows
+          NEXT_DIST_DIR: build
+        run: npm run build
+
+      - name: GPU asset prep
+        if: ${{ vars.GPU_PREP_CMD != '' }}
+        env:
+          GPU_PREP_CMD: ${{ vars.GPU_PREP_CMD }}
+        run: Invoke-Expression $env:GPU_PREP_CMD
+
+      - name: Upload to beta
+        env:
+          DEPLOY_BETA_CMD: ${{ vars.DEPLOY_BETA_CMD }}
+          BUILD_DIR: ${{ github.workspace }}\build
+        run: |
+          if (-not $env:DEPLOY_BETA_CMD) { throw 'Repo variable DEPLOY_BETA_CMD is not set' }
+          Invoke-Expression $env:DEPLOY_BETA_CMD
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }

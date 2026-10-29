@@ -7,7 +7,7 @@ change that's clearly fixed in the repo doesn't look fixed to a visitor.
 
 | | Production (`gospl.io`) | GitHub Pages preview |
 |---|---|---|
-| Trigger | **Manual** — someone runs a build and uploads it | **Automatic** — every push to `main` (`.github/workflows/deploy.yml`) |
+| Trigger | **Manual** — someone runs a build and uploads it, or starts the workstation workflows (below) | **Automatic** — every push to `main` (`.github/workflows/deploy.yml`) |
 | `NEXT_BASE_PATH` | `''` (root) | `/GoSPL.Website` |
 | `NEXT_DIST_DIR` | `~/Desktop/BUILD` by default (outside the repo; override with `NEXT_DIST_DIR=build` on Windows, since Turbopack refuses an out-of-project `distDir` there) | `out` |
 | Includes `player/`/`admin/`/`content/` | Yes — deployed alongside the Next.js build into one `public_html/SITE/` folder | No — Pages only serves the static Next.js export |
@@ -29,9 +29,52 @@ change that's clearly fixed in the repo doesn't look fixed to a visitor.
    `SITE/...` transparently, and does the `/tours/<slug>` → player
    clean-URL rewrite.
 
-There is currently no CI/CD for this step — it depends on someone
-running it. **A commit merged to `main` does not, by itself, reach
-`gospl.io`.**
+This can also be run from GitHub (and so by Claude, including cloud
+sessions) through the workstation runner — see the next section. Either
+way it only happens when someone starts it. **A commit merged to `main`
+does not, by itself, reach `gospl.io`.**
+
+## Deploying through the office workstation (beta → live)
+
+The office workstation (Windows, GPU) runs a GitHub Actions
+**self-hosted runner** with the labels `self-hosted, windows, gospl-gpu`.
+The runner only makes outbound connections to GitHub, so no ports are
+opened. Two manual workflows use it:
+
+| Workflow | What it does |
+|---|---|
+| `.github/workflows/deploy-beta.yml` | Checks out `ref`, `npm ci`, builds with `NEXT_DIST_DIR=build`, runs the optional GPU step, then the beta upload command → `beta.gospl.io` |
+| `.github/workflows/promote-live.yml` | Runs the live command → `gospl.io`. Uses the `production` environment, which **requires a human approval** before it runs |
+
+Start either one from the Actions tab ("Run workflow"), or ask Claude.
+Claude starts it with the GitHub tools and reads the logs. Claude can
+queue `promote-live` but can't approve it; that click stays with a person.
+
+The commands are **repository variables** (Settings → Secrets and
+variables → Actions → Variables), so the workstation's own scripts stay
+where they are:
+
+- `DEPLOY_BETA_CMD`: PowerShell command line that uploads to beta, e.g.
+  `& C:\gospl\deploy.ps1 -Target beta -Source $env:BUILD_DIR`
+  (`BUILD_DIR` points at the fresh build).
+- `DEPLOY_LIVE_CMD`: command line that promotes beta to live.
+- `GPU_PREP_CMD` (optional): GPU convert/compress step, run after the
+  build. The step is skipped when the variable is empty.
+
+Upload credentials stay on the workstation (or in Actions secrets),
+never in the repo.
+
+One-time setup:
+
+1. Repo → Settings → Actions → Runners → *New self-hosted runner* →
+   Windows. Install it **as a service**, with the extra label `gospl-gpu`.
+2. Settings → Environments → create `production` → add yourself under
+   *Required reviewers*.
+3. Set the variables above.
+4. Settings → Actions → General → require approval for workflows from
+   outside collaborators. **Never** add `pull_request` triggers to
+   workflows that run on this runner: fork PRs would run code on the
+   workstation.
 
 ## GitHub Pages preview
 

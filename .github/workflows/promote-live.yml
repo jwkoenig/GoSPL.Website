@@ -1,0 +1,44 @@
+name: Promote to gospl.io
+
+# Pushes what is on beta.gospl.io to the live site via the workstation's
+# deploy script. The `production` environment requires a human approval, so
+# starting this run (by hand or from Claude) only queues it; it waits until
+# someone approves it in GitHub. See docs/DEPLOYMENT.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit that is on beta (for the record)
+        default: main
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workstation-deploy
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: [self-hosted, windows, gospl-gpu]
+    environment:
+      name: production
+      url: https://gospl.io
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Promote to live
+        env:
+          DEPLOY_LIVE_CMD: ${{ vars.DEPLOY_LIVE_CMD }}
+        run: |
+          if (-not $env:DEPLOY_LIVE_CMD) { throw 'Repo variable DEPLOY_LIVE_CMD is not set' }
+          Invoke-Expression $env:DEPLOY_LIVE_CMD
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
