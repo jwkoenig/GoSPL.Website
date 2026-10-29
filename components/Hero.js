@@ -45,10 +45,7 @@ export default function Hero() {
             </span>
           ))}
         </h1>
-        <p className="hero-sub">
-          We turn your spaces and products interactive online, mobile first.  <br /> We are
-          your partner for capture, authoring and delivery.
-        </p>
+        <p className="hero-sub">We consult, conceptualise and create.</p>
         <a href="#work" className="hero-cta">
           Take a tour
           <img className="arrow" src={`${BASE}/assets/icon_arrow_r.png`} alt="" />
