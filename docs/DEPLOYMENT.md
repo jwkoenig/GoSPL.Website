@@ -48,42 +48,27 @@ state (`repos\`, `stage\`, `.manifest-*.json`, `.state-beta.json`,
 encrypted SFTP password) sits next to the script, which is why the
 workflows call it in place instead of checking anything out.
 
-The workstation also runs a GitHub Actions **self-hosted runner**
-(labels `self-hosted, windows, gospl-gpu`). It only makes outbound
-connections to GitHub. Two manual workflows use it:
+Deploys run through the **private** repo
+[`jwkoenig/gospl-deploy`](https://github.com/jwkoenig/gospl-deploy). Its
+two manual workflows run on a GitHub Actions self-hosted runner on the
+workstation (labels `self-hosted, windows, gospl-gpu`):
 
 | Workflow | Runs |
 |---|---|
-| `.github/workflows/deploy-beta.yml` | `deploy.ps1 beta -Pull` (inputs: `dry_run`, `full`) → `beta.gospl.io` |
-| `.github/workflows/promote-live.yml` | `deploy.ps1 live -Yes` (input: `dry_run`) → `gospl.io`, after a **required human approval** on the `production` environment |
+| `deploy-beta.yml` | `deploy.ps1 beta -Pull` (inputs: `dry_run`, `full`) → `beta.gospl.io` |
+| `promote-live.yml` | `deploy.ps1 live -Yes` (input: `dry_run`) → `gospl.io`, after approval on that repo's `production` environment |
 
-Start either one from the Actions tab ("Run workflow"), or ask Claude.
-Claude starts it with the GitHub tools and reads the job log. Claude can
-queue `promote-live` but can't approve it: that click replaces the
-script's "type 'live'" prompt. Watch the log for the script's warning
-about the hashed CSS chunk `06k1jxr0bcst_.css`. If it shows, the
-`gospl-ui.css` alias in the root `.htaccess` needs updating on beta and
-live.
+The workflows aren't in this repo on purpose. This repo is public, and a
+self-hosted runner on a public repo can be reached by fork pull requests.
+This runner holds the SFTP password and git logins. **Don't add workflows
+that target the workstation runner here.**
 
-One-time setup:
-
-1. Run `.\deploy.ps1 beta -Pull` once by hand on the workstation if you
-   haven't yet, so the encrypted password file and SSH known_hosts exist.
-   Unattended runs fail with a clear message instead of prompting.
-2. Repo → Settings → Actions → Runners → *New self-hosted runner* →
-   Windows. Install it **as a service running under your own Windows
-   account** (the installer asks): the DPAPI-encrypted password, git
-   credentials for PLAY and known_hosts only work for that user. Add the
-   label `gospl-gpu`. `git`, `node`/`npm` and `sftp` must be on that
-   user's PATH.
-3. Settings → Environments → create `production` → add yourself under
-   *Required reviewers*.
-4. Optional: if the script moves, set the repository variable
-   `DEPLOY_SCRIPT` to its new full path.
-5. Settings → Actions → General → require approval for workflows from
-   outside collaborators. **Never** add `pull_request` triggers to
-   workflows that run on this runner: fork PRs would run code on the
-   workstation.
+Start either workflow from gospl-deploy's Actions tab, or ask Claude,
+which starts it with the GitHub tools and reads the job log. Watch the
+log for the script's warning about the hashed CSS chunk
+`06k1jxr0bcst_.css`. If it shows, the `gospl-ui.css` alias in the root
+`.htaccess` needs updating on beta and live. Runner setup is in
+gospl-deploy's README.
 
 ## GitHub Pages preview
 
