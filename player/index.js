@@ -81657,8 +81657,11 @@ const initUI = (global) => {
     // fading out. Copy comes from the tour's own splash.json (title/body)
     // when present, falling back to generic copy otherwise — most tours
     // don't have one, so a missing/404ing splash.json is the normal case,
-    // not an error (see main()'s splashPromise).
-    if (!sessionStorage.getItem('gospl.introSeen')) {
+    // not an error (see main()'s splashPromise). A tour can opt out entirely
+    // with `"intro": false` in tourSOG.json (e.g. the small orbit-only founder
+    // headshots embedded on the homepage) — and an opted-out tour doesn't
+    // mark the intro "seen", so a later full tour still shows it.
+    if (global.tour?.intro !== false && !sessionStorage.getItem('gospl.introSeen')) {
         dom.introLogo.src = dom.loadingLogo.src;
         dom.introTitle.textContent = global.splash?.title ?? 'Welcome';
         dom.introText.textContent = global.splash?.body ?? 'Click and drag to look around. Use WASD/QE or the tour controls to move. Click a hotspot icon to explore.';
@@ -84807,7 +84810,9 @@ class CameraManager {
                     }
                     break;
                 case 'requestFirstPerson':
-                    state.cameraMode = 'fly';
+                    if (!isOrbitOnlyTour(global)) {
+                        state.cameraMode = 'fly';
+                    }
                     break;
                 case 'toggleWalk':
                     if (walkAllowed) {
@@ -85509,6 +85514,11 @@ class InputModeTracker {
 }
 
 const isCaptureMode$1 = (mode) => mode === 'walk' || mode === 'fly';
+// `"orbitOnly": true` in tourSOG.json pins the camera to orbit (plus the
+// built-in auto-rotate anim): WASD/arrow keys, the '2' shortcut and
+// double-click no longer switch to fly. Used by the founder headshot tours
+// embedded on the homepage, which have no visible UI to get back out of fly.
+const isOrbitOnlyTour = (global) => global?.tour?.orbitOnly === true;
 const isWasdKey = (event) => (event.code === 'KeyW' ||
     event.code === 'KeyA' ||
     event.code === 'KeyS' ||
@@ -85547,7 +85557,9 @@ class ModeShortcuts {
                 state.cameraMode = 'orbit';
                 break;
             case '2':
-                state.cameraMode = 'fly';
+                if (!isOrbitOnlyTour(global)) {
+                    state.cameraMode = 'fly';
+                }
                 break;
             case '3':
                 events.fire('inputEvent', 'toggleWalk');
@@ -85567,7 +85579,7 @@ class ModeShortcuts {
                 events.fire('inputEvent', 'reset', event);
                 break;
             default:
-                if (isWasdKey(event) && state.inputMode === 'desktop') {
+                if (isWasdKey(event) && state.inputMode === 'desktop' && !isOrbitOnlyTour(global)) {
                     if (!isCaptureMode$1(state.cameraMode)) {
                         state.cameraMode = 'fly';
                     }
@@ -85851,6 +85863,8 @@ class NavInteraction {
         if (eventName !== 'dblclick')
             return;
         if (!(event instanceof MouseEvent))
+            return;
+        if (isOrbitOnlyTour(global))
             return;
         const { events, state } = global;
         // dblclick swaps the active mode and uses the picked target:

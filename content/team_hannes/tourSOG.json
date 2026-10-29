@@ -1,0 +1,9 @@
+{
+  "scene": "scene.sog",
+  "renderer": "playcanvas",
+  "moveMode": "orbit",
+  "orbitOnly": true,
+  "intro": false,
+  "hotspots": [],
+  "infoSpots": []
+}
