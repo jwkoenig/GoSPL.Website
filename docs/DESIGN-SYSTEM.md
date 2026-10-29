@@ -61,9 +61,12 @@ Body/secondary text conventions:
 
 - `.kicker` — 14px, uppercase, 1px letter-spacing, `--ink-2` — the small
   eyebrow label style (used above legal page titles, etc.)
-- Lead/intro paragraphs (`.hero-sub`, `.work-head p`, `.detail-splash-lead`)
+- Lead/intro paragraphs (`.work-head p`, `.detail-splash-lead`)
   sit around 18–19px with a tight 1.3–1.5 line-height and a `ch`-based
   `max-width` to keep measure readable regardless of container width.
+  `.hero-sub` is the exception: it sits over rotating photos, so it is
+  larger and bolder (22px/600 on mobile, `clamp(24px, 2vw, 30px)` from
+  641px), pure white, with a dark `text-shadow` — see the registry below.
 - Muted/secondary body copy (`.detail-splash-body`, `.legal-block p`,
   `.pstep p`) uses `--ink-2` (or its white-background equivalent
   `rgba(255,255,255,0.6)`) at 14–16px with a looser 1.6–1.75 line-height.
@@ -125,6 +128,7 @@ quietly undoing something like the item directly below.
 | Behavior | Rule | Why | How to verify |
 |---|---|---|---|
 | **"Open full tour" button hidden below 640px** | `app/globals.css`: `@media (max-width: 640px) { .detail-tour-btn { display: none; } }` (component: `components/Detail.js`, `.detail-tour-btn` link) | On mobile the button visually misaligned with the other buttons in the splash, and opening the tour in a new tab made navigating back to the site confusing. Desktop keeps it (commit `3b88ba2`, "Hide 'Open full tour' button on mobile project subpages"). | Open a project's detail overlay in a browser resized to <640px wide — the "Open full tour" pill must **not** appear (the `.detail-splash-hint` "Click to view" text, or nothing, shows instead for projects without a `url`). At ≥641px it must appear. If it shows on both, check (a) this media query wasn't deleted/edited, and (b) — very likely, since the CSS has been seen correct in source before — whether the deployed production build is actually current; see [`DEPLOYMENT.md`](./DEPLOYMENT.md#why-a-fix-can-look-reverted-when-the-code-is-fine). |
+| **Hero subtitle is large, semibold, white with a text-shadow** | `app/globals.css`: `.hero-sub` (+ `@media (min-width: 641px)` size override); component: `components/Hero.js` | The subtitle overlays rotating project photos; the earlier 18px/400/86%-white version was hard to read on bright images (PR #9). The shadow is deliberate, not a stray effect. The previous hero copy ("interactive online, mobile first…") was moved into `AboutTeaser.js`. | Subtitle should read clearly over every hero slide, in pure white at ≥22px. If the `text-shadow` or weight is removed, check it against the lightest slide first. |
 | Nav collapses to burger menu | `app/globals.css` `@media (max-width: 640px)`: `.burger { display: flex } .nav { display: none }` (component: `components/Header.js`) | Full nav doesn't fit narrow viewports | Resize below 640px — inline nav links disappear, hamburger icon appears and opens `#nav-drawer` |
 | Work grid: 3 → 2 → 1 columns | `app/globals.css`: `max-width: 900px` → 2 cols, `max-width: 560px` → 1 col (component: `components/WorkGrid.js` `.grid-work`) | Tile aspect ratio (4/3) needs room; 3-up only fits desktop widths | Resize the window through 900px and 560px and watch column count drop |
 | Process steps: 4 → 2 → 1 columns, dividers change | `app/globals.css`: `max-width: 820px` and `max-width: 480px` (component: `components/ProcessSteps.js`) | 4 columns of body copy is unreadable below ~820px; dividers are redrawn (left-border grid → top-border rows → none) rather than just reflowed, so check both column count *and* border placement when testing | Resize through 820px and 480px |

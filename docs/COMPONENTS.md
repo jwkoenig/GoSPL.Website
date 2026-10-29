@@ -98,6 +98,9 @@ supported anywhere in the site's content; see `data/projects.js`'s
 
 `AboutTeaser` is the static "About GoSPL" copy block plus `ProcessSteps`,
 which maps `data/process.js` into the four numbered `.pstep` columns.
+It also carries the "interactive online, mobile first… capture, authoring
+and delivery" paragraph that used to be the hero subtitle (moved in PR #9;
+the hero now reads "We consult, conceptualise and create.").
 
 ## `CtaBand.js`
 
