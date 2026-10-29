@@ -11,6 +11,10 @@
 #                      up roughly metric (~0.25-0.4 units tall) to match the
 #                      tour settings.json framing. Scans exported in cm need 0.01.
 #                      Default: 1 (no scaling).
+#   CLEAN_FLOATERS=0.4 first strip the translucent "fog" shell some scans carry
+#                      around the head (tools/clean_floaters.py, needs python3 +
+#                      numpy); the value is the voxel size in the PLY's own units
+#                      (0.4 = 4 mm for a scan in cm). Default: off.
 #   CROP_RADIUS=0.35   drop every splat farther than this from the head centre
 #                      (world units; applied after recentering and SCALE). Default: no crop.
 #   ROTATE=0,180,0     extra Euler rotation (degrees), e.g. if the viewer opens on
@@ -29,7 +33,7 @@
 set -euo pipefail
 
 if [[ $# -lt 2 || $# -gt 3 ]]; then
-    sed -n '2,28p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '2,32p' "$0" | sed 's/^# \{0,1\}//'
     exit 1
 fi
 
@@ -63,6 +67,12 @@ stats() {
             console.log([j.numGaussians, ...d.median.slice(0, 3), ...d.stdDev.slice(0, 3)].join(" "));
         });'
 }
+
+if [[ -n "${CLEAN_FLOATERS:-}" ]]; then
+    echo "==> Removing floaters (voxel $CLEAN_FLOATERS)"
+    python3 -I "$REPO/tools/clean_floaters.py" "$INPUT" "$TMP/cleaned.ply" "$CLEAN_FLOATERS"
+    INPUT="$TMP/cleaned.ply"
+fi
 
 echo "==> Reading $INPUT"
 read -r N0 MX MY MZ _ _ _ < <(stats "$INPUT")
