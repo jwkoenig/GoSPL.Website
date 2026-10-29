@@ -49,7 +49,7 @@ encrypted SFTP password) sits next to the script, which is why the
 workflows call it in place instead of checking anything out.
 
 Deploys run through the **private** repo
-[`jwkoenig/gospl-deploy`](https://github.com/jwkoenig/gospl-deploy). Its
+[`jwkoenig/GOSPL.DEPLOY`](https://github.com/jwkoenig/GOSPL.DEPLOY). Its
 two manual workflows run on a GitHub Actions self-hosted runner on the
 workstation (labels `self-hosted, windows, gospl-gpu`):
 
@@ -63,12 +63,12 @@ self-hosted runner on a public repo can be reached by fork pull requests.
 This runner holds the SFTP password and git logins. **Don't add workflows
 that target the workstation runner here.**
 
-Start either workflow from gospl-deploy's Actions tab, or ask Claude,
+Start either workflow from GOSPL.DEPLOY's Actions tab, or ask Claude,
 which starts it with the GitHub tools and reads the job log. Watch the
 log for the script's warning about the hashed CSS chunk
 `06k1jxr0bcst_.css`. If it shows, the `gospl-ui.css` alias in the root
 `.htaccess` needs updating on beta and live. Runner setup is in
-gospl-deploy's README.
+GOSPL.DEPLOY's README.
 
 ## GitHub Pages preview
 
