@@ -183,7 +183,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
               </div>
 
               <div className="detail-splash-specs">
-                {SPECS.map((s) => (
+                {SPECS.filter((s) => project[s.key]).map((s) => (
                   <span key={s.key} className="spec-item">
                     {s.k} <b>{project[s.key]}</b>
                   </span>
