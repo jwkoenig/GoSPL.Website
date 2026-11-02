@@ -22,8 +22,8 @@ change that's clearly fixed in the repo doesn't look fixed to a visitor.
    folder — see `next.config.mjs`'s comment).
 3. Upload that build's contents into `public_html/SITE/` on the shared
    host, **alongside** — not overwriting — `player/`, `admin/`, and
-   `content/`, which are deployed the same way but aren't part of this
-   Next.js build (see `player/README.md`).
+   `content/`, which come from the PLAY repo and aren't part of this
+   Next.js build (see PLAY's `README.md`).
 4. The root `.htaccess` (hand-maintained directly on the server, **not
    tracked in this repo**) rewrites `gospl.io/...` requests into
    `SITE/...` transparently, and does the `/tours/<slug>` → player
@@ -36,54 +36,19 @@ does not, by itself, reach `gospl.io`.**
 
 ## Deploying through the office workstation (beta → live)
 
-The production deploy script, `deploy.ps1` with `deploy.config.psd1`,
-lives on the office workstation (Windows) in `C:\GOSPL\SERVER_DEPLOY`,
-**not in this repo**. `deploy.ps1 beta -Pull` hard-resets its own clones of
-PLAY (`master`) and this repo (`main`) to origin, builds the site
-(`NEXT_DIST_DIR=build`, root `basePath`), copies PLAY's `player/`,
-`admin/`, `content/` etc. over the build into `stage\`, and uploads only
-the files whose hash changed over SFTP. `deploy.ps1 live` uploads that
-same stage and **refuses unless beta already received exactly it**. Its
-state (`repos\`, `stage\`, `.manifest-*.json`, `.state-beta.json`,
-encrypted SFTP password) sits next to the script, which is why the
-workflows call it in place instead of checking anything out.
+The real deploy lives in the private **`jwkoenig/GOSPL.DEPLOY`** repo: the
+`deploy-beta` and `promote-live` workflows, and the deploy script they run
+on the office workstation's self-hosted runner. Its README is the manual.
+In short: `deploy.ps1 beta -Pull` pulls PLAY (`master`) and this repo
+(`main`), builds the site, copies PLAY's `player/`, `admin/` and
+`content/` over the build into a stage, and uploads only changed files
+over SFTP to `beta.gospl.io`. `deploy.ps1 live` uploads that same stage to
+`gospl.io` and refuses anything beta hasn't received.
 
-The workstation also runs a GitHub Actions **self-hosted runner**
-(labels `self-hosted, windows, gospl-gpu`). It only makes outbound
-connections to GitHub. Two manual workflows use it:
-
-| Workflow | Runs |
-|---|---|
-| `.github/workflows/deploy-beta.yml` | `deploy.ps1 beta -Pull` (inputs: `dry_run`, `full`) → `beta.gospl.io` |
-| `.github/workflows/promote-live.yml` | `deploy.ps1 live -Yes` (input: `dry_run`) → `gospl.io`, after a **required human approval** on the `production` environment |
-
-Start either one from the Actions tab ("Run workflow"), or ask Claude.
-Claude starts it with the GitHub tools and reads the job log. Claude can
-queue `promote-live` but can't approve it: that click replaces the
-script's "type 'live'" prompt. Watch the log for the script's warning
-about the hashed CSS chunk `06k1jxr0bcst_.css`. If it shows, the
-`gospl-ui.css` alias in the root `.htaccess` needs updating on beta and
-live.
-
-One-time setup:
-
-1. Run `.\deploy.ps1 beta -Pull` once by hand on the workstation if you
-   haven't yet, so the encrypted password file and SSH known_hosts exist.
-   Unattended runs fail with a clear message instead of prompting.
-2. Repo → Settings → Actions → Runners → *New self-hosted runner* →
-   Windows. Install it **as a service running under your own Windows
-   account** (the installer asks): the DPAPI-encrypted password, git
-   credentials for PLAY and known_hosts only work for that user. Add the
-   label `gospl-gpu`. `git`, `node`/`npm` and `sftp` must be on that
-   user's PATH.
-3. Settings → Environments → create `production` → add yourself under
-   *Required reviewers*.
-4. Optional: if the script moves, set the repository variable
-   `DEPLOY_SCRIPT` to its new full path.
-5. Settings → Actions → General → require approval for workflows from
-   outside collaborators. **Never** add `pull_request` triggers to
-   workflows that run on this runner: fork PRs would run code on the
-   workstation.
+The workflows used to be duplicated here. They were removed: this repo is
+public (GitHub Pages), and a self-hosted runner must never be reachable
+from a public repo, where fork pull requests could run code on the
+workstation.
 
 ## GitHub Pages preview
 
