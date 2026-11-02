@@ -10,8 +10,9 @@ later with no one having touched that CSS rule on purpose. See
 the pattern behind it.
 
 The **tour player system** (`player/`, `admin/`, `content/`, `tools/`)
-has its own, already-thorough documentation — `player/README.md`,
-`admin/README.md`, and the repo-root `handover.md` deep-dive. This
+lives in the `jwkoenig/PLAY` repo with its own, already-thorough
+documentation — `player/README.md`, `admin/README.md`, and the
+`handover.md` deep-dive there. This
 `docs/` folder doesn't duplicate that; [`TOUR-PLAYER-SYSTEM.md`](./TOUR-PLAYER-SYSTEM.md)
 is a one-page map telling you which of those three files to open for a
 given question.

@@ -27,7 +27,7 @@ undo by accident, add a row here in the same commit.
 
 ## Tour player system
 
-The player's own docs (`handover.md`, `player/README.md`,
+The player's own docs in the PLAY repo (`handover.md`, `player/README.md`,
 `admin/README.md` — see [`TOUR-PLAYER-SYSTEM.md`](./TOUR-PLAYER-SYSTEM.md))
 already track this kind of thing in depth for that codebase. Two are
 worth surfacing here because they're the *same pattern* as this file's

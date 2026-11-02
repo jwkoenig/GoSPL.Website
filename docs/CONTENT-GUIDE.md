@@ -40,6 +40,13 @@ Each entry:
   worked "coming soon" example, including putting "COMING SOON!" in the
   `title` itself (there's no separate "status" field — the convention is
   to say it in the title).
+- **`hidden: true` takes a project off the site without deleting it.**
+  `data/projects.js` defines `ALL_PROJECTS` and exports
+  `PROJECTS = ALL_PROJECTS.filter((p) => !p.hidden)`, so hidden entries
+  vanish from the grid, hero slides and "Tours live" count. Leave a short
+  comment on the flag (e.g. `// on hold`).
+- **`splats`, `area` and `capture` are optional.** `components/Detail.js`
+  skips any spec that is missing instead of rendering an empty value.
 - **`img` must be prefixed with `${BASE}`** (the module-level
   `const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''`) — a bare
   `/assets/...` path breaks on the GitHub Pages preview. Drop the actual
@@ -81,7 +88,7 @@ you change the count away from 4.
 
 `FOUNDERS` entries are `{ id, name, splat, img }`. `splat` is a PLAY tour
 URL (`https://gospl.io/tours/team_<name>/`, content in
-`content/team_<name>/`) that is embedded live as an iframe on desktop
+`content/team_<name>/` in the PLAY repo) that is embedded live as an iframe on desktop
 (≥821px, mounted only once the card scrolls near the viewport). `img` is a
 still of the same framing (`public/assets/team/<id>.jpg`, portrait 4:5),
 shown on mobile as a link to `splat`. If the still is missing, the card

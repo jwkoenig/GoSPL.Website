@@ -7,7 +7,7 @@ change that's clearly fixed in the repo doesn't look fixed to a visitor.
 
 | | Production (`gospl.io`) | GitHub Pages preview |
 |---|---|---|
-| Trigger | **Manual** — someone runs a build and uploads it | **Automatic** — every push to `main` (`.github/workflows/deploy.yml`) |
+| Trigger | **Manual** — someone runs a build and uploads it, or starts the workstation workflows (below) | **Automatic** — every push to `main` (`.github/workflows/deploy.yml`) |
 | `NEXT_BASE_PATH` | `''` (root) | `/GoSPL.Website` |
 | `NEXT_DIST_DIR` | `~/Desktop/BUILD` by default (outside the repo; override with `NEXT_DIST_DIR=build` on Windows, since Turbopack refuses an out-of-project `distDir` there) | `out` |
 | Includes `player/`/`admin/`/`content/` | Yes — deployed alongside the Next.js build into one `public_html/SITE/` folder | No — Pages only serves the static Next.js export |
@@ -22,16 +22,33 @@ change that's clearly fixed in the repo doesn't look fixed to a visitor.
    folder — see `next.config.mjs`'s comment).
 3. Upload that build's contents into `public_html/SITE/` on the shared
    host, **alongside** — not overwriting — `player/`, `admin/`, and
-   `content/`, which are deployed the same way but aren't part of this
-   Next.js build (see `player/README.md`).
+   `content/`, which come from the PLAY repo and aren't part of this
+   Next.js build (see PLAY's `README.md`).
 4. The root `.htaccess` (hand-maintained directly on the server, **not
    tracked in this repo**) rewrites `gospl.io/...` requests into
    `SITE/...` transparently, and does the `/tours/<slug>` → player
    clean-URL rewrite.
 
-There is currently no CI/CD for this step — it depends on someone
-running it. **A commit merged to `main` does not, by itself, reach
-`gospl.io`.**
+This can also be run from GitHub (and so by Claude, including cloud
+sessions) through the workstation runner — see the next section. Either
+way it only happens when someone starts it. **A commit merged to `main`
+does not, by itself, reach `gospl.io`.**
+
+## Deploying through the office workstation (beta → live)
+
+The real deploy lives in the private **`jwkoenig/GOSPL.DEPLOY`** repo: the
+`deploy-beta` and `promote-live` workflows, and the deploy script they run
+on the office workstation's self-hosted runner. Its README is the manual.
+In short: `deploy.ps1 beta -Pull` pulls PLAY (`master`) and this repo
+(`main`), builds the site, copies PLAY's `player/`, `admin/` and
+`content/` over the build into a stage, and uploads only changed files
+over SFTP to `beta.gospl.io`. `deploy.ps1 live` uploads that same stage to
+`gospl.io` and refuses anything beta hasn't received.
+
+The workflows used to be duplicated here. They were removed: this repo is
+public (GitHub Pages), and a self-hosted runner must never be reachable
+from a public repo, where fork pull requests could run code on the
+workstation.
 
 ## GitHub Pages preview
 
