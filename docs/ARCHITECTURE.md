@@ -50,6 +50,7 @@ in `data/`:
   when a project gets or loses a `url`
 - `data/process.js` — the four-step "Capture / Reconstruct / Author /
   Deliver" list on the About section
+- `data/team.js` — founders (live splat tour + still) and locations on the About section
 
 Editing a project, stat, or process step is a `data/` change only — no
 JSX or CSS needed for the common case.

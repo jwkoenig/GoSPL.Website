@@ -89,11 +89,11 @@ In practice these values recur:
 
 | Breakpoint | Meaning in this codebase |
 |---|---|
-| `max-width: 480px` | Smallest phones — process steps collapse to 1 column |
+| `max-width: 480px` | Smallest phones — process steps and founder cards collapse to 1 column |
 | `max-width: 560px` | Work grid collapses to 1 column |
 | `max-width: 640px` / `min-width: 641px` | **The primary mobile/desktop split.** Nav collapses to the burger menu, heading sizes step down, the "Open full tour" button hides (see registry below) |
 | `max-width: 720px` | Footer columns go from 4 to 2 |
-| `max-width: 820px` | Process steps go from 4 to 2 columns; About page grid stacks |
+| `max-width: 820px` / `min-width: 821px` | Process steps go from 4 to 2 columns; About page grid stacks; "Where to find us" columns stack; founder headshots switch between stills (≤820px) and live splat iframes (≥821px) |
 | `max-width: 900px` | Work grid goes from 3 to 2 columns |
 
 **640/641px is the closest thing this site has to a "mobile" boundary.**
@@ -132,6 +132,7 @@ quietly undoing something like the item directly below.
 | Nav collapses to burger menu | `app/globals.css` `@media (max-width: 640px)`: `.burger { display: flex } .nav { display: none }` (component: `components/Header.js`) | Full nav doesn't fit narrow viewports | Resize below 640px — inline nav links disappear, hamburger icon appears and opens `#nav-drawer` |
 | Work grid: 3 → 2 → 1 columns | `app/globals.css`: `max-width: 900px` → 2 cols, `max-width: 560px` → 1 col (component: `components/WorkGrid.js` `.grid-work`) | Tile aspect ratio (4/3) needs room; 3-up only fits desktop widths | Resize the window through 900px and 560px and watch column count drop |
 | Process steps: 4 → 2 → 1 columns, dividers change | `app/globals.css`: `max-width: 820px` and `max-width: 480px` (component: `components/ProcessSteps.js`) | 4 columns of body copy is unreadable below ~820px; dividers are redrawn (left-border grid → top-border rows → none) rather than just reflowed, so check both column count *and* border placement when testing | Resize through 820px and 480px |
+| Founder headshots: live iframe on desktop, still on mobile | `components/Founders.js` (`matchMedia('(min-width: 821px)')`, must match the 820px rule in `app/globals.css`); `.founders` goes to 1 column at `max-width: 480px`; `.locations` stacks at `max-width: 820px` | Two live WebGL splat viewers are too heavy for phones, so mobile gets a still linking to the tour. This is a JS media query, not CSS, so changing one breakpoint without the other desyncs layout from behavior | Resize through 821px — iframes appear/disappear; below 821px the card is a link with a "View in 3D" pill |
 | Footer: 4 → 2 columns | `app/globals.css`: `max-width: 720px` (component: `components/Footer.js`) | 4 columns of link lists don't fit narrow viewports | Resize below 720px |
 | Hero autoplay pauses on hover/focus, not manually | `components/Hero.js` (`onMouseEnter`/`onFocus` → `hovered` → `paused`) | The standalone pause **button** was intentionally removed (commit `97eef32`, "Remove hero pause button..."); hover-to-pause is the sole remaining pause mechanism. If a future change removes the hover/focus handlers thinking they're dead code, autoplay becomes permanently un-pausable by non-mouse users. | Hover the hero on desktop — slide rotation stops; tab into it via keyboard — same. Also respects `prefers-reduced-motion` (rotation never starts at all). |
 | Detail-overlay focus trap only applies inside the open dialog | `components/Detail.js` `handleKeyDown`, gated on `rootRef` and a `FOCUSABLE` selector that excludes `offsetParent === null` (hidden) elements | Prevents Tab from escaping the modal, but must keep excluding hidden elements — e.g. the tour button hidden by the rule above — or Tab can land on an invisible focus target | Open a project detail on mobile (<640px, tour button hidden) and Tab through it — focus should never land on an invisible element |
