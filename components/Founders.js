@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { FOUNDERS } from '@/data/team'
+import { tourUrl } from './tourUrl'
 
 // Live splat iframes only on desktop; matches the 820px breakpoint in globals.css.
 const DESKTOP_MQ = '(min-width: 821px)'
@@ -55,7 +56,7 @@ function FounderMedia({ founder, live }) {
       <div ref={ref} className="founder-media">
         {inView && (
           <iframe
-            src={founder.splat}
+            src={tourUrl(founder.splat)}
             title={`${founder.name}, 3D splat headshot`}
             loading="lazy"
             allow="xr-spatial-tracking"
@@ -68,7 +69,7 @@ function FounderMedia({ founder, live }) {
   return (
     <a
       className="founder-media"
-      href={founder.splat}
+      href={tourUrl(founder.splat)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${founder.name}, view 3D splat headshot`}

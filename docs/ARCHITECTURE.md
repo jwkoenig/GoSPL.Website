@@ -13,8 +13,13 @@ They meet at exactly one seam: a project in `data/projects.js` has a
 `url` that points at a tour served by the player system (e.g.
 `https://gospl.io/tours/space_kramer/`), and `components/Detail.js`
 embeds that URL in an `<iframe>` plus links to it directly via the "Open
-full tour" button. Nothing else couples the two systems — you can work
-on either without touching the other.
+full tour" button (`components/Founders.js` does the same with the
+founder headshots in `data/team.js`). Both pass the URL through
+`components/tourUrl.js`, which makes it root-relative (`/tours/<slug>/`) in
+the production build, so beta.gospl.io embeds beta's tours and gospl.io
+its own; dev and the GitHub Pages preview keep the absolute gospl.io URL.
+Nothing else couples the two systems — you can work on either without
+touching the other.
 
 ## Marketing site — pages and routing
 
