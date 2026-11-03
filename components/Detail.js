@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { tourUrl } from './tourUrl'
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 const OPEN_MS = 700
@@ -157,7 +158,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
       <div className={`detail-inner ${innerOn ? 'on' : ''}`}>
         <div className="detail-hero">
           {project.url ? (
-            <iframe className="detail-tour-frame" src={project.url} title={project.title} allow="xr-spatial-tracking" />
+            <iframe className="detail-tour-frame" src={tourUrl(project.url)} title={project.title} allow="xr-spatial-tracking" />
           ) : (
             <img className="detail-tour-bg" src={project.img} alt={project.title} />
           )}
@@ -193,7 +194,7 @@ export default function Detail({ project, originRect, onClose, onNav, hasPrev, h
               {project.url ? (
                 <a
                   className="detail-tour-btn"
-                  href={project.url}
+                  href={tourUrl(project.url)}
                   target="_blank"
                   rel="noreferrer"
                   onClick={(e) => e.stopPropagation()}
