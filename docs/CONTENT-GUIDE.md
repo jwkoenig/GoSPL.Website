@@ -91,7 +91,7 @@ URL (`https://gospl.io/tours/team_<name>/`, content in
 `content/team_<name>/` in the PLAY repo) that is embedded live as an iframe on desktop
 (≥821px, mounted only once the card scrolls near the viewport). `img` is a
 still of the same framing (`public/assets/team/<id>.jpg`, portrait 4:5),
-shown on mobile as a link to `splat`. If the still is missing, the card
+shown on mobile as a link to `splat`. Stills are on a white background to match the live tour, and `.founder-media` uses `--paper` (white) so the card blends with the embed while it loads. If the still is missing, the card
 shows the person's initials.
 
 `LOCATIONS` entries are `{ id, label, name, place, url, body }` and are
