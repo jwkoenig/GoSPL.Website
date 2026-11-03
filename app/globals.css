@@ -538,7 +538,7 @@ img { display: block; max-width: 100%; }
 .founder { margin: 0; }
 .founder-media {
   position: relative; display: block; overflow: hidden;
-  aspect-ratio: 4 / 5; background: var(--paper-2);
+  aspect-ratio: 4 / 5; background: var(--paper);
 }
 .founder-media iframe,
 .founder-media img {
