@@ -44,7 +44,8 @@ Full-bleed video crossfade on the home page only.
 - Title renders word-by-word with a staggered `animationDelay` (`.word`
   spans), which is also disabled under reduced motion.
 - Dot navigation (`.hero-dots`) lets a visitor jump to a specific slide
-  directly, independent of autoplay.
+  directly, independent of autoplay. The dot images display at their native
+  24×8 size (no stretching; see `FEATURE-REGISTRY.md`).
 
 ## `Stats.js`
 
