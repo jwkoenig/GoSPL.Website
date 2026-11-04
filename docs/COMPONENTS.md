@@ -23,13 +23,22 @@ Fixed top bar, shared by every page via `app/layout.js`.
 
 ## `Hero.js`
 
-Full-bleed image crossfade on the home page only.
+Full-bleed video crossfade on the home page only.
 
-- `SLIDES = PROJECTS.slice(0, 4)` — the first four entries in
-  `data/projects.js` become hero slides, in array order. Reordering the
-  hero means reordering `PROJECTS`, not editing `Hero.js`.
-- Auto-advances every 6s via `setInterval`, pauses on hover/focus, and
-  never starts if `prefers-reduced-motion: reduce` — see the registry row
+- `SLIDES` in `Hero.js` lists the clips in play order (`biplane`, `cabin`,
+  `motorbike`, `restaurant`). Each needs `hero_<id>_720p.mp4`,
+  `hero_<id>_1080p.mp4` and `hero_<id>_poster.jpg` in
+  `public/assets/HERO/` **on the web server** — they are not in git and
+  are uploaded by hand. The GitHub Pages preview therefore has no hero
+  imagery.
+- Phones (`max-width: 820px`, same breakpoint as `globals.css` and
+  `Founders.js`) get the 720p files, wider screens the 1080p ones. The
+  resolution is picked in `useEffect`, so the static HTML has no video
+  `src` and a phone never requests a 1080p file. Only the active clip
+  preloads; the others show their poster until they come up.
+- Advances when the active clip ends (or after 6s if it can't play, e.g.
+  autoplay blocked or file missing). Pauses on hover/focus, and never
+  plays under `prefers-reduced-motion: reduce` (posters only) — see the registry row
   in [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md#responsive--conditional-behavior-registry)
   for why there's no manual pause button.
 - Title renders word-by-word with a staggered `animationDelay` (`.word`

@@ -5,11 +5,9 @@ it lives in `data/`.
 
 ## Adding or editing a project (`data/projects.js`)
 
-`PROJECTS` is an ordered array — order matters twice over: it's the grid
-order on the home page, **and** the first four entries become the hero
-slideshow (`components/Hero.js`, `SLIDES = PROJECTS.slice(0, 4)`). Adding
-a new "flagship" project at the top pushes the previous 4th slide out of
-the hero automatically.
+`PROJECTS` is an ordered array — it's the grid order on the home page.
+(The hero slides are videos listed in `components/Hero.js` and don't use
+project data; see `COMPONENTS.md`.)
 
 Each entry:
 
@@ -24,7 +22,7 @@ Each entry:
   area: '160 m²',
   capture: '3 hr · 677 Photos',
   url: 'https://gospl.io/tours/space_kramer/',  // omit entirely for "coming soon" projects
-  img: `${BASE}/assets/projects/kramer.jpg`,     // tile + hero background
+  img: `${BASE}/assets/projects/kramer.jpg`,     // tile + detail background
   lead: 'Mixology and Fine Dining cooked over open fire in Neukölln,',
   body: [
     'First paragraph...',
@@ -43,7 +41,7 @@ Each entry:
 - **`hidden: true` takes a project off the site without deleting it.**
   `data/projects.js` defines `ALL_PROJECTS` and exports
   `PROJECTS = ALL_PROJECTS.filter((p) => !p.hidden)`, so hidden entries
-  vanish from the grid, hero slides and "Tours live" count. Leave a short
+  vanish from the grid and "Tours live" count. Leave a short
   comment on the flag (e.g. `// on hold`).
 - **`splats`, `area` and `capture` are optional.** `components/Detail.js`
   skips any spec that is missing instead of rendering an empty value.
