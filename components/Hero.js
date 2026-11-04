@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 const BASE = process.env.NEXT_PUBLIC_BASEPATH || ''
 const TITLE = 'Step inside the space'
@@ -97,10 +97,12 @@ export default function Hero() {
       <div className="hero-content">
         <div className="hero-stack">
         <h1 className="hero-title">
+          {/* the space sits between the spans: a trailing space inside an inline-block gets dropped */}
           {TITLE.split(' ').map((w, i) => (
-            <span key={i} className="word" style={{ animationDelay: `${i * 0.08}s` }}>
-              {w}{i < TITLE.split(' ').length - 1 ? ' ' : ''}
-            </span>
+            <Fragment key={i}>
+              {i > 0 && ' '}
+              <span className="word" style={{ animationDelay: `${i * 0.08}s` }}>{w}</span>
+            </Fragment>
           ))}
         </h1>
         <p className="hero-sub">We consult, conceptualise and create immersive media.</p>
