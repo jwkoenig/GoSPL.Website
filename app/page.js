@@ -1,8 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import Hero from '@/components/Hero'
-import Stats from '@/components/Stats'
+import Hero, { HeroIntro } from '@/components/Hero'
 import WorkGrid from '@/components/WorkGrid'
 import Detail from '@/components/Detail'
 import AboutTeaser from '@/components/AboutTeaser'
@@ -36,7 +35,7 @@ export default function HomePage() {
   return (
     <main id="main" className="page">
       <Hero />
-      <Stats />
+      <HeroIntro />
       <WorkGrid onOpen={handleOpen} />
       <AboutTeaser />
       <CtaBand />

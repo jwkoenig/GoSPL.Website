@@ -96,16 +96,6 @@ export default function Hero() {
 
       <div className="hero-content">
         <div className="hero-stack">
-        <h1 className="hero-title">
-          {/* the space sits between the spans: a trailing space inside an inline-block gets dropped */}
-          {TITLE.split(' ').map((w, i) => (
-            <Fragment key={i}>
-              {i > 0 && ' '}
-              <span className="word" style={{ animationDelay: `${i * 0.08}s` }}>{w}</span>
-            </Fragment>
-          ))}
-        </h1>
-        <p className="hero-sub">We consult, conceptualise and create immersive media.</p>
         <a href="#work" className="hero-cta">
           Take a tour
           <img className="arrow" src={`${BASE}/assets/icon_arrow_r.png`} alt="" />
@@ -127,6 +117,26 @@ export default function Hero() {
           ))}
         </div>
         </div>
+      </div>
+    </section>
+  )
+}
+
+// Title and subline, shown below the hero (in place of the stats band).
+export function HeroIntro() {
+  return (
+    <section className="hero-intro">
+      <div className="wrap">
+        <h1 className="hero-title">
+          {/* the space sits between the spans: a trailing space inside an inline-block gets dropped */}
+          {TITLE.split(' ').map((w, i) => (
+            <Fragment key={i}>
+              {i > 0 && ' '}
+              <span className="word" style={{ animationDelay: `${i * 0.08}s` }}>{w}</span>
+            </Fragment>
+          ))}
+        </h1>
+        <p className="hero-sub">We consult, conceptualise and create immersive media.</p>
       </div>
     </section>
   )
