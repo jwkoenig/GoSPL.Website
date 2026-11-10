@@ -25,8 +25,8 @@ Fixed top bar, shared by every page via `app/layout.js`.
 
 Full-bleed video crossfade on the home page only.
 
-- `SLIDES` in `Hero.js` lists the clips in play order (`biplane`, `cabin`,
-  `motorbike`, `restaurant`). Each needs `hero_<id>_720p.mp4`,
+- `SLIDES` in `Hero.js` lists the clips in play order (`motorbike`,
+  `restaurant`, `cabin`). Each needs `hero_<id>_720p.mp4`,
   `hero_<id>_1080p.mp4` and `hero_<id>_poster.jpg` in
   `public/assets/HERO/` **on the web server** — they are not in git and
   are uploaded by hand. The GitHub Pages preview therefore has no hero

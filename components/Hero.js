@@ -9,10 +9,9 @@ const TITLE = 'Step inside the space'
 // Each slide needs hero_<name>_720p.mp4, hero_<name>_1080p.mp4 and
 // hero_<name>_poster.jpg there. Slides play in this order.
 const SLIDES = [
-  { id: 'biplane', label: 'Biplane' },
-  { id: 'cabin', label: 'Cabin' },
   { id: 'motorbike', label: 'Motorbike' },
   { id: 'restaurant', label: 'Restaurant' },
+  { id: 'cabin', label: 'Cabin' },
 ]
 const heroFile = (id, suffix) => `${BASE}/assets/HERO/hero_${id}_${suffix}`
 
