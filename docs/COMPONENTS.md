@@ -26,7 +26,7 @@ Fixed top bar, shared by every page via `app/layout.js`.
 Full-bleed video crossfade on the home page only.
 
 - `SLIDES` in `Hero.js` lists the clips in play order (`motorbike`,
-  `restaurant`, `cabin`). Each needs `hero_<id>_720p.mp4`,
+  `restaurant`, `cabin`, `biplane`). Each needs `hero_<id>_720p.mp4`,
   `hero_<id>_1080p.mp4` and `hero_<id>_poster.jpg` in
   `public/assets/HERO/` **on the web server** — they are not in git and
   are uploaded by hand. The GitHub Pages preview therefore has no hero
@@ -34,13 +34,19 @@ Full-bleed video crossfade on the home page only.
 - Phones (`max-width: 820px`, same breakpoint as `globals.css` and
   `Founders.js`) get the 720p files, wider screens the 1080p ones. The
   resolution is picked in `useEffect`, so the static HTML has no video
-  `src` and a phone never requests a 1080p file. Only the active clip
-  preloads; the others show their poster until they come up.
-- Advances when the active clip ends (or after 6s if it can't play, e.g.
-  autoplay blocked or file missing). Pauses on hover/focus, and never
-  plays under `prefers-reduced-motion: reduce` (posters only) — see the registry row
-  in [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md#responsive--conditional-behavior-registry)
-  for why there's no manual pause button.
+  `src` and a phone never requests a 1080p file. The active clip and
+  the next one preload; the rest show their poster until they come up.
+- Advances when the active clip ends. A once-a-second watchdog retries
+  `play()` whenever the browser paused or refused it, and also retries on
+  the first tap/click/key/scroll (iOS Low Power Mode only allows play
+  inside a gesture). If the clip makes no progress for 8s (blocked,
+  stalled, missing file) it moves on.
+- **Does not pause on mouse hover** — the hero fills the top of the page,
+  so the cursor is nearly always over it and hover-pause made autoplay
+  look broken. It pauses only while *keyboard* focus (`:focus-visible`)
+  is inside it; clicking/tapping a dot does not pause. Never plays under
+  `prefers-reduced-motion: reduce` (posters only) — see the registry row
+  in [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md#responsive--conditional-behavior-registry).
 - Title renders word-by-word with a staggered `animationDelay` (`.word`
   spans), which is also disabled under reduced motion.
 - Dot navigation (`.hero-dots`) lets a visitor jump to a specific slide
