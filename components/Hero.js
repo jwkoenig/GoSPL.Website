@@ -12,21 +12,25 @@ const SLIDES = [
   { id: 'motorbike', label: 'Motorbike' },
   { id: 'restaurant', label: 'Restaurant' },
   { id: 'cabin', label: 'Cabin' },
+  { id: 'biplane', label: 'Biplane' },
 ]
 const heroFile = (id, suffix) => `${BASE}/assets/HERO/hero_${id}_${suffix}`
 
 // Phones get the 720p encode, wider screens the 1080p one. Matches the 820px
 // breakpoint in globals.css and Founders.js.
 const MOBILE_MQ = '(max-width: 820px)'
-// If a clip can't play (blocked autoplay, missing file), move on after this long.
-const FALLBACK_MS = 6000
+// Watchdog: while a clip should be playing it is checked every second and play()
+// is retried if the browser paused or refused it. If it makes no progress for this
+// long (blocked autoplay, stalled download, missing file) the hero moves on.
+const STALL_MS = 8000
 
 export default function Hero() {
   const [active, setActive] = useState(0)
-  const [hovered, setHovered] = useState(false)
+  const [kbFocus, setKbFocus] = useState(false) // keyboard focus inside the hero pauses it
   const [res, setRes] = useState(null) // '720p' | '1080p', picked on the client
   const videos = useRef([])
-  const paused = hovered
+  const activeRef = useRef(0)
+  const pausedRef = useRef(false)
 
   // Choose the resolution after mount, so a phone never requests the 1080p files.
   useEffect(() => {
@@ -39,43 +43,61 @@ export default function Hero() {
 
   const next = () => setActive((v) => (v + 1) % SLIDES.length)
 
-  // Play only the active clip; the rest stay paused on their posters.
+  const playActive = () => {
+    const v = videos.current[activeRef.current]
+    if (!v || !v.paused || pausedRef.current) return
+    v.muted = true // property, not just the attribute: autoplay policies check this
+    if (v.ended) v.currentTime = 0
+    v.play().catch(() => {}) // a refusal is retried by the watchdog
+  }
+
+  // Show the new slide from its start; pause every other clip.
+  useEffect(() => {
+    activeRef.current = active
+    videos.current.forEach((v, i) => {
+      if (!v) return
+      if (i === active) { if (v.readyState > 0) v.currentTime = 0 }
+      else v.pause()
+    })
+  }, [active])
+
+  // Start, keep alive and advance the active clip.
   useEffect(() => {
     if (!res) return
     // reduced motion: never play, posters only (dots still switch slides)
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    let fallback
-    videos.current.forEach((v, i) => {
-      if (!v) return
-      if (i !== active) {
-        v.pause()
-        return
-      }
-      if (paused || still) {
-        v.pause()
-        return
-      }
-      if (v.ended) v.currentTime = 0
-      v.play().catch(() => {
-        fallback = setTimeout(next, FALLBACK_MS)
-      })
-    })
-    return () => clearTimeout(fallback)
-  }, [active, paused, res])
-
-  // A newly shown clip starts from the beginning.
-  useEffect(() => {
+    pausedRef.current = still || kbFocus
     const v = videos.current[active]
-    if (v && v.readyState > 0) v.currentTime = 0
-  }, [active])
+    if (pausedRef.current) { v?.pause(); return }
+
+    playActive()
+    let lastTime = -1
+    let lastProgress = Date.now()
+    const id = setInterval(() => {
+      const cur = videos.current[active]
+      if (!cur || document.hidden) { lastProgress = Date.now(); return }
+      if (cur.currentTime !== lastTime) { lastTime = cur.currentTime; lastProgress = Date.now() }
+      if (Date.now() - lastProgress > STALL_MS) { next(); return }
+      playActive()
+    }, 1000)
+
+    // Some browsers (iOS Low Power Mode, data saver) only allow play() inside a user
+    // gesture: retry on the first tap/click/key/scroll anywhere on the page.
+    const gestures = ['pointerdown', 'touchstart', 'keydown', 'scroll']
+    gestures.forEach((g) => window.addEventListener(g, playActive, { passive: true }))
+    document.addEventListener('visibilitychange', playActive)
+    return () => {
+      clearInterval(id)
+      gestures.forEach((g) => window.removeEventListener(g, playActive))
+      document.removeEventListener('visibilitychange', playActive)
+    }
+  }, [active, kbFocus, res])
 
   return (
     <section
       className="hero"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      onFocus={(e) => { if (e.target.matches(':focus-visible')) setKbFocus(true) }}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setKbFocus(false) }}
     >
       {SLIDES.map((s, i) => (
         <div key={s.id} className={`hero-slide ${i === active ? 'active' : ''}`}>
@@ -85,8 +107,9 @@ export default function Hero() {
             poster={heroFile(s.id, 'poster.jpg')}
             muted
             playsInline
-            preload={i === active ? 'auto' : 'none'}
-            onEnded={() => { if (i === active) next() }}
+            // the active clip and the one after it load; the rest wait on their posters
+            preload={i === active || i === (active + 1) % SLIDES.length ? 'auto' : 'none'}
+            onEnded={() => { if (i === activeRef.current) next() }}
             aria-hidden="true"
           />
         </div>
