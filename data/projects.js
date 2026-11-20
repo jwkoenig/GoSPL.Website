@@ -11,7 +11,7 @@ const ALL_PROJECTS = [
     splats: '6M',
     area: '60 (int) + thousands (ext) m²',
     capture: 'roughly 1050 images, days of Corona CPU rendering',
-    url: 'https://gospl.io/XOIO_WWL_INT',
+    url: 'https://gospl.io/tours/rndr_xoiochalet_int',
     img: `${BASE}/assets/projects/xoiowwl.jpg`,
     lead: 'An Original XOIO Design for the mountains, in full festive mood with tree and presents, cosy fire roasting in the oven and snowy mountains outdoors',
     body: [
